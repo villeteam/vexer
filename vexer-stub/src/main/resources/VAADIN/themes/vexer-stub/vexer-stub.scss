@@ -1,0 +1,113 @@
+@mixin vexer-stub {
+.stub-title {
+	font-weight: bold;
+	font-size: 24px;
+	font-style: italic;
+}
+
+.stub-section-title {
+	font-weight: bold;
+	font-size: 16px;
+}
+
+.stub-header-bar {
+	border-style:solid;
+	border-width:1px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-o-border-radius: 5px;
+	border-radius: 5px;
+	background: white;
+}
+
+.stub-start {
+	background-image: url(images/robot-bg.png);
+}
+
+.stub-start-controls {
+	margin-top: 50px;
+	border: 1px solid #3a6121;
+	border-radius: 7px;
+	background-color: white;
+}
+
+.studentexercise-description-panel {
+	border: 1px solid #3a6121;
+	border-radius: 7px;
+	-webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
+	background-image: url(images/exercise_menu_gradient.png);
+	background-repeat: repeat-x;
+	background-color: white;
+	font-weight: bold;
+}
+
+.studentexercise-title{
+	color: white;
+	text-shadow: black 1px 1px 0px;
+	font-weight: bold;
+	font-size: 24px;
+	font-style: italic;
+	letter-spacing: 1px;
+}
+
+.studentexercise-submissioninfo{
+	color: white;
+	text-shadow: black 1px 1px 0px;
+	font-weight: bold;
+	margin-bottom: 20px;	
+}
+
+.studentexercise-description-panel .v-textfield {
+	overflow: auto;
+}
+
+.info-panel {
+	border: 1px solid black;
+	margin: 20px;
+	padding: 10px;
+	background-color: #ff0000;
+	color: white;
+	font-weight: bold;
+}
+
+.v-window-header {
+	font-weight: bold !important;
+	color: white !important;
+	text-shadow: none !important;
+}
+
+.v-window-wrap {
+	background-image: url(images/gradient_win.png) !important;
+	background-repeat: repeat-x;
+}
+
+
+
+div.v-loading-indicator, div.v-loading-indicator-delay, div.v-loading-indicator-wait {
+    background: #fff url(images/villeloading.gif) no-repeat center;
+    position: fixed !important;
+    width: 48px;
+    height: 48px;
+    top: 10px;
+    right: 10px;
+    z-index: 30000;
+    text-align: center;
+	vertical-align: middle;
+	
+	border: 1px solid silver;
+	background-color: rgb(249, 249, 249);
+	border-radius: 5px;
+	padding: 10px;
+	margin: 5px;
+    
+    /*
+    top: 0px;
+    left: 0px;
+    width: 100%; 
+    height: 100% ;
+    opacity: 0.5;
+    */
+}
+}
+

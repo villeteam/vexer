@@ -1,0 +1,214 @@
+@key:Exercise name
+@en:Name of the exercise
+@fi:Tehtävän nimi
+
+@key:Default description
+@en:Default description
+@fi:Oletuskuvaus
+
+@key:Notes for teachers
+@en:Notes for teachers
+@fi:Huomioita opettajille
+
+@key:Hide descriptions
+@en:Hide descriptions
+@fi:Piilota kuvaukset
+
+@key:Show descriptions
+@en:Show descriptions
+@fi:Näytä kuvaukset
+
+@key:INFO_EDITOR_NOT_SHOWN
+@en:The exercise-info-editor from editor-controller must be
+ shown to be able to set the name of the exercise!
+@fi:
+
+@key:EXERCISE_SAVED
+@en:Exercise saved
+@fi:
+
+@key:EXER_NAME_MISSING
+@en:Exercise name is missing!
+@fi:
+
+@key:EXER_SAVE_FAILED
+@en:Save failed; see System.out for more details
+@fi:
+
+@key:BACK_TO_STUB_START
+@en:Back to stub start
+@fi:Takaisin alkunäkymään
+
+@key:NO_NOTES_FOR_TEACHERS_IN_STUB
+@en:"No notes for teachers handled in stub version"
+@fi:"No notes handled in stub version"
+
+@key:EXER_TYPE_SEL_CAPT
+@en:Select exercise-type
+@fi:Valitse tehtävätyyppi
+
+@key:UI_LANG_SEL_CAPT
+@en:Select ui-language to test
+@fi:Valitse testissä käytettävä kieli
+
+@key:EXEC_SETTINGS_SEL_CAPT
+@en:Select execution-settings to test
+@fi:Valitse testin suoritusasetukset
+
+@key:TEST_EXECUTOR
+@en:Test executor
+@fi:Testaa opiskelijanäkymää
+
+@key:TEST_EDITOR
+@en:Test editor
+@fi:Testaa editoria
+
+@key:TEST_SUBM_VIEWER
+@en:Test submission viewer
+@fi:Testaa palautusten tarkastelijaa
+
+@key:TEST_STATS_VIEWER
+@en:Test statistics viewer
+@fi:Testaa palautustilastonäkymää
+
+@key:RELOAD_LANG_FILES
+@en:Reload translation files
+@fi:Lataa käännöstiedostot uudestaan
+
+@key:DELETE_DATA_FILES
+@en:Delete all exercise-data files
+@fi:Poista kaikki tehtävä-data tiedostot
+
+@key:LANG_FILE_RELOAD_DONE_INFO
+@en:Reloaded lang-files
+@fi:Käännöstiedostot uudelleenladattu
+
+@key:VILLE_EXER_STUB_TITLE
+@en:ViLLE-exercise Stub
+@fi:ViLLE-tehtävä Kehitystynkä
+
+@key:LIST_STANDARD_ICONS
+@en:List available standard-icons
+@fi:Listaa vakio-ikonit
+
+@key:STANDARD_ICONS
+@en:Available standard-icons
+@fi:Vakio-ikonit
+
+@key:NEW_EXER_SEL_CAPTION
+@en:NEW
+@fi:UUSI
+
+@key:DEL_EXER_INSTANCE
+@en:Delete selected exercise instance
+@fi:Poista tehtävä-instanssi
+
+@key:DELETED_EXER_INSTANCE
+@en:Deleted: @0
+@fi:Poistettu: @0
+
+@key:NO_INSTANCE_TO_DELETE_SELECTED
+@en:No exercise instance was selected to be deleted
+@fi:Valitse poistettava tehtäväinstanssi
+
+@key:EXPORT_OUTPUT
+@en:Output of the export-method:
+@fi:Export-metodin tulosta:
+
+@key:EXECUTOR_LOAD_ERROR
+@en:Could not load the stub-exercise data
+@fi:Tehtävän lataaminen epäonnistui
+
+@key:EXECUTOR_TEST_INFO
+@en:Below is a testing view of your Executor
+@fi:Alla on testinäkymä Executor-toteuttajastasi
+
+@key:EDITOR_TEST_INFO
+@en:Below is a testing view of your Editor
+@fi:Alla on testinäkymä Editor-toteuttajastasi
+
+@key:VIEWER_TEST_INFO
+@en:Below is a testing view of your SubmissionVisualizer
+@fi:Alla on testinäkymä SubmissionVisualizer-toteuttajastasi
+
+@key:STATS_TEST_INFO
+@en:Below is a testing view of your SubmissionStatisticsInfoGiver
+@fi:Alla on testinäkymä SubmissionStatisticsInfoGiver-toteuttajastasi
+
+@key:STUB_MAIN_INFO
+@en:You can use ViLLE-exercise-stub to develop and test
+ new ville-exercise-types.<br/>For more info see 
+ <a href="http://sourceforge.net/projects/villeteam" target="_blank">
+ VilleTeam</a> on SourceForge (especially files/documentation).
+@fi:
+
+@key:STUB_SETTINGS_INFO
+@en:<p>You can select which exercise-type to test from exercise-type select.
+ All the exercise-types returned by VilleexercisestubTestUI.getTypesToLoad()
+ are listed.</p>
+ <p>If the selected 'exercise-type' has exercise-instances you can select
+ which of those to use in testing your implementors, or choose NEW to create
+ a new exercise-instance.</p>
+ <p>From 'select ui-language' you can select which language will be loaded
+ which translations are loaded by Localizer.getUIText(). All the locales returned 
+ by VilleexercisestubTestUI.getLocalesToTest() are listed.</p>
+ <p>You can also select whether exercise is executed in normal or exam mode. 
+ This is only needed in special cases.</p>
+ <p>Used VilleexercisestubTestUI is by default located in
+ test/edu.vserver.exercises.stub.test -folder.</p>
+
+@key:STUB_TEST_BUTTONS_INFO
+@en:<p>Here you can test your implementors for different aspects of
+ Ville-exercise-type. Implementors will be loaded from the selected 
+ exercise-type's ExerciseTypeDescriptor. The selected exercise instance
+ will be used. If there is no exercise-instance only Editor can be loaded.</p>
+ <p>'Test executor' loads your Executor-implementor with selected
+ exercise-instance and latest submission-info-object (if such exists).</p>
+ <p>'Test editor' loads your Editor-implementor with selected
+ exercise-instance so you can further edit it, or if there is no exercise 
+ instance or NEW is selected, with null, which should tell your Editor
+ to create a new exercise-instance from scratch.</p>
+ <p>'Test submission viewer' loads your SubmissionVisualizer-implementor
+ with latest submission-info-object corresponding to the selected
+ exercise-instance.</p>
+ <p>'Test statistics viewer' loads your SubmissionStatisticsGiver-implementor
+ with all submission-info-objects corresponding to the selected
+ exercise-instance.</p>
+
+@key:STUB_EXTRA_BUTTONS_INFO
+@en:<p>'Reload translation files' immediately reloads all .trl files present
+ in folder VilleexercisestubTestUI.getStubResourceBaseDir() + "/lang".</p>
+ <p>'Delete all exercise-data files' will delete all exercise-instances and
+ their submissions as well as all material-files and temp-files. Translation
+ files and the stub-folder-structure will not be deleted. (If you want
+ to remove all the stub-files you must do that manually.)</p>
+ <p>'List available standard-icons' lists all the icons from StandardIcon by
+ the enum constant you can use to get that icon (eg. StandardIcon.INFO.getIcon()).
+ These icons will be available also in 'real' ViLLE without need to include
+ them with your exercise.</p>
+
+@key:STUB_SETTINGS_TITLE
+@en:General Stub-settings
+@fi:Yleiset asetukset
+
+@key:STUB_TEST_BUTTONS_TITLE
+@en:Test your implementors
+@fi:Testaa toteuttajiasi
+
+@key:STUB_EXTRA_BUTTONS_TITLE
+@en:Extras
+@fi:Ekstrat
+
+@key:NO_SUBMISSIONS_TO_VISUALIZE
+@en:No submissions were found for the exercise instance
+@fi:Yhtään SubmissionInfo-oliota ei löydetty valitulle tehtävä-instanssille
+
+@key:DELETED_DATA_FILES_INFO
+@en:All exercise-data-files deleted
+@fi:Kaikki tehtävien data-tiedostot poistettiin
+
+@key:STATS_COL_DESC_NAME
+@fi:Kuka teki palautuksen (stubissa ei oikeaa tietoa)
+@en:Who made the submission (not known in stub)
+
+

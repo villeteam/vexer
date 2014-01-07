@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app 
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+    version="3.0">
+    
+    <!-- Parameters used for loading exercise-stub -->
+   <!--  
+    <context-param>
+		<description>Stub-locales</description>
+		<param-name>localesToTest</param-name>
+		<param-value>en;fi</param-value>
+	</context-param>
+	
+	<context-param>
+		<description>Stub resources base directory</description>
+		<param-name>stubResPath</param-name>
+		<param-value>/home/rahaav/ville-stub-res</param-value>
+	</context-param>
+	
+	<context-param>
+		<description>Exer-types to load</description>
+	    <param-name>typesToLoad</param-name>
+	    <param-value>edu.vserver.exercises.template.TemplateTypeDescriptor</param-value>
+	</context-param>
+	-->
+	
+	<!-- Mappings to make it possible to store statically accessible resources -->
+	
+  	<servlet-mapping>
+    	<servlet-name>default</servlet-name>
+    	<url-pattern>/VILLE/resources/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>vexer-stub-demo</servlet-name>
+		<url-pattern>/*</url-pattern>
+	</servlet-mapping>
+	
+</web-app>

@@ -1,0 +1,14 @@
+Resources placed in this folder will be statically available when your exercise-type is deployed in Ville
+using the relative paths like "VILLE/resources/testexer/example.png"
+
+This is the most straight-forward way of referencing static references from non-Vaadin client-side code
+
+Only name-space reserved for static resources of this exercise-type is this folder
+
+The bit silly looking path with three resources-folders is due to Maven, Servlet 3.0-spec and Ville...
+web-fragment.xml seems to be mandatory in order to leverage servlet 3.0 modular resource loading.
+
+This file or any file named README will by default not be included when generating jar of this project
+
+!!!
+However, most likely you will not need this folder at all, and can ignore its existence
