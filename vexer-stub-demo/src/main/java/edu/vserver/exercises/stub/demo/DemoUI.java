@@ -5,11 +5,7 @@ import javax.servlet.annotation.WebServlet;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
 import com.vaadin.annotations.VaadinServletConfiguration;
-import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
-import com.vaadin.ui.Alignment;
-import com.vaadin.ui.UI;
-import com.vaadin.ui.VerticalLayout;
 
 import edu.vserver.exercises.stub.VilleExerStubUI;
 
@@ -18,9 +14,9 @@ import edu.vserver.exercises.stub.VilleExerStubUI;
 @SuppressWarnings("serial")
 public class DemoUI extends VilleExerStubUI {
 
-    @WebServlet(value = "/*", asyncSupported = true)
-    @VaadinServletConfiguration(productionMode = false, ui = DemoUI.class, widgetset = "edu.vserver.exercises.stub.demo.DemoWidgetSet")
-    public static class Servlet extends VaadinServlet {
-    }
+	@WebServlet(value = "/*", asyncSupported = true)
+	@VaadinServletConfiguration(productionMode = false, ui = DemoUI.class, widgetset = "edu.vserver.exercises.stub.demo.DemoWidgetSet")
+	public static class Servlet extends VaadinServlet {
+	}
 
 }
