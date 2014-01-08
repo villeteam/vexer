@@ -3,10 +3,13 @@
 
 /* Provided by standardutils-0.0.11-SNAPSHOT.jar */
 @import "../../../VAADIN/themes/ville-standardutils/ville-standardutils.scss";
-
+@import "../../../VAADIN/themes/vexer-stub/vexer-stub.scss";
+@import "../../../VAADIN/themes/vexer-template/vexer-template.scss";
 
 /* Import and include this mixin into your project theme to include the addon themes */
 @mixin addons {
 	@include ville-standardutils;
+	@include vexer-stub;
+	@include vexer-template;
 }
 
