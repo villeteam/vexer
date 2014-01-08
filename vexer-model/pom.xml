@@ -104,6 +104,7 @@
                     <includes><include>**/*</include></includes>
                     <repositoryName>vexer</repositoryName>
                     <repositoryOwner>villeteam</repositoryOwner>
+                    <merge>true</merge>
                 </configuration>
                 <executions>
                 <!-- run site-maven-plugin's 'site' target as part of the build's normal 'deploy' phase -->
