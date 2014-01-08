@@ -4,7 +4,7 @@
     <parent>
         <groupId>edu.vserver.exercises</groupId>
         <artifactId>vexer</artifactId>
-        <version>0.0.1</version>
+        <version>0.0.2-SNAPSHOT</version>
     </parent>	
     <modelVersion>4.0.0</modelVersion>
 	<artifactId>vexer-template</artifactId>
@@ -15,12 +15,12 @@
 		<dependency>
 			<groupId>edu.vserver.exercises</groupId>
 			<artifactId>vexer-model</artifactId>
-			<version>${version}</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>edu.vserver.exercises</groupId>
 			<artifactId>vexer-helpers</artifactId>
-			<version>${version}</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.vaadin</groupId>
