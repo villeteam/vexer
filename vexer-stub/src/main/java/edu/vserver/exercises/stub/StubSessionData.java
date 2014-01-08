@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.logging.Logger;
 
+import org.apache.commons.io.FileUtils;
+
 import com.vaadin.server.VaadinSession;
 
 import edu.vserver.exercises.model.ExerciseTypeDescriptor;
@@ -168,7 +170,9 @@ class StubSessionData implements Serializable {
 	private static void testAndCreate(String path) {
 		File testAndCreateFile = new File(path);
 		if (!(testAndCreateFile.exists() && testAndCreateFile.isDirectory())) {
-			if (!testAndCreateFile.mkdir()) {
+			try {
+				FileUtils.forceMkdir(testAndCreateFile);
+			} catch (IOException e) {
 				throw new AssertionError(
 						"Could not create a directory for storing exercise-type-stub-files. "
 								+ "Change the directory path or file permissions. "
