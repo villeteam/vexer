@@ -109,6 +109,11 @@ class SubmissionDataStatsGiverTestingView<E extends ExerciseData, S extends Subm
 
 		showLegend.addClickListener(new Button.ClickListener() {
 
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 5243795826485743165L;
+
 			@Override
 			public void buttonClick(ClickEvent event) {
 				Window specViewDial = StandardUIFactory.getModalWindow("80%",
