@@ -7,7 +7,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.logging.Logger;
 
+import org.apache.commons.io.FileUtils;
 import org.reflections.Reflections;
 
 import com.vaadin.annotations.Theme;
@@ -35,6 +37,9 @@ public abstract class VilleExerStubUI extends UI {
 	 */
 	private static final long serialVersionUID = -6292932364056918285L;
 
+	private static final Logger logger = Logger.getLogger(VilleExerStubUI.class
+			.getName());
+
 	private static final String LOCALES_TO_TEST_PARAM = "localesToTest";
 	private static final String STUB_RES_PATH_PARAM = "stubResPath";
 	private static final String TYPES_TO_LOAD_PARAM = "typesToLoad";
@@ -47,23 +52,27 @@ public abstract class VilleExerStubUI extends UI {
 
 		setStyleName("main-style");
 
-		List<ExerciseTypeDescriptor<?, ?>> typesToLoad = getTypesToLoad(); 
+		List<ExerciseTypeDescriptor<?, ?>> typesToLoad = getTypesToLoad();
 		List<Locale> localesToTest = getLocalesToTest();
 		String stubResPath = getStubResourceBaseDir();
-		
+
 		if (typesToLoad.isEmpty() || stubResPath == null
 				|| localesToTest.isEmpty()) {
 
 			setContent(StandardUIFactory
-					.getErrorPanel("Types-to-load and locales-to-test must be non-empty, and stub-base-resource-dir not null. <br/>" +
-							"Types-to-load: " + typesToLoad + "; locales-to-test: " + localesToTest + "; stub-res-path: " + stubResPath ));
-			
+					.getErrorPanel("Types-to-load and locales-to-test must be non-empty, and stub-base-resource-dir not null. <br/>"
+							+ "Types-to-load: "
+							+ typesToLoad
+							+ "; locales-to-test: "
+							+ localesToTest
+							+ "; stub-res-path: " + stubResPath));
+
 		} else {
 
 			DynamicStyles.registerDynamicStylesFactory(new StubStylesFactory());
 
-			StubSessionData.initIfNeeded(typesToLoad,
-					stubResPath, localesToTest);
+			StubSessionData.initIfNeeded(typesToLoad, stubResPath,
+					localesToTest);
 
 			setContent(new StubStartView());
 		}
@@ -115,7 +124,10 @@ public abstract class VilleExerStubUI extends UI {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private static Set<Class<?>> findPotentialClasses() {
-		Reflections reflections = new Reflections("");
+		logger.info("No exer-types to load were explicitly set");
+		logger.info("Trying to find exer-types from classpath with package edu.vserver.*");
+
+		Reflections reflections = new Reflections("edu.vserver");
 
 		Set<Class<? extends ExerciseTypeDescriptor>> subTypes = reflections
 				.getSubTypesOf(ExerciseTypeDescriptor.class);
@@ -174,7 +186,14 @@ public abstract class VilleExerStubUI extends UI {
 		if (pathToRes == null || pathToRes.equals("")) {
 			pathToRes = VaadinServlet.getCurrent().getServletContext()
 					.getRealPath("/VILLE/stub");
+			// likely deployed as war, use temp-location
+			if (pathToRes == null) {
+				logger.warning("Placing VILLE-stub-resources-directory under temp");
+				pathToRes = FileUtils.getTempDirectoryPath() + "/VILLE/stub";
+			}
 		}
+
+		logger.info("Used VILLE-stub resource path: " + pathToRes);
 
 		return pathToRes;
 	}
