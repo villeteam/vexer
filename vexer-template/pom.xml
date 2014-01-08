@@ -95,6 +95,16 @@
 				</executions>
 			</plugin>
 
+            <!-- no need to deploy, only for local testing  -->
+            <plugin>
+                <groupId>com.github.github</groupId>
+                <artifactId>site-maven-plugin</artifactId>
+                <version>0.9</version>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+
 			<!-- Testing -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
