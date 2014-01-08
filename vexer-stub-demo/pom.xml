@@ -14,7 +14,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>edu.vserver</groupId>
-			<artifactId>standardutils</artifactId> 
+			<artifactId>ville-standardutils</artifactId> 
 			<version>${standardutils.version}</version>
 		</dependency>
 		<dependency>
