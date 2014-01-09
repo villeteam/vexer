@@ -79,6 +79,33 @@
           <escapeString>\</escapeString>
         </configuration>
       </plugin>
+        
+      <!-- deploy artifact to github -->
+      <plugin>
+        <groupId>com.github.github</groupId>
+        <artifactId>site-maven-plugin</artifactId>
+        <version>0.9</version>
+        <configuration>
+            <message>Maven artifacts for ${project.version}</message>
+            <noJekyll>true</noJekyll>
+            <outputDirectory>${project.build.directory}/mvn-repo</outputDirectory>
+            <branch>refs/heads/mvn-repo</branch>
+            <includes><include>**/*</include></includes>
+            <repositoryName>vexer</repositoryName>
+            <repositoryOwner>villeteam</repositoryOwner>
+            <merge>true</merge>
+        </configuration>
+        <executions>
+            <!-- run site-maven-plugin's 'site' target as part of the build's normal 'deploy' phase -->
+            <execution>
+                <goals>
+                    <goal>site</goal>
+                </goals>
+                <phase>deploy</phase>
+            </execution>
+        </executions>
+      </plugin>
+
     </plugins>
     <resources>
       <resource>
