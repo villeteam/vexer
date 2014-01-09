@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>edu.vserver.exercises</groupId>
+  <artifactId>vexer-archetype</artifactId>
+  <version>0.0.2-SNAPSHOT</version>
+  <versioning>
+    <snapshot>
+      <timestamp>20140109.092213</timestamp>
+      <buildNumber>1</buildNumber>
+    </snapshot>
+    <lastUpdated>20140109092213</lastUpdated>
+  </versioning>
+</metadata>
