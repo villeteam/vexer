@@ -1,0 +1,17 @@
+@mixin vexer-${artifactId} {
+
+	/*
+	* Vaadin provides an effective way of importing add-on themes but does not 
+	* provide any automatic name-spacing. You should prefix all your 
+	* rules with ${artifactId} to avoid any conflicts.
+	*/
+
+	.${artifactId}-answer {
+		color: green;
+	}
+
+	.${artifactId}-title {
+		font-size: 24px;
+		font-weight: stronger;
+	}
+}

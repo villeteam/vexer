@@ -44,6 +44,7 @@
 		<module>vexer-stub</module>
 		<module>vexer-template</module>
 		<module>vexer-stub-demo</module>
+        <module>vexer-archetype</module>
 	</modules>
 
     <licenses>
@@ -70,13 +71,12 @@
 			</snapshots>
 		</repository>
         <repository>
-        <id>Ville-Standardutils-mvn-repo</id>
-        <url>https://raw.github.com/villeteam/ville-standardutils/mvn-repo/</url>
-        <snapshots>
-            <enabled>true</enabled>
-            <updatePolicy>always</updatePolicy>
-        </snapshots>
-    </repository>
+            <id>Ville-Standardutils-mvn-repo</id>
+            <url>https://raw.github.com/villeteam/ville-standardutils/mvn-repo/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
 	</repositories>
 
     <distributionManagement>

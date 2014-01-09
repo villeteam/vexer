@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archetype-descriptor name="vexer-archetype"
+  xsi:schemaLocation="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0 http://maven.apache.org/xsd/archetype-descriptor-1.0.0.xsd"
+  xmlns="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<requiredProperties>
+		<requiredProperty key="VilleJavaClassPrefix"></requiredProperty>
+		<requiredProperty key="VilleExerVersion"></requiredProperty>
+		<requiredProperty key="VaadinVersion"></requiredProperty>
+	</requiredProperties>
+	
+
+	<fileSets>
+		<fileSet filtered="true" encoding="UTF-8">
+			<directory></directory>
+			<includes>
+				<include>LICENSE.txt</include>
+				<include>README.md</include>
+			</includes>
+		</fileSet>
+
+		<fileSet filtered="true" encoding="UTF-8">
+			<directory>__artifactId__</directory>
+			<includes>
+				<include>pom.xml</include>
+			</includes>
+		</fileSet>
+
+		<fileSet filtered="true" packaged="true" encoding="UTF-8">
+			<directory>__artifactId__/src/main/java</directory>
+			<includes>
+				<include>**/*.java</include>
+			</includes>
+		</fileSet>
+
+		<fileSet filtered="true" packaged="true" encoding="UTF-8">
+			<directory>__artifactId__/src/test/java</directory>
+			<includes>
+				<include>**/*.java</include>
+			</includes>
+		</fileSet>
+
+		<fileSet filtered="true" packaged="false" encoding="UTF-8">
+			<directory>__artifactId__/src/main/resources</directory>
+			<includes>
+				<include>**/*.scss</include>
+				<include>**/*.xml</include>
+				<include>**/*.trl</include>
+				<include>**/README</include>
+			</includes>
+		</fileSet>
+
+		<fileSet filtered="true" encoding="UTF-8">
+			<directory>__artifactId__-stub</directory>
+			<includes>
+				<include>pom.xml</include>
+			</includes>
+		</fileSet>
+
+		<fileSet filtered="true" packaged="true" encoding="UTF-8">
+			<directory>__artifactId__-stub/src/main/java</directory>
+			<includes>
+				<include>**/*.java</include>
+			</includes>
+		</fileSet>
+
+		<fileSet filtered="true" packaged="true" encoding="UTF-8">
+			<directory>__artifactId__-stub/src/test/java</directory>
+			<includes>
+				<include>**/*.java</include>
+			</includes>
+		</fileSet>
+
+		<fileSet filtered="true" packaged="true" encoding="UTF-8">
+			<directory>__artifactId__-stub/src/main/resources</directory>
+			<includes>
+				<include>**/*.xml</include>
+			</includes>
+		</fileSet>
+
+		<fileSet filtered="true" encoding="UTF-8">
+			<directory>__artifactId__-stub/src/main/webapp</directory>
+			<includes>
+				<include>**/*.xml</include>
+				<include>**/*.MF</include>
+				<include>**/*.scss</include>
+			</includes>
+		</fileSet>
+		<fileSet encoding="UTF-8">
+			<directory>__artifactId__-stub/src/main/webapp/VAADIN/themes</directory>
+			<includes>
+				<include>**/*.png</include>
+				<include>**/*.ico</include>
+			</includes>
+		</fileSet>
+
+	</fileSets>
+</archetype-descriptor>

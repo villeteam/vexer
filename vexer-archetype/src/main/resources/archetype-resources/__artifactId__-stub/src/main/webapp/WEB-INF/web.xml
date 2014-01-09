@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app 
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+    version="3.0">
+    	
+    <display-name>${artifactId}-stub</display-name>
+	<context-param>
+		<description>
+		Vaadin production mode</description>
+		<param-name>productionMode</param-name>
+		<param-value>false</param-value>
+	</context-param>
+	<servlet>
+		<servlet-name>${artifactId}-stub</servlet-name>
+		<servlet-class>com.vaadin.server.VaadinServlet</servlet-class>
+		<init-param>
+			<description>
+			Vaadin UI class to use</description>
+			<param-name>UI</param-name>
+			<param-value>${package}.stub.StubUI</param-value>
+		</init-param>
+		<init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>fileEncoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <init-param>
+            <description>Application widgetset</description>
+            <param-name>widgetset</param-name>
+            <param-value>${package}.stub.StubWidgetSet</param-value>
+        </init-param>
+	</servlet>	
+   
+    <!-- Make VILLE/resources/* accessible directly and all other paths go to Vaadin-servlet -->
+	
+  	<servlet-mapping>
+    	<servlet-name>default</servlet-name>
+    	<url-pattern>/VILLE/resources/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>${artifactId}-stub</servlet-name>
+		<url-pattern>/*</url-pattern>
+	</servlet-mapping>
+	
+</web-app>
