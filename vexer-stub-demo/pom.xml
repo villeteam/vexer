@@ -4,7 +4,7 @@
 	<parent>
         <groupId>edu.vserver.exercises</groupId>
         <artifactId>vexer</artifactId>
-        <version>0.0.2-SNAPSHOT</version>
+        <version>0.0.3-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 	<artifactId>vexer-stub-demo</artifactId>
@@ -126,7 +126,7 @@
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
-				<version>8.1.10.v20130312</version>
+				<version>8.1.14.v20131031</version>
 				<configuration>
 					<webApp>
 						<contextPath>/</contextPath>
