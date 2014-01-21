@@ -1,4 +1,13 @@
+/* Import the chameleon theme, and for ViLLE chameleon-blue and some 
+	ville-styles*/
+@import "../chameleon/chameleon.scss";
+@import "chameleon-blue.scss";
+
 @mixin vexer-stub {
+
+@include chameleon;
+@include chameleon-blue;
+
 .stub-title {
 	font-weight: bold;
 	font-size: 24px;
