@@ -2,13 +2,10 @@
 <metadata>
   <groupId>edu.vserver.exercises</groupId>
   <artifactId>vexer-archetype</artifactId>
-  <version>0.0.2-SNAPSHOT</version>
   <versioning>
-    <latest>0.0.3-SNAPSHOT</latest>
     <versions>
-      <version>0.0.2-SNAPSHOT</version>
       <version>0.0.3-SNAPSHOT</version>
     </versions>
-    <lastUpdated>20140109104845</lastUpdated>
+    <lastUpdated>20140121133745</lastUpdated>
   </versioning>
 </metadata>
