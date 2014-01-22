@@ -85,5 +85,10 @@ public class ${VilleJavaClassPrefix}Descriptor implements
 	public Resource getLargeTypeIcon() {
 		return ${VilleJavaClassPrefix}Icon.SMALL_TYPE_ICON.getIcon();
 	}
+	
+	@Override
+	public boolean isManuallyGraded() {
+		return false;
+	}
 
 }
