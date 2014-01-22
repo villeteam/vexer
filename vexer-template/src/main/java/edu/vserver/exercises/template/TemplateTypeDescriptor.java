@@ -86,4 +86,9 @@ public class TemplateTypeDescriptor implements
 		return StandardIcon.EDIT_ICON_SMALL.getIcon();
 	}
 
+	@Override
+	public boolean isManuallyGraded() {
+		return false;
+	}
+
 }
