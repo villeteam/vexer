@@ -134,4 +134,20 @@ public interface ExerciseTypeDescriptor<E extends ExerciseData, S extends Submis
 	 */
 	Resource getLargeTypeIcon();
 
+	/**
+	 * <p>
+	 * Returns true if submissions made to this exercise-type require manual
+	 * grading ie. if they cannot be wholly automatically assessed.
+	 * </p>
+	 * <p>
+	 * Convention is to return 1.0 as correctness of submissions to
+	 * exercise-types that are wholly manually graded. The manual-grading given
+	 * by teacher will override or be added to the score given by returned
+	 * correctness value.
+	 * </p>
+	 * 
+	 * @return true if submissions to this exercise-type require manual grading
+	 */
+	boolean isManuallyGraded();
+
 }
