@@ -198,6 +198,11 @@ public abstract class VilleExerStubUI extends UI {
 		return pathToRes;
 	}
 
+	/**
+	 * Return a list of Locales that will be available in the testing UI.
+	 * 
+	 * @return {@link List} of {@link Locale}s
+	 */
 	protected List<Locale> getLocalesToTest() {
 
 		String localesStr = VaadinServlet.getCurrent().getServletContext()
