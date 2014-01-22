@@ -8,7 +8,7 @@ import java.io.Serializable;
  * description for the exercise even though it is not yet saved persistently as
  * a new exercise-instance.
  * 
- * @author Riku Haavisto, Johannes Holvitie
+ * @author Riku Haavisto
  * 
  */
 public interface GeneralExerciseInfo extends Serializable {

@@ -9,16 +9,19 @@ import java.io.Serializable;
  * -method are called with a new {@link ExecutionState} instance whenever the
  * state of the executor changes.
  * </p>
+ * <p>
+ * Implementing {@link ExecutionStateChangeListener}-handling can mostly be
+ * delegated to edu.vserver.exercises.helpers.ExerciseExecutionHelper .
+ * </p>
  * 
- * @author Riku Haavisto, Johannes Holvitie
+ * @author Riku Haavisto
  */
 public interface ExecutionStateChangeListener extends Serializable {
 
 	/**
-	 * 
-	 * Called with a new {@link ExecutionState} instance whenever the state of a
-	 * executor that the {@link ExecutionStateChangeListener} is registered to
-	 * changes.
+	 * Called with a new {@link ExecutionState} instance whenever the state of
+	 * the executor that the {@link ExecutionStateChangeListener} is registered
+	 * to changes.
 	 * 
 	 * @param newState
 	 *            {@link ExecutionState} that is the current state of the

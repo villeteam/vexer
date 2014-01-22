@@ -11,7 +11,7 @@ import com.vaadin.ui.Component;
  * @author Riku Haavisto, Johannes Holvitie
  * 
  * @param <S>
- *            {@link SubmissionInfo}-implementor parametrizing what kind of
+ *            {@link SubmissionInfo}-implementor parameterizing what kind of
  *            {@link SubmissionInfo} is appropriate
  */
 public final class SubmissionResult<S extends SubmissionInfo> implements
@@ -29,8 +29,7 @@ public final class SubmissionResult<S extends SubmissionInfo> implements
 	private final SubmissionType submType;
 
 	/**
-	 * Constructs a new {@link SubmissionResult}-object with no additional
-	 * feedback-component.
+	 * Constructs a new {@link SubmissionResult}-object.
 	 * 
 	 * @param correctness
 	 *            correctness value of the submission in the range 0.0 - 1.0
@@ -43,6 +42,9 @@ public final class SubmissionResult<S extends SubmissionInfo> implements
 	 * @param feedbackComponent
 	 *            {@link Component} that can be shown to the user as additional
 	 *            visual feedback on the submission just made
+	 * @param submType
+	 *            {@link SubmissionType} telling how ViLLE-system should act
+	 *            upon this submission
 	 */
 	public SubmissionResult(double correctness, int timeOnTask,
 			S additionalData, Component feedbackComponent,
@@ -90,8 +92,9 @@ public final class SubmissionResult<S extends SubmissionInfo> implements
 	}
 
 	/**
-	 * @return what kind this submission is (eg. is it just auto-save to store
-	 *         the current state of the exercise or a normal submission)
+	 * @return what kind of submission this submission is (eg. is it just
+	 *         auto-save to store the current state of the exercise or a normal
+	 *         submission)
 	 */
 	public SubmissionType getSubmissionType() {
 		return submType;

@@ -1,22 +1,25 @@
 package edu.vserver.exercises.model;
 
+import java.io.Serializable;
+
 /**
  * <p>
  * Implementor of this interface tells what kind of feedback can be shown to the
  * user during certain execution of an exercise. Also tells the executor whether
  * it should be in "exam"-mode, which is a mode that most exercises do not have
- * to react to.
+ * to react to if they respect the other directives given by an implementor of
+ * this class.
  * </p>
  * <p>
- * However, if user feedback is shown only in the Feedback-component returned in
- * the {@link SubmissionResult} these settings can mostly be ignored as that
+ * If user feedback is shown only in the Feedback-component returned in the
+ * {@link SubmissionResult} these settings can mostly be ignored as that
  * Feedback-component will be hidden by the system if it should not be shown.
  * </p>
  * 
- * @author Riku Haavisto, Johannes Holvitie
+ * @author Riku Haavisto
  * 
  */
-public interface ExecutionSettings {
+public interface ExecutionSettings extends Serializable {
 
 	/**
 	 * In certain situations (eg. possibly in exams) no feed-back on the

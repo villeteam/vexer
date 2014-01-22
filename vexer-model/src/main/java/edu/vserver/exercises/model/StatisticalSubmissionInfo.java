@@ -7,7 +7,7 @@ import java.util.Date;
  * This class wraps an {@link SubmissionInfo}-implementor and some generic info
  * on the submission.
  * 
- * @author Riku Haavisto, Johannes Holvitie
+ * @author Riku Haavisto
  * 
  * @param <S>
  *            exercise-type-specific {@link SubmissionInfo}
@@ -31,7 +31,7 @@ public final class StatisticalSubmissionInfo<S extends SubmissionInfo>
 	 * implementors should never need to construct objects of this class.
 	 * 
 	 * @param timeOnTask
-	 *            the time student used to this submission (in seconds)
+	 *            the time student used to make submission (in seconds)
 	 * @param evaluation
 	 *            the evaluation the student received from this submission
 	 * @param doneTime

@@ -25,8 +25,8 @@ public interface ExerciseTypeDescriptor<E extends ExerciseData, S extends Submis
 
 	/**
 	 * Returns an instance of the {@link PersistenceHandler} class that is
-	 * responsible on loading E ({@link ExerciseData}) instances from XML-files
-	 * and storing E ({@link ExerciseData}) instances to XML-files.
+	 * responsible on loading from and storing to persistent form E (
+	 * {@link ExerciseData}) and S ({@link SubmissionInfo}) -instances.
 	 * 
 	 * @return an instance of suitable {@link PersistenceHandler}
 	 */
@@ -43,7 +43,7 @@ public interface ExerciseTypeDescriptor<E extends ExerciseData, S extends Submis
 	Executor<E, S> newExerciseExecutor();
 
 	/**
-	 * Returns an instance of a {@link Editor} that can be used to create and
+	 * Returns an instance of an {@link Editor} that can be used to create and
 	 * edit instances of E ({@link ExerciseData})
 	 * 
 	 * @return new instance of a suitable {@link Editor}
@@ -71,7 +71,7 @@ public interface ExerciseTypeDescriptor<E extends ExerciseData, S extends Submis
 	 * Returns an instance of a {@link SubmissionStatisticsGiver} that can be
 	 * used to show various statistics of a set of {@link SubmissionInfo}
 	 * objects suitable to this class and to a certain {@link ExerciseData}
-	 * -instance specificatino of it
+	 * -instance as well as parsing exportable data from that set.
 	 * 
 	 * @return new instance of a suitable {@link SubmissionStatisticsGiver}
 	 */
@@ -97,18 +97,18 @@ public interface ExerciseTypeDescriptor<E extends ExerciseData, S extends Submis
 
 	/**
 	 * <p>
-	 * Returns a localized desciption of the exercise-type described by this
+	 * Returns a localized description of the exercise-type described by this
 	 * {@link ExerciseTypeDescriptor}.
 	 * </p>
 	 * <p>
 	 * The returned string should be a short description (at most a few
 	 * sentences) describing what students do in this exercise-type. Eg.
-	 * "In derivation exercise students calculate derivations of generated functions"
+	 * "In derivation exercise students calculate derivatives of generated functions"
 	 * .
 	 * </p>
 	 * 
 	 * @param localizer
-	 *            {@link Localizer} to localize the name
+	 *            {@link Localizer} to localize the description
 	 * @return localized description of the exercise
 	 */
 	String getTypeDescription(Localizer localizer);

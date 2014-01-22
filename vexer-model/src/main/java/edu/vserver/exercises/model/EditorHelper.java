@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import com.vaadin.ui.Component;
 
+import edu.vserver.standardutils.Localizer;
 import edu.vserver.standardutils.TempFilesManager;
 
 /**
@@ -18,34 +19,37 @@ import edu.vserver.standardutils.TempFilesManager;
  * {@link Editor #initialize(Localizer, ExerciseData, EditorHelper)
  * initialize()}-method.
  * </p>
+ * <p>
  * {@link EditorHelper} contains methods helping testing, saving and canceling
  * exercise-editing. There is also a default implementation that can be used for
  * implementing these functionalities (
- * {@link #getControlbar(EditedExerciseGiver) getControlbar()}). It also
- * contains a method for fetching {@link TempFilesManager}. {@link EditorHelper}
- * handles all {@link ExerciseSaveListener}s; listeners can be informed with
+ * {@link #getControlbar(EditedExerciseGiver) getControlbar()}).
+ * {@link EditorHelper} also contains a method for fetching
+ * {@link TempFilesManager}. {@link EditorHelper} handles all
+ * {@link ExerciseSaveListener}s; listeners can be informed with
  * {@link #informSaveListeners(ExerciseData) informSaveListeners()}-method when
  * the exercise instance should be saved.
+ * </p>
  * <p>
  * The general-info-editor-view ({@link #getInfoEditorView()}) must be shown at
  * some point to the user of an {@link Editor}-implementor to allow editing of
  * general attributes of an exercise-instance.
  * </p>
  * 
- * @author Riku Haavisto, Johannes Holvitie
+ * @author Riku Haavisto
  * 
  */
 public interface EditorHelper<E extends ExerciseData> extends Serializable {
 
 	/**
 	 * @return {@link GeneralExerciseInfo} parsed from the current state of the
-	 *         editor
+	 *         general-info-editor
 	 */
 	GeneralExerciseInfo getExerciseInfo();
 
 	/**
 	 * @return The GUI through which the user can edit general attributes of an
-	 *         exercise instance
+	 *         exercise instance (eg. name and description)
 	 */
 	Component getInfoEditorView();
 
@@ -85,7 +89,8 @@ public interface EditorHelper<E extends ExerciseData> extends Serializable {
 	 * </p>
 	 * <p>
 	 * If you use default-toolbar ({@link #getControlbar(EditedExerciseGiver)
-	 * getControlbar()}) you don't need to call this directly.
+	 * getControlbar()}) you don't need to call this directly unless you want to
+	 * provide an alternate way to initiate 'save'-action.
 	 * </p>
 	 * 
 	 * @param dataToSave
@@ -117,7 +122,7 @@ public interface EditorHelper<E extends ExerciseData> extends Serializable {
 	 * @param toRegister
 	 *            {@link EditedExerciseGiver} that returns {@link ExerciseData}
 	 *            -instances of the current state of the editor; used to
-	 *            generate test and save
+	 *            generate test and save -actions
 	 * @return {@link Component} containing default buttons for test, save and
 	 *         cancel
 	 */
@@ -125,7 +130,8 @@ public interface EditorHelper<E extends ExerciseData> extends Serializable {
 
 	/**
 	 * Enables and disables the default test-button. Should be used if the
-	 * exercise is not always in a state that can be tested.
+	 * exercise is not always in a state that can be tested (and when default
+	 * control-bar is used).
 	 * 
 	 * @param enabled
 	 *            true if should be enabled
@@ -133,8 +139,9 @@ public interface EditorHelper<E extends ExerciseData> extends Serializable {
 	void setTestEnabled(boolean enabled);
 
 	/**
-	 * Enables and disables the default test-button. Should be used if the
-	 * exercise is not always in a state that can be saved.
+	 * Enables and disables the default save-button. Should be used if the
+	 * exercise is not always in a state that can be saved (and when default
+	 * control-bar is used).
 	 * 
 	 * @param enabled
 	 *            true if should be enabled
@@ -169,7 +176,8 @@ public interface EditorHelper<E extends ExerciseData> extends Serializable {
 		 * Showing appropriate error messages to the user is the responsibility
 		 * of the implementor. Generally speaking it might be better to disable
 		 * test and save, when they are not allowed (and maybe even show some
-		 * status message in the UI telling the user
+		 * status message in the UI telling the user why the exercise is not
+		 * currently ready for testing or saving).
 		 * </p>
 		 * 
 		 * @param forSaving

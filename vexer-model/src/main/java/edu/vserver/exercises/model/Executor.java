@@ -51,7 +51,7 @@ public interface Executor<E extends ExerciseData, S extends SubmissionInfo>
 	/**
 	 * Listeners registered through this method are called when a successful
 	 * submission is made (can also be a save-submission as defined by
-	 * {@link SubmissionType}.
+	 * {@link SubmissionType}).
 	 * 
 	 * @param submitListener
 	 *            the {@link SubmissionListener} to register
@@ -70,7 +70,7 @@ public interface Executor<E extends ExerciseData, S extends SubmissionInfo>
 	 * perform any clean-up it might need.
 	 * </p>
 	 * <p>
-	 * This method might be called more than once. Calls after clen-up is done
+	 * This method might be called more than once. Calls after clean-up is done
 	 * must be ignored.
 	 * </p>
 	 */
@@ -80,8 +80,9 @@ public interface Executor<E extends ExerciseData, S extends SubmissionInfo>
 	 * Asks the executor to reset the current situation of the execution and
 	 * load the state again from the info given in
 	 * {@link #initialize(Localizer, ExerciseData, SubmissionInfo, ExerciseMaterialManager, ExecutionSettings)
-	 * | initialize()}-method. Succeeds (at least after some delay) if the
-	 * executor is in suitable {@link ExecutionState}.
+	 * | initialize()}-method with the exception also oldSubm should be
+	 * discarded on reset. Succeeds if the executor is in suitable
+	 * {@link ExecutionState}.
 	 */
 	void askReset();
 
@@ -89,18 +90,19 @@ public interface Executor<E extends ExerciseData, S extends SubmissionInfo>
 	 * <p>
 	 * Asks the executor to submit a {@link SubmissionResult}-object from the
 	 * current state of the execution and inform listeners registered through
-	 * {@link #registerSubmitListener(SubmissionListener)}. Succeeds (at least
-	 * after some delay) if the executor is in suitable {@link ExecutionState}.
+	 * {@link #registerSubmitListener(SubmissionListener)}. Succeeds if the
+	 * executor is in suitable {@link ExecutionState}.
 	 * </p>
 	 * <p>
 	 * {@link SubmissionType} given as a parameter must be passed to the
-	 * {@link SubmissionResult}-object used as such as the external system
-	 * uses that info to know how to handle each submissions (are they for
-	 * example only saving the current state of the exercise or are they real
-	 * submissions for which to show feedback etc.). It should also be noted
-	 * that no error messages etc. should be shown to the user in case of a
-	 * back-ground submission ({@link SubmissionType #isBackgroundSubmission()})
-	 * that fails because of the state of the executor.
+	 * {@link SubmissionResult}-object used as such as the external system uses
+	 * that info to know how to handle each submission (are they for example
+	 * only saving the current state of the exercise or are they real
+	 * submissions asked by the user for which to show feedback etc.). It should
+	 * also be noted that no error messages etc. should be shown to the user in
+	 * case of a back-ground submission (
+	 * {@link SubmissionType #isBackgroundSubmission()}) that fails because of
+	 * the state of the executor.
 	 * </p>
 	 * 
 	 * @param askedSubmType

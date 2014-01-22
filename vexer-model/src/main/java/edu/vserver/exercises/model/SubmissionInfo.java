@@ -5,13 +5,13 @@ import java.io.Serializable;
 /**
  * <p>
  * Implementing this interface identifies the implementing class as an exercise
- * type specific submisssion info class.
+ * type specific submission info class.
  * </p>
  * <p>
  * Objects of an implementing class record certain submission made to an
  * exercise of given type. These submissions can be visualized with
  * {@link SubmissionVisualizer} and analyzed with
- * {@link SubmissionStatisticsGiver}, and also loaded as initial state to a
+ * {@link SubmissionStatisticsGiver}, and also loaded as initial state to an
  * {@link Executor}.
  * </p>
  * <p>

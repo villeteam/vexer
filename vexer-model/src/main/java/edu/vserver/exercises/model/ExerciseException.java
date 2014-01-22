@@ -5,7 +5,7 @@ package edu.vserver.exercises.model;
  * {@link edu.vserver.exercises.model}. Other checked {@link Exception}s must be
  * wrapped in {@link ExerciseException}s or handled inside implementors.
  * 
- * @author Riku Haavisto, Johannes Holvitie
+ * @author Riku Haavisto
  */
 public class ExerciseException extends Exception {
 
@@ -17,7 +17,7 @@ public class ExerciseException extends Exception {
 	/**
 	 * Categories to which most {@link ExerciseException}s fall into.
 	 * 
-	 * @author Johannes Holvitie, Riku Haavisto
+	 * @author Riku Haavisto
 	 */
 	public enum ErrorType {
 
@@ -85,7 +85,7 @@ public class ExerciseException extends Exception {
 	/**
 	 * Shorthand for
 	 * {@link ExerciseException #ExerciseException(ErrorType, String, Throwable)
-	 * ExerciseException(errorType, message, cause)} with message="" .
+	 * ExerciseException(errorType, message, cause)} with (extra-)message="" .
 	 */
 	public ExerciseException(ErrorType errorType, Throwable cause) {
 		this(errorType, "", cause);

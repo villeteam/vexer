@@ -5,12 +5,12 @@ package edu.vserver.exercises.model;
  * initiated submissions (the latter is used for auto-saving the state in which
  * the executor is, for example to guard against networking errors).
  * 
- * @author Riku Haavisto, Johannes Holvitie
+ * @author Riku Haavisto
  */
 public interface SubmissionType {
 
 	/**
-	 * If the submission is just back-ground a submission, nothing should be
+	 * If the submission is just a back-ground submission, nothing should be
 	 * shown on the user-interface even if no submission can be made because of
 	 * inconsistent execution-state at the moment.
 	 * 
@@ -34,7 +34,7 @@ public interface SubmissionType {
 	 * As no real submission will be made it is allowed to pass also
 	 * {@link SubmissionInfo} objects that cannot be graded or do not contain
 	 * all the answers needed to answer certain question, as long as re-loading
-	 * the executor with such {@link SubmissionInfo} is possible.
+	 * the executor from such a {@link SubmissionInfo} is possible.
 	 * </p>
 	 * 
 	 * @return whether this submission will be used only for saving the

@@ -35,10 +35,9 @@ public interface SubmissionVisualizer<E extends ExerciseData, S extends Submissi
 	 *            exercise that is going to be visualized
 	 * @param localizer
 	 *            {@link Localizer} making it possible to localize UI
-	 * @param matManager
-	 *            {@link ExerciseMaterialManager} giving all the
-	 *            {@link ExerciseMaterial}s that might be attached to this
-	 *            exercise-instance and thus needed for correct visulization
+	 * @param tempManager
+	 *            {@link TempFilesManager} giving a temporary folder for that
+	 *            can be used if needed
 	 */
 	void initialize(E exercise, S dataObject, Localizer localizer,
 			TempFilesManager tempManager) throws ExerciseException;
@@ -49,8 +48,9 @@ public interface SubmissionVisualizer<E extends ExerciseData, S extends Submissi
 	Component getView();
 
 	/**
-	 * @return The submission presented as a string (might be for example the
-	 *         programming code a student used in a programming exercise)
+	 * @return The submission presented as a human-readable string (might be for
+	 *         example the programming code a student used in a programming
+	 *         exercise or user's answers to questions in certain exercise)
 	 */
 	String exportSubmissionDataAsText();
 

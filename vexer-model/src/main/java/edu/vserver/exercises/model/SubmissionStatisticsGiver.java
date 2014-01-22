@@ -19,7 +19,7 @@ import edu.vserver.standardutils.TempFilesManager;
  * the most difficult ie. users received on average the lowest score from.
  * </p>
  * 
- * @author Riku Haavisto, Johannes Holvitie
+ * @author Riku Haavisto
  * 
  * @param <E>
  *            {@link ExerciseData} specific to the exercise-type
@@ -42,6 +42,9 @@ public interface SubmissionStatisticsGiver<E extends ExerciseData, S extends Sub
 	 *            analyzed
 	 * @param localizer
 	 *            {@link Localizer} making it possible to localize UI
+	 * @throws ExerciseException
+	 *             if there is an error in the data or in initialization in
+	 *             general
 	 */
 	void initialize(E exercise, List<StatisticalSubmissionInfo<S>> dataObjects,
 			Localizer localizer, TempFilesManager tempManager)
@@ -76,18 +79,19 @@ public interface SubmissionStatisticsGiver<E extends ExerciseData, S extends Sub
 	 * like name, score, time-on-task, visualize-button etc. will be added by
 	 * the framework. However these kinds of columns can be shown in a table
 	 * returned by {@link #getView()} in addition to specific columns, if that
-	 * might add to the views functionality.
+	 * might add to that view's functionality.
 	 * </p>
 	 * <p>
 	 * The order of returned {@link StatInfoColumn}s is irrelevant, it is
 	 * however absolutely required that the order of the dataObjects returned
-	 * from {@link StatisticsInfoColumn #getDataObjects()} match the order of
+	 * from {@link StatisticsInfoColumn #getDataObjects()} matches the order of
 	 * loaded {@link StatisticalSubmissionInfo}s.
 	 * </p>
 	 * <p>
-	 * This format is useful and can be used to automatically generate
-	 * {@link Table}s or to export the data to different tabular data format
-	 * including Excel or CSV
+	 * This format augmented with generic columns like name of the user who made
+	 * certain submission is used to automatically generate {@link Table}s and
+	 * to export the data to different tabular data formats including Excel or
+	 * CSV
 	 * </p>
 	 * 
 	 * @return {@link List} of {@link StatisticalSubmissionInfo}s defining the

@@ -1,5 +1,7 @@
 package edu.vserver.exercises.model;
 
+import java.io.Serializable;
+
 import com.vaadin.ui.Component;
 
 import edu.vserver.standardutils.Localizer;
@@ -15,9 +17,21 @@ import edu.vserver.standardutils.TempFilesManager;
  * @param <E>
  *            {@link ExerciseData} that can be edited with the implementor
  */
-public interface Editor<E extends ExerciseData> {
+public interface Editor<E extends ExerciseData> extends Serializable {
 
 	/**
+	 * <p>
+	 * Returns a gui for editing an exercise instance of given type.
+	 * </p>
+	 * <p>
+	 * In addition to controls for editing the exercise instance, this view must
+	 * contain editor for editing general exercise info (the editor is provided
+	 * by {@link EditorHelper #getInfoEditorView()}). The view must also contain
+	 * controls for save, cancel and preferably to preview currently edited
+	 * exercise (default implementation and helpers for custom implementations
+	 * can be fetched through {@link EditorHelper}).
+	 * </p>
+	 * 
 	 * @return The GUI through which the user can edit an exercise instance
 	 */
 	Component getView();
