@@ -11,7 +11,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>${groupId}</groupId>
-	<artifactId>${artifactId}-root</artifactId>
+	<artifactId>${artifactId}-ville</artifactId>
 	<packaging>pom</packaging>
 	<version>${version}</version>
 	<name>${artifactId} Ville-exercise Project</name>
