@@ -179,7 +179,12 @@
 				<configuration>
 					<webApp>
 						<contextPath>/</contextPath>
+						<extraClasspath>target/classes;../${artifactId}/target/classes</extraClasspath>
 					</webApp>
+    				<scanTargets>
+      					<scanTarget>../${artifactId}/target/classes</scanTarget>
+    				</scanTargets>
+					<scanIntervalSeconds>5</scanIntervalSeconds>
 				</configuration>
 			</plugin>
 
