@@ -1,24 +1,16 @@
-## this file is not filtered when archetype is generated; only when a project 
-## is created from it; this simplifies required escapes (in differs from
-## the original Vaadin-project, which pulls Vaadin-version at archetype generation 
-## time); 
-## also some properties are known to be undefined, which 
-## will in Velocity input the value as such without stripping $
-## at archetype-create time) (eg. ${vaadin.version} will be output as 
-## such and will reference in resulting pom the given value)
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>${groupId}</groupId>
-	<artifactId>${artifactId}-ville</artifactId>
+	<groupId>\${groupId}</groupId>
+	<artifactId>\${artifactId}-ville</artifactId>
 	<packaging>pom</packaging>
-	<version>${version}</version>
-	<name>${artifactId} Ville-exercise Project</name>
+	<version>\${version}</version>
+	<name>\${artifactId} Ville-exercise Project</name>
 
 	<modules>
-		<module>${artifactId}</module>
-		<module>${artifactId}-stub</module>
+		<module>\${artifactId}</module>
+		<module>\${artifactId}-stub</module>
 	</modules>
 
 </project>

@@ -61,13 +61,13 @@
       <extension>
         <groupId>org.apache.maven.archetype</groupId>
         <artifactId>archetype-packaging</artifactId>
-        <version>2.0-alpha-5</version>
+        <version>2.2</version>
       </extension>
     </extensions>
     <plugins>
       <plugin>
         <artifactId>maven-archetype-plugin</artifactId>
-        <version>2.0-alpha-5</version>
+        <version>2.2</version>
         <extensions>true</extensions>
       </plugin>
       <!-- Replace Vaadin version in generated project with archetype version -->
@@ -82,9 +82,22 @@
 
     </plugins>
     <resources>
+      <!-- Add all resources but filter only the archetype-poms at this point;
+           the rest need filtering only at archetype::create-time
+      -->
       <resource>
         <directory>src/main/resources</directory>
         <filtering>false</filtering>
+        <excludes>
+        <exclude>**/pom.xml</exclude>
+        </excludes>
+      </resource>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+        <includes>
+        <include>**/pom.xml</include>
+        </includes>
       </resource>
     </resources>
     <pluginManagement>
