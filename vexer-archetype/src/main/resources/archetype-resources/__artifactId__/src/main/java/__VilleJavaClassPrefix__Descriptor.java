@@ -8,7 +8,6 @@ import edu.vserver.exercises.model.PersistenceHandler;
 import edu.vserver.exercises.model.SubmissionStatisticsGiver;
 import edu.vserver.exercises.model.SubmissionVisualizer;
 import edu.vserver.standardutils.Localizer;
-import edu.vserver.standardutils.StandardIcon;
 
 public class ${VilleJavaClassPrefix}Descriptor implements
 		ExerciseTypeDescriptor<${VilleJavaClassPrefix}ExerciseData, ${VilleJavaClassPrefix}SubmissionInfo> {
