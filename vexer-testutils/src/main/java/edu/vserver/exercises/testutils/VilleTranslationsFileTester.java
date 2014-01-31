@@ -25,13 +25,13 @@ import edu.vserver.exercises.stub.TranslationFileParser;
  * @author Riku Haavisto
  * 
  */
-public final class StubUIConstantsFileTester {
+public final class VilleTranslationsFileTester {
 
 	private static final String translationFileSuffix = ".trl";
 	private static final Logger logger = Logger
-			.getLogger(StubUIConstantsFileTester.class.getName());
+			.getLogger(VilleTranslationsFileTester.class.getName());
 
-	private StubUIConstantsFileTester() {
+	private VilleTranslationsFileTester() {
 
 	}
 
@@ -57,8 +57,9 @@ public final class StubUIConstantsFileTester {
 			logger.severe("FAIL: Translation files must have extension .trl");
 			return false;
 		} else {
-			prefix = trlFileName.substring(0, trlFileName.length()
-					- translationFileSuffix.length());
+			prefix = trlFileName.substring(0,
+					trlFileName.length() - translationFileSuffix.length())
+					.toUpperCase();
 		}
 		List<String> trlFileLines = null;
 		if (!trlFile.exists()) {
