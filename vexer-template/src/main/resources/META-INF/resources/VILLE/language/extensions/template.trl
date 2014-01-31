@@ -5,3 +5,12 @@
 @key:NAME
 @en:Template-Exercise
 @fi:Malli-Tehtävä
+
+@key:ANSWER
+@en:Answer
+@fi:Vastaus
+
+@key:ANSWER_COL_DESC
+@en:Student's answer for the question
+@fi:Opiskelijan vastaus kysymykseen
+

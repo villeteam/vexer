@@ -10,4 +10,6 @@ public class TemplateUiConstants {
 
 	public static final String ANSWER_COL_DESC = PREFIX + "ANSWER_COL_DESC";
 
+	public static final String ANSWER = PREFIX + "ANSWER";
+
 }

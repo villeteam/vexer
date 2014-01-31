@@ -34,6 +34,13 @@
 			<scope>provided</scope>
 		</dependency>
 		
+		<!-- vexer-testutils for testing -->
+		<dependency>
+			<groupId>edu.vserver.exercises</groupId>
+			<artifactId>vexer-testutils</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
 		<!-- This can be replaced with TestNG or some other test framework supported by the surefire plugin -->
 		<dependency>
 			<groupId>junit</groupId>

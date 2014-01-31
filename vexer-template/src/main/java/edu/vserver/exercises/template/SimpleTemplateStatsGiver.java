@@ -48,7 +48,7 @@ public class SimpleTemplateStatsGiver implements
 		}
 
 		StatisticsInfoColumn<String> answersCol = new StatisticsInfoColumn<String>(
-				localizer.getUIText("Answer"),
+				localizer.getUIText(TemplateUiConstants.ANSWER),
 				localizer.getUIText(TemplateUiConstants.ANSWER_COL_DESC,
 						exer.getQuestion()), String.class, answers, true);
 
