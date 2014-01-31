@@ -45,6 +45,7 @@
 		<module>vexer-template</module>
 		<module>vexer-stub-demo</module>
         <module>vexer-archetype</module>
+        <module>vexer-testutils</module>
 	</modules>
 
     <licenses>
