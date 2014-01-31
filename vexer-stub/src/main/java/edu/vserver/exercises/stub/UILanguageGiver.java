@@ -2,11 +2,11 @@ package edu.vserver.exercises.stub;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Level;
@@ -73,18 +73,10 @@ class UILanguageGiver {
 				.getLogger(UILanguageLoaderStub.class.getName());
 
 		private static final String translationFileSuffix = ".trl";
-		private static final String keyConstant = "@key:";
-		// private static final String splitter = ":";
-		private static final String prefixSplitter = ".";
 
 		private final Map<String, Map<String, String>> dictsByLang
 
 		= new HashMap<String, Map<String, String>>();;
-
-		private String currKey = "";
-		private String currOpenTranslationLang = "";
-		private String currOpenTranslation = "";
-		private String currPrefix = "";
 
 		public Map<String, UILanguageStub> getLoadedLangs() {
 			Map<String, UILanguageStub> res = new HashMap<String, UILanguageStub>();
@@ -118,16 +110,42 @@ class UILanguageGiver {
 						// not be out-of-index
 						fname = fname.substring(fname.lastIndexOf("/") + 1);
 					}
-					currPrefix = fname.substring(0,
+					String currPrefix = fname.substring(0,
 							fname.length() - translationFileSuffix.length())
 							.toUpperCase();
 
-					currKey = "";
-					currOpenTranslationLang = "";
-					currOpenTranslation = "";
+					Map<String, Map<String, String>> newTranslations = TranslationFileParser
+							.parseTranslationFile(currPrefix,
+									(readFile(VaadinServlet.getCurrent()
+											.getServletContext()
+											.getResourceAsStream(aMatch))));
 
-					parseFile(readFile(VaadinServlet.getCurrent()
-							.getServletContext().getResourceAsStream(aMatch)));
+					for (Entry<String, Map<String, String>> addToLang : newTranslations
+							.entrySet()) {
+
+						Map<String, String> translationsInLang = dictsByLang
+								.get(addToLang.getKey());
+						if (translationsInLang == null) {
+							translationsInLang = new HashMap<String, String>();
+							dictsByLang.put(addToLang.getKey(),
+									translationsInLang);
+						}
+
+						for (Entry<String, String> newTranslation : addToLang
+								.getValue().entrySet()) {
+							// this would require having two translation files
+							// with same name
+							if (translationsInLang.put(newTranslation.getKey(),
+									newTranslation.getValue()) != null) {
+								logger.warning("Overrid entry for key: "
+										+ newTranslation.getKey()
+										+ ". This probably means that you have "
+										+ "included two .trl files with same namespace (=file-name)");
+							}
+						}
+
+					}
+
 				} else {
 					logger.warning("Non-trl resource-file ( " + aMatch
 							+ " ) contained in translation file path!");
@@ -136,106 +154,8 @@ class UILanguageGiver {
 
 		}
 
-		private void parseFile(List<String> lines) {
-
-			// Process the file: remove comments and empty lines
-			for (int i = 0; i < lines.size(); i++) {
-				String currLine = lines.get(i);
-				logger.fine("line: " + currLine);
-				logger.fine(currKey + "; " + currOpenTranslationLang + "; "
-						+ currOpenTranslation);
-				if (!checkLineFormat(currLine)) {
-					throw new IllegalArgumentException(
-							"Language file has illegal format");
-				}
-
-				if (currLine.startsWith("//")) {
-					continue; // comment line
-				}
-				// breaks the current key
-				else if (currLine.startsWith(keyConstant)) {
-					addCurrOpenTranslation();
-					// String[] parts = currLine.split(splitter);
-					String keyPart = currLine.substring(keyConstant.length());
-
-					currKey = keyPart.trim();
-					// currKey = parts[1].trim();
-					currOpenTranslationLang = "";
-					currOpenTranslation = "";
-				}
-				// breaks the current translation
-				// allow starting a translation with just the lang-tag
-				else if (currLine.matches("^@\\w+:.*$")) {
-					addCurrOpenTranslation();
-					// String[] parts = currLine.split(splitter);
-					String langPart = currLine.substring(1,
-							currLine.indexOf(':'));
-
-					String transPart = currLine
-							.substring(currLine.indexOf(':') + 1);
-
-					// currOpenTranslationLang = parts[0].trim().substring(1);
-					// currOpenTranslation = parts[1];
-					currOpenTranslationLang = langPart.trim();
-					currOpenTranslation = transPart;
-				}
-				// appends to the current translation
-				else {
-					currOpenTranslation += currLine;
-				}
-
-			}
-			// add the final hanging translation
-			addCurrOpenTranslation();
-
-		}
-
-		private void addCurrOpenTranslation() {
-
-			if (!"".equals(currOpenTranslationLang) && !"".equals(currKey)
-					&& !"".equals(currOpenTranslation)) {
-
-				if (Arrays.binarySearch(Locale.getISOLanguages(),
-						currOpenTranslationLang) < 0) {
-					throw new IllegalStateException(
-							"Not a valid ISO-language-code: "
-									+ currOpenTranslationLang);
-				}
-
-				if (!dictsByLang.containsKey(currOpenTranslationLang)) {
-					if (!dictsByLang.containsKey(currOpenTranslationLang)) {
-						dictsByLang.put(currOpenTranslationLang,
-								new HashMap<String, String>());
-					}
-					// throw new IllegalStateException(
-					// "Trying to add translation for language that was "
-					// + "not specified in the languages list");
-				}
-				String oldValue = null;
-				if (null != (oldValue = dictsByLang
-						.get(currOpenTranslationLang).put(
-								currPrefix + prefixSplitter + currKey,
-								currOpenTranslation))) {
-					logger.warning("Overrid entry for key: " + currPrefix
-							+ prefixSplitter + currKey + " and language: "
-							+ currOpenTranslationLang + "\nOld value: "
-							+ oldValue + "\nNew value: " + currOpenTranslation);
-				} else {
-					logger.fine("Added for key: " + currPrefix + prefixSplitter
-							+ currKey + " and language: "
-							+ currOpenTranslationLang + "\nValue: "
-							+ currOpenTranslation);
-				}
-
-			}
-		}
-
-		private static boolean checkLineFormat(String line) {
-			return true;
-		}
-
 		private List<String> readFile(InputStream toRead) throws IOException {
-			List<String> res = IOUtils.readLines(toRead);
+			List<String> res = IOUtils.readLines(toRead, "UTF-8");
 			return res;
 		}
 
