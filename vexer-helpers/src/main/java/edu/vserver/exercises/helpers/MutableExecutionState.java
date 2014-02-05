@@ -2,6 +2,8 @@ package edu.vserver.exercises.helpers;
 
 import edu.vserver.exercises.model.ExecutionState;
 import edu.vserver.exercises.model.ExecutionStateChangeListener;
+import edu.vserver.exercises.model.Executor;
+import edu.vserver.exercises.model.SubmissionType;
 
 /**
  * <p>
@@ -11,7 +13,7 @@ import edu.vserver.exercises.model.ExecutionStateChangeListener;
  * This class is useful for keeping track of the current execution-state.
  * </p>
  * <p>
- * Changing some of the variables of this class does not tricker any event in
+ * Changing some of the variables of this class does not trigger any event in
  * itself, but the user of this class must inform registered listeners at an
  * appropriate time about the changes by calling their
  * {@link ExecutionStateChangeListener #actOnStateChange(ExecutionState)}
@@ -35,6 +37,9 @@ public class MutableExecutionState implements ExecutionState {
 	private boolean submitShown;
 	private boolean hasUnsubmittedChanges;
 
+	/**
+	 * Constructs a new {@link MutableExecutionState} with default values.
+	 */
 	public MutableExecutionState() {
 		this.canReset = true;
 		this.canSubmit = true;
@@ -44,6 +49,23 @@ public class MutableExecutionState implements ExecutionState {
 		this.hasUnsubmittedChanges = false;
 	}
 
+	/**
+	 * Constructs a new {@link MutableExecutionState} with given values.
+	 * 
+	 * @param canReset
+	 *            initial value of allowing reset
+	 * @param canSubmit
+	 *            initial value of allowing submit
+	 * @param resetShown
+	 *            initial value of whether reset-button is shown
+	 * @param submitShown
+	 *            initial value of whether submit-button is shown
+	 * @param menuEnabled
+	 *            initial value of whether navigation menu is shown
+	 * @param hasUnsubmittedChanges
+	 *            initial value of whether there are unsubmitted changes in the
+	 *            exercise (usually false)
+	 */
 	public MutableExecutionState(boolean canReset, boolean canSubmit,
 			boolean resetShown, boolean submitShown, boolean menuEnabled,
 			boolean hasUnsubmittedChanges) {
@@ -125,10 +147,31 @@ public class MutableExecutionState implements ExecutionState {
 		return hasUnsubmittedChanges;
 	}
 
+	/**
+	 * <p>
+	 * Clears the 'hasUnsubmittedChanges'-flag.
+	 * </p>
+	 * <p>
+	 * Should only be called after making a submission with such a
+	 * {@link SubmissionType} that returns <b>false</b> from
+	 * {@link SubmissionType #isOnlyForSavingState()}-method.
+	 * </p>
+	 */
 	public void clearUnSubmChangesFlag() {
 		hasUnsubmittedChanges = false;
 	}
 
+	/**
+	 * <p>
+	 * Sets the 'hasUnsubmittedChanges'-flag.
+	 * </p>
+	 * <p>
+	 * This method should be called after any change the user has made to the
+	 * state of the {@link Executor} regardless of whether the flag is already
+	 * set or not.
+	 * </p>
+	 * </p>
+	 */
 	public void setUnSubmChangesFlag() {
 		hasUnsubmittedChanges = true;
 	}

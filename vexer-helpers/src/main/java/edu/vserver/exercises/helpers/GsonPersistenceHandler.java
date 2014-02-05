@@ -28,9 +28,10 @@ import edu.vserver.standardutils.TempFilesManager;
  * objects to JSON.
  * </p>
  * <p>
- * In addition to normally Gson-convertable fields, the objects can contain
- * {@link AbstractFile}-fields which will be saved and load by reference
- * utilizing {@link ByRefSaver} and {@link ByRefLoader}.
+ * In addition to normally Gson-convertable fields, the {@link ExerciseData}
+ * (possibly later also {@link SubmissionInfo}) can contain {@link AbstractFile}
+ * -fields which will be saved and loaded by reference utilizing
+ * {@link ByRefSaver} and {@link ByRefLoader}.
  * </p>
  * <p>
  * Utilizing this class is the recommended method of implementing
@@ -60,8 +61,8 @@ implements PersistenceHandler<E, S> {
 	/**
 	 * Generates a new {@link GsonPersistenceHandler} that can be returned from
 	 * {@link ExerciseTypeDescriptor #newExerciseXML()}-method. The returned
-	 * class is stateless, meaning there is no need to instantiate more that one
-	 * instance per exercis-type (though that's only a minor performance
+	 * class is stateless, meaning there is no need to instantiate more than one
+	 * instance per exercise-type (though that's only a minor performance
 	 * improvement).
 	 * 
 	 * @param exerDataClass

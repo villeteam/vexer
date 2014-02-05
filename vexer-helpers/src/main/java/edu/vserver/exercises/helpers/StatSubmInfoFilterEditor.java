@@ -78,7 +78,7 @@ public class StatSubmInfoFilterEditor<S extends SubmissionInfo> implements
 	 * Implementor of this interface can show certain general information about
 	 * certain {@link StatSubmInfoFilter} and instantiate {@link FilterEditor}s
 	 * that can be used for creating and editing instances of that
-	 * {@link StatSubmInfoFilter}.
+	 * {@link StatSubmInfoFilter}-type.
 	 * 
 	 * @author Riku Haavisto
 	 * 
@@ -91,8 +91,8 @@ public class StatSubmInfoFilterEditor<S extends SubmissionInfo> implements
 		 * Instantiates a new instance of the represented {@link FilterEditor}.
 		 * 
 		 * @param localizer
-		 *            {@link Localizer} that can be passed to new instance to
-		 *            help localizing UI
+		 *            {@link Localizer} that can be passed to new instance
+		 *            {@link FilterEditor} help localizing UI
 		 * @return a new {@link FilterEditor}-instance
 		 */
 		FilterEditor<A> newEditorInstance(Localizer localizer);
@@ -119,9 +119,8 @@ public class StatSubmInfoFilterEditor<S extends SubmissionInfo> implements
 		String getFilterName(Localizer localizer);
 
 		/**
-		 * Gives a short description of the represented filter that can be
-		 * created and edited by editor fetched from this
-		 * {@link FilterEditorFactory}.
+		 * Returns an icon representing the filter that can be created and
+		 * edited by editor fetched from this {@link FilterEditorFactory}.
 		 * 
 		 * @return {@link Resource} of icon for represented filter
 		 */
@@ -144,15 +143,15 @@ public class StatSubmInfoFilterEditor<S extends SubmissionInfo> implements
 		 * Returns a new independent copy of this {@link FilterEditor} instance
 		 * with matching state.
 		 * 
-		 * @return an independent copy of this
+		 * @return an independent copy of this editor
 		 */
 		FilterEditor<A> getCopy();
 
 		/**
-		 * Return certain {@link StatSubmInfoFilter}-implementor matching
-		 * current state of this {@link FilterEditor}.
+		 * Return {@link StatSubmInfoFilter}-implementor matching current state
+		 * of this {@link FilterEditor}.
 		 * 
-		 * @return {@link StatSubmInfoFilter} matching editors current state
+		 * @return {@link StatSubmInfoFilter} matching editor's current state
 		 */
 		StatSubmInfoFilter<A> getFilter();
 
@@ -166,8 +165,8 @@ public class StatSubmInfoFilterEditor<S extends SubmissionInfo> implements
 		 * variables. eg. Evaluation : from 0.4 to 0.8 .
 		 * </p>
 		 * 
-		 * 
-		 * @return
+		 * @return a textual localized description of this editor's current
+		 *         state
 		 */
 		String getFilterStateDesc();
 
@@ -210,6 +209,12 @@ public class StatSubmInfoFilterEditor<S extends SubmissionInfo> implements
 		boolean checkAndNotify();
 
 	}
+
+	/*
+	 * 
+	 * Implementation of actual 'StatSubmInfoFilterEditor' that can be shown to
+	 * user starts here.
+	 */
 
 	/**
 	 * 
@@ -260,11 +265,11 @@ public class StatSubmInfoFilterEditor<S extends SubmissionInfo> implements
 	 *            {@link StatSubmInfoFilterTable} that is filtered by this
 	 *            editor
 	 * @param localizer
-	 *            {@link Localizer} for localizer ui
+	 *            {@link Localizer} for localizing UI
 	 * @param extraFilterFactories
 	 *            {@link Collection} of all {@link FilterEditorFactory}
 	 *            -implementors that will be added to enable generating custom
-	 *            filters; can be null
+	 *            filters; can be null if only default filter-types are required
 	 */
 	public StatSubmInfoFilterEditor(StatSubmInfoFilterTable<S> applyTo,
 			Localizer localizer,
@@ -515,11 +520,11 @@ public class StatSubmInfoFilterEditor<S extends SubmissionInfo> implements
 	/*
 	 * The actual editor implementation starts here and is pretty nasty and
 	 * hacky: connector-editor extends normal filter-editor and overrides almost
-	 * all of which methods, and also has to check by 'instanceof' whether
-	 * certain of its children is really a connector-editor in some places.
+	 * all of its methods, and also has to check by 'instanceof' whether certain
+	 * of its children is actually a connector-editor in some places.
 	 * 
-	 * This hacky implementation should be well hidden from the public interface
-	 * though, and is quite short.
+	 * This hacky implementation should be kept well hidden from the public
+	 * interface.
 	 */
 
 	private static class EditorConnectorView<B extends SubmissionInfo> extends
@@ -607,7 +612,7 @@ public class StatSubmInfoFilterEditor<S extends SubmissionInfo> implements
 				baseFilter = (StatSubmInfoFilterConnector<B>) super.asFilter();
 			} else {
 				baseFilter = (StatSubmInfoFilterConnector<B>) ((InvertedFilter<B>) super
-						.asFilter()).getUnderlayingFilter();
+						.asFilter()).getUnderlyingFilter();
 			}
 
 			// add all the children to the connector
@@ -1190,6 +1195,8 @@ public class StatSubmInfoFilterEditor<S extends SubmissionInfo> implements
 	 * it is convenient (as eg. icon is readily available to in FilterEditor)
 	 * but maybe a bit confusing...
 	 */
+
+	// TODO: localization of default editors
 
 	private static class DateIntervalFilterEditor<A extends SubmissionInfo>
 			implements FilterEditor<A>, FilterEditorFactory<A> {

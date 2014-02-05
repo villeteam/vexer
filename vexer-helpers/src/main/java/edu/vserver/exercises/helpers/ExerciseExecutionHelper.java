@@ -8,9 +8,9 @@ import com.vaadin.ui.Component;
 import edu.vserver.exercises.model.ExecutionState;
 import edu.vserver.exercises.model.ExecutionStateChangeListener;
 import edu.vserver.exercises.model.Executor;
-import edu.vserver.exercises.model.SubmissionResult;
 import edu.vserver.exercises.model.SubmissionInfo;
 import edu.vserver.exercises.model.SubmissionListener;
+import edu.vserver.exercises.model.SubmissionResult;
 import edu.vserver.exercises.model.SubmissionType;
 
 /**
@@ -91,8 +91,8 @@ public class ExerciseExecutionHelper<S extends SubmissionInfo> implements
 
 	/**
 	 * Informs registered {@link SubmissionListener}s with
-	 * {@link SubmissionResult} constructed from the parameters, and performs
-	 * a quite standard {@link ExecutionState}-change (disable submit, enable
+	 * {@link SubmissionResult} constructed from the parameters, and performs a
+	 * quite standard {@link ExecutionState}-change (disable submit, enable
 	 * reset) and informs registered {@link ExecutionStateChangeListener}s.
 	 * 
 	 * @param correctness
@@ -100,9 +100,10 @@ public class ExerciseExecutionHelper<S extends SubmissionInfo> implements
 	 * @param data
 	 *            {@link SubmissionInfo}-object about the submission
 	 * @param submType
-	 *            used {@link SubmissionInfo}
+	 *            used {@link SubmissionType}
 	 * @param fbComponent
-	 *            possible {@link Component} shown as feedback to the user
+	 *            possible {@link Component} shown as feedback to the user or
+	 *            null
 	 */
 	public void informSubmitDefault(double correctness, S data,
 			SubmissionType submType, Component fbComponent) {
@@ -132,9 +133,10 @@ public class ExerciseExecutionHelper<S extends SubmissionInfo> implements
 	 * @param data
 	 *            {@link SubmissionInfo}-object about the submission
 	 * @param submType
-	 *            used {@link SubmissionInfo}
+	 *            used {@link SubmissionType}
 	 * @param fbComponent
-	 *            possible {@link Component} shown as feedback to the user
+	 *            possible {@link Component} shown as feedback to the user or
+	 *            null
 	 */
 	public void informOnlySubmit(double correctness, S data,
 			SubmissionType submType, Component fbComponent) {
@@ -165,7 +167,8 @@ public class ExerciseExecutionHelper<S extends SubmissionInfo> implements
 	/**
 	 * Informs all the registered {@link ExecutionStateChangeListener}s. Call
 	 * this after making changes to {@link ExecutionState} that can be accessed
-	 * through {@link #getState()} that the listeners shold act upon.
+	 * through {@link #getState()} to prompt the listeners to act upon the
+	 * changes.
 	 */
 	public void informStateListeners() {
 		for (ExecutionStateChangeListener eStateList : stateListeners) {
@@ -174,14 +177,14 @@ public class ExerciseExecutionHelper<S extends SubmissionInfo> implements
 	}
 
 	/**
-	 * Registers a {@link ExecutionStateChangeListener}.
+	 * Registers a {@link ExecutionStateChangeListener}. Implementing method
 	 * {@link Executor #registerExecutionStateChangeListener(ExecutionStateChangeListener)}
 	 * can be delegated to this method.
 	 * 
 	 * @param execStateListener
 	 *            {@link ExecutionStateChangeListener} to be registered
 	 */
-	public final void registerExerciseExecutionStateListener(
+	public void registerExerciseExecutionStateListener(
 			ExecutionStateChangeListener execStateListener) {
 		stateListeners.add(execStateListener);
 	}

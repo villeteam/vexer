@@ -45,8 +45,8 @@ import edu.vserver.standardutils.XMLHelper;
 /**
  * A collection of classes that can be used to give implementations that inform
  * the user that certain aspect of the exercise-type system is not really
- * implemented for certain exercise-type. These should of course only be used
- * temporarily.
+ * implemented for certain exercise-type. These classes should of course only be
+ * used temporarily.
  * 
  * @author Riku Haavisto
  * 
@@ -62,7 +62,7 @@ public final class ExerTypeVoidImplCollection {
 	 * {@link ExerciseTypeDescriptor}-implementor returning more or less
 	 * void-values for everything else than {@link Executor}. <b>Only usable for
 	 * starting a new exercise-type-development by first developing the
-	 * {@link Executor} with some fixed test-data-set.</b>
+	 * {@link Executor} with some fixed test data-set.</b>
 	 * 
 	 * @author Riku Haavisto
 	 * 
@@ -132,7 +132,7 @@ public final class ExerTypeVoidImplCollection {
 	 * {@link Executor}-implementor that does not care about
 	 * {@link ExerciseData}-object it receives. <b>Only usable for starting a
 	 * new exercise-type-development by first developing the {@link Executor}
-	 * with some fixed test-data-set.</b>
+	 * with some fixed test data-set.</b>
 	 * 
 	 * @author Riku Haavisto
 	 * 
@@ -280,7 +280,7 @@ public final class ExerTypeVoidImplCollection {
 	/**
 	 * Empty implementation for the {@link ExerciseData} interface.
 	 * 
-	 * @author rahaav
+	 * @author Riku Haavisto
 	 * 
 	 */
 	public static final class VoidExerciseData implements ExerciseData {
@@ -300,8 +300,9 @@ public final class ExerTypeVoidImplCollection {
 
 	/**
 	 * Empty implementation for the {@link PersistenceHandler}. Creates empty
-	 * XML-files and returns {@link VoidExerciseData #INSTANCE} regardless of
-	 * the from its load-method regardless of the file really used.
+	 * XML-files and returns {@link VoidExerciseData #INSTANCE} or
+	 * {@link VoidSubmissionData} from its load-methods regardless of the file
+	 * really used.
 	 * 
 	 * @author Riku Haavisto
 	 * 
@@ -401,8 +402,9 @@ public final class ExerTypeVoidImplCollection {
 	 * </p>
 	 * <p>
 	 * In principle {@link SubmissionStatisticsGiver} can be implemented later
-	 * than an exercise-type is used meaning that this class can be useful even
-	 * in real ViLLE-ready exercise-types.
+	 * than the rest of an exercise-type if the {@link SubmissionInfo} for that
+	 * exercise-type is well thought out (so that it contains enough data of
+	 * done submissions).
 	 * </p>
 	 * 
 	 * @author Riku Haavisto
@@ -456,11 +458,12 @@ public final class ExerTypeVoidImplCollection {
 	 * </p>
 	 * <p>
 	 * In principle {@link SubmissionVisualizer} can be implemented later than
-	 * an exercise-type is used meaning that this class can be useful even in
-	 * real ViLLE-ready exercise-types.
+	 * the rest of an exercise-type if the {@link SubmissionInfo} for that
+	 * exercise-type is well thought out (so that it contains enough data of
+	 * done submissions).
 	 * </p>
 	 * 
-	 * @author rahaav
+	 * @author Riku Haavisto
 	 * 
 	 * @param <S>
 	 *            implementor of the {@link SubmissionInfo}-interface.
