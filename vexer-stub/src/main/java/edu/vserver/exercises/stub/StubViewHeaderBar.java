@@ -11,6 +11,14 @@ import edu.vserver.standardutils.Localizer;
 import edu.vserver.standardutils.StandardIcon;
 import edu.vserver.standardutils.StandardUIFactory;
 
+/**
+ * A header-bar to show over the testing views in stub. The header-bar provides
+ * a navigation button back to stub's start-view and possibly an info-text
+ * describing the current view.
+ * 
+ * @author Riku Haavisto
+ * 
+ */
 public class StubViewHeaderBar extends VerticalLayout {
 
 	/**
@@ -18,6 +26,14 @@ public class StubViewHeaderBar extends VerticalLayout {
 	 */
 	private static final long serialVersionUID = 7718375416856425313L;
 
+	/**
+	 * Constructs a new {@link StubViewHeaderBar}.
+	 * 
+	 * @param localizer
+	 *            {@link Localizer} for localizing the UI
+	 * @param infoText
+	 *            already localized info-text to show to user of the view
+	 */
 	public StubViewHeaderBar(Localizer localizer, String infoText) {
 
 		HorizontalLayout actualLayout = new HorizontalLayout();

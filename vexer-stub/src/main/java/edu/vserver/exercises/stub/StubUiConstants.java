@@ -1,5 +1,10 @@
 package edu.vserver.exercises.stub;
 
+/**
+ * A collection of constants used to localize the stub UI.
+ * 
+ * @author Riku Haavisto
+ */
 public class StubUiConstants {
 
 	private static final String PREFIX = "STUB.";

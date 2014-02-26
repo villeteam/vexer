@@ -29,6 +29,14 @@ class UILanguageGiver {
 
 	new AtomicReference<Map<String, UILanguageStub>>(null);
 
+	/**
+	 * Initiates UI-languages if needed and returns a {@link UILanguageStub}
+	 * loaded for given {@link Locale}
+	 * 
+	 * @param locale
+	 *            {@link Locale} to use for the loaded {@link UILanguageStub}
+	 * @return {@link UILanguageStub} using the given {@link Locale}
+	 */
 	public static UILanguageStub getUILanguage(Locale locale) {
 
 		if (uiLanguages.get() == null) {
@@ -49,6 +57,9 @@ class UILanguageGiver {
 
 	}
 
+	/**
+	 * Prompts the translations to be reloaded from the .trl-files.
+	 */
 	public static void reloadLanguages() {
 
 		Map<String, UILanguageStub> oldValue = uiLanguages.get();
@@ -63,10 +74,22 @@ class UILanguageGiver {
 
 		Map<String, UILanguageStub> initiatedLangs = loader.getLoadedLangs();
 
+		// in the stub it is enough that some thread has reloaded the languages
+		// after this
+		// reloading was prompted, no need to override, if it was already
+		// updated
+		// should not happen in stub though, as stub is not meant to be used in
+		// multi-user situations
 		uiLanguages.compareAndSet(oldValue, initiatedLangs);
 
 	}
 
+	/**
+	 * A class wrapping the actual loading of .trl-files and containing as
+	 * hard-coded path the knowledge of where those files stored.
+	 * 
+	 * @author Riku Haavisto
+	 */
 	static class UILanguageLoaderStub {
 
 		private static Logger logger = Logger
@@ -78,6 +101,10 @@ class UILanguageGiver {
 
 		= new HashMap<String, Map<String, String>>();;
 
+		/**
+		 * @return map of language-key to {@link UILanguageStub} parsed from all
+		 *         the translations found from the loaded .trl-files
+		 */
 		public Map<String, UILanguageStub> getLoadedLangs() {
 			Map<String, UILanguageStub> res = new HashMap<String, UILanguageStub>();
 
@@ -89,10 +116,14 @@ class UILanguageGiver {
 
 		}
 
-		Map<String, Map<String, String>> getLoadedBareLangMaps() {
-			return dictsByLang;
-		}
-
+		/**
+		 * Finds all the translation files from predefined path using the
+		 * servlet-context methods for loading the .trl files also from the
+		 * exercise-type jars (and other ville-jars containing .trl files)
+		 * 
+		 * @throws IOException
+		 *             if there is an i/o-error
+		 */
 		public void readFiles() throws IOException {
 			dictsByLang.clear();
 
@@ -154,6 +185,16 @@ class UILanguageGiver {
 
 		}
 
+		/**
+		 * Reads all the lines from an utf-8 input-stream and returns the lines
+		 * as a list.
+		 * 
+		 * @param toRead
+		 *            {@link InputStream} from which to read lines
+		 * @return list of all the lines contained in the given stream
+		 * @throws IOException
+		 *             if there is an io-error
+		 */
 		private List<String> readFile(InputStream toRead) throws IOException {
 			List<String> res = IOUtils.readLines(toRead, "UTF-8");
 			return res;

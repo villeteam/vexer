@@ -2,6 +2,8 @@ package edu.vserver.exercises.stub;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.Serializable;
+import java.util.logging.Logger;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerConfigurationException;
@@ -22,7 +24,22 @@ import edu.vserver.standardutils.BinaryStringConversionHelper;
 import edu.vserver.standardutils.TempFilesManager;
 import edu.vserver.standardutils.XMLHelper;
 
-public class StatisticalSubmInfoSerializer {
+/**
+ * A class for storing persistently {@link StatisticalSubmissionInfo}-objects to
+ * XML and loading them from the persistent representation.
+ * 
+ * @author Riku Haavisto
+ * 
+ */
+public class StatisticalSubmInfoSerializer implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3630050290963327288L;
+
+	private static final Logger logger = Logger
+			.getLogger(StatisticalSubmInfoSerializer.class.getName());
 
 	public static final StatisticalSubmInfoSerializer INSTANCE = new StatisticalSubmInfoSerializer();
 
@@ -37,9 +54,24 @@ public class StatisticalSubmInfoSerializer {
 	private StatisticalSubmInfoSerializer() {
 	}
 
+	/**
+	 * Parses a byte array produced by
+	 * {@link #save(StatisticalSubmissionInfo, PersistenceHandler, TempFilesManager)
+	 * save()} to a {@link StatisticalSubmissionInfo}-object.
+	 * 
+	 * @param dataPres
+	 *            saved bytes
+	 * @param forStatGiver
+	 *            whether info will be loaded for stat-giver
+	 * @param persistenceHandler
+	 *            exercise-type specific {@link PersistenceHandler}
+	 * @param tempManager
+	 *            {@link TempFilesManager}
+	 * @return {@link StatisticalSubmissionInfo} loaded from parameters
+	 */
 	public <S extends SubmissionInfo> StatisticalSubmissionInfo<S> load(
 			byte[] dataPres, boolean forStatGiver,
-			PersistenceHandler<?, S> serializerHandler,
+			PersistenceHandler<?, S> persistenceHandler,
 			TempFilesManager tempManager) {
 		StatisticalSubmissionInfo<S> res = null;
 		ByteArrayInputStream binput = null;
@@ -49,8 +81,6 @@ public class StatisticalSubmInfoSerializer {
 
 			Element rootEl = (Element) doc.getElementsByTagName(rootName).item(
 					0);
-			// TODO FIXME
-			// tempManager.initialize();
 
 			int timeOnTask = Integer.parseInt(rootEl
 					.getAttribute(timeOnTaskAttr));
@@ -67,13 +97,13 @@ public class StatisticalSubmInfoSerializer {
 
 			S submInfo = null;
 
-			submInfo = serializerHandler.loadSubmission(submBytes,
+			submInfo = persistenceHandler.loadSubmission(submBytes,
 					forStatGiver, tempManager);
 
 			res = new StatisticalSubmissionInfo<S>(timeOnTask, evaluation,
 					doneTime, submInfo);
 
-			System.out.println("Loaded: " + res);
+			logger.info("Loaded: " + res);
 
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
@@ -96,13 +126,27 @@ public class StatisticalSubmInfoSerializer {
 		return res;
 	}
 
+	/**
+	 * Saves a given {@link StatisticalSubmissionInfo} object to persistence
+	 * (XML) byte-form.
+	 * 
+	 * @param toWrite
+	 *            {@link StatisticalSubmissionInfo} to save
+	 * @param serializerHandler
+	 *            exercise-type specific {@link PersistenceHandler} for saving
+	 *            the {@link SubmissionInfo}-object
+	 * @param tempManager
+	 *            {@link TempFilesManager}
+	 * @return bytes of the persistent representation of
+	 *         {@link StatisticalSubmissionInfo}-object
+	 */
 	public <S extends SubmissionInfo> byte[] save(
 			StatisticalSubmissionInfo<S> toWrite,
 			PersistenceHandler<?, S> serializerHandler,
 			TempFilesManager tempManager) {
 		byte[] res = null;
 		try {
-			System.out.println("About to save: " + toWrite);
+			logger.info("About to save: " + toWrite);
 
 			Document doc = XMLHelper.createEmptyDocument();
 
@@ -143,8 +187,24 @@ public class StatisticalSubmInfoSerializer {
 		return res;
 	}
 
-	public byte[] loadOnlySubmDataForInspecting(byte[] dataPres,
-			boolean forStatGiver) {
+	/**
+	 * <p>
+	 * Loads the bytes of {@link SubmissionInfo} contained in a
+	 * byte-representation of a {@link StatisticalSubmissionInfo}.
+	 * </p>
+	 * 
+	 * <p>
+	 * This method is mainly useful for loading the byte-representation to
+	 * inspection so that the developer of an exercise type can easily see does
+	 * the persistent representation of a {@link SubmissionInfo} be what it
+	 * should be.
+	 * </p>
+	 * 
+	 * @param dataPres
+	 *            bytes of persisted {@link SubmissionInfo}
+	 * @return the bytes of persisted {@link SubmissionInfo}
+	 */
+	public byte[] loadOnlySubmDataForInspecting(byte[] dataPres) {
 		byte[] res = null;
 		try {
 

@@ -28,6 +28,26 @@ final class StubExertypeClassLoader {
 
 	}
 
+	/**
+	 * Loads a new {@link Executor} with {@link ExerciseData} and possibly
+	 * latest {@link SubmissionInfo} associated with exercise with given name.
+	 * 
+	 * @param descriptor
+	 *            {@link ExerciseTypeDescriptor} of the exercise-type to use
+	 * @param exerName
+	 *            name for the exercise to resolve given {@link ExerciseData}
+	 *            and {@link SubmissionInfo}s
+	 * @param localizer
+	 *            {@link Localizer} for localizing the UI
+	 * @param fbSettings
+	 *            {@link ExecutionSettings} to use when testing the
+	 *            {@link Executor}
+	 * @param tempMan
+	 *            {@link TempFilesManager} for managing temporary files
+	 * @return loaded {@link Executor}
+	 * @throws ExerciseException
+	 *             if there is an error in loading the {@link Executor}
+	 */
 	public static <E extends ExerciseData, S extends SubmissionInfo>
 
 	Executor<E, S> loadExecutor(ExerciseTypeDescriptor<E, S> descriptor,
@@ -48,6 +68,23 @@ final class StubExertypeClassLoader {
 
 	}
 
+	/**
+	 * Loads a new {@link SubmissionVisualizer} with {@link ExerciseData} and
+	 * latest {@link SubmissionInfo} associated with exercise with given name..
+	 * 
+	 * @param descriptor
+	 *            {@link ExerciseTypeDescriptor} of the exercise-type to use
+	 * @param exerName
+	 *            name for the exercise to resolve given {@link ExerciseData}
+	 *            and {@link SubmissionInfo}s
+	 * @param localizer
+	 *            {@link Localizer} for localizing the UI
+	 * @param tempMan
+	 *            {@link TempFilesManager}
+	 * @return loaded {@link SubmissionVisualizer}
+	 * @throws ExerciseException
+	 *             if there is an error in loading the {@link Executor}
+	 */
 	public static <E extends ExerciseData, S extends SubmissionInfo> SubmissionVisualizer<E, S> loadVisualizer(
 			ExerciseTypeDescriptor<E, S> descriptor, String exerName,
 			Localizer localizer, TempFilesManager tempMan)
@@ -71,6 +108,26 @@ final class StubExertypeClassLoader {
 
 	}
 
+	/**
+	 * Loads a new {@link SubmissionStatisticsGiver} with {@link ExerciseData}
+	 * and all {@link SubmissionInfo}s associated with exercise with given name.
+	 * 
+	 * @param descriptor
+	 *            {@link ExerciseTypeDescriptor} of the exercise-type to use
+	 * @param exerName
+	 *            name for the exercise to resolve given {@link ExerciseData}
+	 *            and {@link SubmissionInfo}s
+	 * @param localizer
+	 *            {@link Localizer} for localizing the UI
+	 * @param fbSettings
+	 *            {@link ExecutionSettings} to use when testing the
+	 *            {@link Executor}
+	 * @param tempMan
+	 *            {@link TempFilesManager}
+	 * @return loaded {@link Executor}
+	 * @throws ExerciseException
+	 *             if there is an error in loading the {@link Executor}
+	 */
 	public static <E extends ExerciseData, S extends SubmissionInfo> SubmissionStatisticsGiver<E, S> loadStatisticsGiver(
 			ExerciseTypeDescriptor<E, S> descriptor, String exerName,
 			Localizer localizer, TempFilesManager tempMan)

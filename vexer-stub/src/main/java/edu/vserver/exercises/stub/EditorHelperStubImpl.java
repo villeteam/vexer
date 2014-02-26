@@ -34,8 +34,8 @@ import edu.vserver.standardutils.StandardUIFactory;
 import edu.vserver.standardutils.TempFilesManager;
 
 /**
- * A quick and dirty class implementing {@link EditorHelper} that is crucial in
- * real ViLLE but only place-holder in the current stub-version.
+ * Stub-implementor for {@link EditorHelper} that provides {@link Editor}s with
+ * certain necessary services.
  * 
  * @author Riku Haavisto
  * 
@@ -47,6 +47,9 @@ class EditorHelperStubImpl<E extends ExerciseData> implements EditorHelper<E> {
 	 */
 	private static final long serialVersionUID = 1533013485600936320L;
 
+	// to keep track that the editor was actually shown to user;
+	// this must be done in real ville to allow the teacher to edit
+	// certain data like notes for other teachers on the newly created exercise
 	private boolean editorWasShown;
 
 	private final Localizer localizer;
@@ -134,6 +137,18 @@ class EditorHelperStubImpl<E extends ExerciseData> implements EditorHelper<E> {
 		return contLayout;
 	}
 
+	/**
+	 * <p>
+	 * Stub-implementation for editor control-bar.
+	 * </p>
+	 * <p>
+	 * The look and feel of the editor control-bar is (and should be) the same
+	 * as in real-Ville.
+	 * </p>
+	 * 
+	 * @author Riku Haavisto
+	 * 
+	 */
 	private class ControlButtons extends HorizontalLayout {
 
 		/**
@@ -243,6 +258,20 @@ class EditorHelperStubImpl<E extends ExerciseData> implements EditorHelper<E> {
 		}
 	}
 
+	/**
+	 * <p>
+	 * A stub-implementation for a view allowing teacher to edit general
+	 * properties of an exercise, its name, description and notes for other
+	 * teachers.
+	 * </p>
+	 * <p>
+	 * This view is similar and look-and-feel and size to its real counterpart.
+	 * Editor UI looks the same in stub as it does in real-Ville.
+	 * </p>
+	 * 
+	 * @author Riku Haavisto
+	 * 
+	 */
 	private class EditorView extends VerticalLayout implements ClickListener {
 
 		private static final long serialVersionUID = 7155855298442571450L;
@@ -271,6 +300,7 @@ class EditorHelperStubImpl<E extends ExerciseData> implements EditorHelper<E> {
 			doLayout("", name, desc, notes);
 		}
 
+		@Override
 		public void attach() {
 			super.attach();
 			editorWasShown = true;
@@ -335,11 +365,11 @@ class EditorHelperStubImpl<E extends ExerciseData> implements EditorHelper<E> {
 		}
 
 		public String getName() {
-			return ((String) exerciseName.getValue()).replaceAll("\\W", "");
+			return exerciseName.getValue().replaceAll("\\W", "");
 		}
 
 		public String getExerDescription() {
-			return (String) description.getValue();
+			return description.getValue();
 		}
 
 		@Override

@@ -18,56 +18,72 @@ class UILanguageStub implements Serializable {
 	// Thread-safety: instances of this class are immutable (no synchronization
 	// needed)
 	// as they only expose String-values from the backing map, never the map
-	// itself, because Strings are immutable, and because the backing
+	// itself, because Strings are immutable, and because the backing map
 	// is a private copy of the initial dictionary
+
+	// thread-safety is quite irrelevant when used in stub
 
 	private final Map<String, String> dict;
 
+	/**
+	 * Constructs a new {@link UILanguageStub} containing translations from
+	 * given dictionary.
+	 * 
+	 * @param dictionary
+	 *            translations to use in this {@link UILanguageStub}
+	 */
 	public UILanguageStub(Map<String, String> dictionary) {
 		dict = new HashMap<String, String>(dictionary);
 	}
 
+	/**
+	 * Return a translation for given key
+	 * 
+	 * @param key
+	 *            key representing some UI-constant
+	 * @return translation for the given key in current dictionary, or null if
+	 *         no translation exists
+	 */
 	public String getTranslation(String key) {
-
 		return dict.get(key);
-
 	}
 
 	/**
 	 * Constructs an line by attaching components in correct places into given
 	 * line
 	 * 
-	 * @param explanation
-	 *            the explanation string from syntax file
-	 * @param components
-	 *            components in order
-	 * @return new line as a string.
+	 * @param baseString
+	 *            the base translation with parameter place-holders
+	 * @param parameters
+	 *            parameters in order
+	 * @return basestring from which the place-holders are replaced with
+	 *         parameters
 	 */
-	public static String constructLine(String explanation, String[] components) {
-		for (int i = 0; i < components.length; i++) {
+	public static String constructLine(String baseString, String[] parameters) {
+		for (int i = 0; i < parameters.length; i++) {
 			String toRepl = "@" + i;
-			explanation = explanation.replace(toRepl, components[i]);
+			baseString = baseString.replace(toRepl, parameters[i]);
 		}
-		return explanation;
+		return baseString;
 	}
 
 	/**
-	 * Constructs an line by attaching components in correct places into given
-	 * line
+	 * Constructs an line by substituting
 	 * 
-	 * @param explanation
+	 * @param baseString
 	 *            the explanation string from syntax file
-	 * @param components
-	 *            components in order
-	 * @return new line as a string.
+	 * @param parameters
+	 *            map of parameters to substitute for place-holders
+	 * @return basestring from which the place-holders are replaced with
+	 *         parameters
 	 */
-	public static String constructLine(String explanation,
+	public static String constructLine(String baseString,
 			Map<String, String> params) {
 		for (Entry<String, String> aParam : params.entrySet()) {
 			String toRepl = "@{" + aParam.getKey() + "}";
-			explanation = explanation.replace(toRepl, aParam.getValue());
+			baseString = baseString.replace(toRepl, aParam.getValue());
 		}
-		return explanation;
+		return baseString;
 	}
 
 }

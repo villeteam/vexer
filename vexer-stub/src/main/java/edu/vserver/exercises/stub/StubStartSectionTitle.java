@@ -14,13 +14,28 @@ import com.vaadin.ui.themes.BaseTheme;
 import edu.vserver.standardutils.StandardIcon;
 import edu.vserver.standardutils.StandardUIFactory;
 
-public class StubStartSectionTitle extends HorizontalLayout {
+/**
+ * A simple UI-element wrapping a title and a button for opening help text in a
+ * pop-up.
+ * 
+ * @author Riku Haavisto
+ * 
+ */
+class StubStartSectionTitle extends HorizontalLayout {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -1819498224390930865L;
 
+	/**
+	 * Constructs a new {@link StubStartSectionTitle}
+	 * 
+	 * @param title
+	 *            title to show
+	 * @param helpText
+	 *            text to show if help pop-up is opened
+	 */
 	public StubStartSectionTitle(String title, final String helpText) {
 		setWidth("100%");
 		setMargin(true);

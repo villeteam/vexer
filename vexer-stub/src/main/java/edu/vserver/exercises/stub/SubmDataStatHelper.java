@@ -31,9 +31,38 @@ import edu.vserver.standardutils.StandardUIConstants;
 import edu.vserver.standardutils.StandardUIFactory;
 import edu.vserver.standardutils.TempFilesManager;
 
+/**
+ * A helper wrapping {@link SubmissionStatisticsGiver}-instance and giving
+ * certain general statistics-info in addition to exercise-type specific
+ * statistic-infos.
+ * 
+ * @author Riku Haavisto
+ * 
+ * @param <E>
+ *            {@link ExerciseData} to use
+ * @param <S>
+ *            {@link SubmissionInfo} to use
+ */
 public class SubmDataStatHelper<E extends ExerciseData, S extends SubmissionInfo>
 		implements Serializable {
 
+	/**
+	 * Constructs and returns a new {@link SubmDataStatHelper}. Wraps the other
+	 * constructor method so that explicit type-parameters are not needed.
+	 * 
+	 * @param localizer
+	 *            {@link Localizer} for localizing the UI
+	 * @param tempMan
+	 *            {@link TempFilesManager} for managing temporary files
+	 * @param exerName
+	 *            name (or id) of the exercise-instance to load
+	 * @param typeDesc
+	 *            {@link ExerciseTypeDescriptor} for the exercise-type to load
+	 * @return newly constructed {@link SubmDataStatHelper}
+	 * @throws ExerciseException
+	 *             if something goes wrong when loading
+	 *             {@link SubmissionStatisticsGiver}
+	 */
 	public static SubmDataStatHelper<? extends ExerciseData, ? extends SubmissionInfo> loadFor(
 			Localizer localizer, TempFilesManager tempMan, String exerName,
 			ExerciseTypeDescriptor<?, ?> typeDesc) throws ExerciseException {
@@ -41,6 +70,22 @@ public class SubmDataStatHelper<E extends ExerciseData, S extends SubmissionInfo
 		return loadWithDesc(localizer, tempMan, exerName, typeDesc);
 	}
 
+	/**
+	 * Constructs and returns a new {@link SubmDataStatHelper}.
+	 * 
+	 * @param localizer
+	 *            {@link Localizer} for localizing the UI
+	 * @param tempMan
+	 *            {@link TempFilesManager} for managing temporary files
+	 * @param exerName
+	 *            name (or id) of the exercise-instance to load
+	 * @param typeDesc
+	 *            {@link ExerciseTypeDescriptor} for the exercise-type to load
+	 * @return newly constructed {@link SubmDataStatHelper}
+	 * @throws ExerciseException
+	 *             if something goes wrong when loading
+	 *             {@link SubmissionStatisticsGiver}
+	 */
 	public static <F extends ExerciseData, R extends SubmissionInfo> SubmDataStatHelper<F, R> loadWithDesc(
 			Localizer localizer, TempFilesManager tempMan, String exerName,
 			ExerciseTypeDescriptor<F, R> desc) throws ExerciseException {
@@ -58,6 +103,14 @@ public class SubmDataStatHelper<E extends ExerciseData, S extends SubmissionInfo
 				tempMan, exerName);
 	}
 
+	/**
+	 * An enum-collection of different statistic-column types and their
+	 * properties. Also contains place-holders for column-types that require
+	 * special treatment.
+	 * 
+	 * @author Riku Haavisto
+	 * 
+	 */
 	public enum StatColumnType {
 		NAME(StandardUIConstants.NAME, StubUiConstants.STATS_COL_DESC_NAME,
 				String.class, new StatRowParser() {
@@ -123,6 +176,13 @@ public class SubmDataStatHelper<E extends ExerciseData, S extends SubmissionInfo
 
 	}
 
+	/**
+	 * Implementors of this interface know how to parse an object-value for
+	 * certain column from certain base data-row (
+	 * {@link StatisticalSubmissionInfo}).
+	 * 
+	 * @author Riku Haavisto
+	 */
 	private interface StatRowParser {
 		Object parse(StatisticalSubmissionInfo<?> parseFrom);
 	}
@@ -148,12 +208,23 @@ public class SubmDataStatHelper<E extends ExerciseData, S extends SubmissionInfo
 	private final String exerName;
 
 	/**
-	 * Create new Survey Statistics object
+	 * Constructs a new {@link SubmDataStatHelper}
 	 * 
-	 * @param mainState
-	 *            the main state object for DB queries and such
-	 * @param assignmentId
-	 *            the id of the Survey assignment to be viewed
+	 * @param localizer
+	 *            {@link Localizer}
+	 * @param subms
+	 *            list of {@link StatisticalSubmissionInfo}-objects (ie. data
+	 *            collected from submissions made to an exercise-instance)
+	 * @param statsGiver
+	 *            exercise-type specific {@link SubmissionStatisticsGiver}
+	 *            implementor
+	 * @param exerDesc
+	 *            {@link ExerciseTypeDescriptor} for currently used
+	 *            exercise-type
+	 * @param tempMan
+	 *            {@link TempFilesManager}
+	 * @param exerName
+	 *            name (or id) of the exercise-instance to load
 	 */
 	public SubmDataStatHelper(Localizer localizer,
 			List<StatisticalSubmissionInfo<S>> subms,
@@ -168,10 +239,22 @@ public class SubmDataStatHelper<E extends ExerciseData, S extends SubmissionInfo
 		this.currStatsGiver = statsGiver;
 	}
 
+	/**
+	 * @return all generated {@link StatisticsInfoColumn}s
+	 */
 	public List<StatisticsInfoColumn<?>> getAllStatCols() {
 		return getStatColumns(Arrays.asList(StatColumnType.values()));
 	}
 
+	/**
+	 * Generates {@link StatisticsInfoColumn}s from all specified
+	 * {@link StatColumnType}s and returns the generated
+	 * {@link StatisticsInfoColumn}s.
+	 * 
+	 * @param includedCols
+	 *            {@link StatColumnType}s to include
+	 * @return list of generated {@link StatisticsInfoColumn}s
+	 */
 	public List<StatisticsInfoColumn<?>> getStatColumns(
 			List<StatColumnType> includedCols) {
 
@@ -196,6 +279,14 @@ public class SubmDataStatHelper<E extends ExerciseData, S extends SubmissionInfo
 
 	}
 
+	/**
+	 * Loads {@link StatisticsInfoColumn} matching given {@link StatColumnType}
+	 * and current data in the {@link SubmDataStatHelper} if the
+	 * {@link StatisticsInfoColumn} is not already loaded.
+	 * 
+	 * @param colType
+	 *            {@link StatColumnType} for which to load the data
+	 */
 	private void loadStatInfoColumn(StatColumnType colType) {
 		if (colType == StatColumnType.TYPE_SPEC) {
 			specColumns = currStatsGiver.getAsTabularData();
@@ -240,6 +331,24 @@ public class SubmDataStatHelper<E extends ExerciseData, S extends SubmissionInfo
 		}
 	}
 
+	/**
+	 * Parses a {@link StatisticsInfoColumn} from given arguments.
+	 * 
+	 * @param title
+	 *            title for the {@link StatisticsInfoColumn}
+	 * @param desc
+	 *            description for the {@link StatisticsInfoColumn}
+	 * @param type
+	 *            type of data values of the {@link StatisticsInfoColumn}
+	 * @param parser
+	 *            {@link StatRowParser} for parsing data-values for the column
+	 * @param stats
+	 *            list of {@link StatisticalSubmissionInfo}-objects from which
+	 *            to parse data
+	 * @param exportable
+	 *            whether resulting {@link StatisticsInfoColumn} is exportable
+	 * @return parsed {@link StatisticsInfoColumn}
+	 */
 	private static <X, S extends SubmissionInfo> StatisticsInfoColumn<X> getStatInfoColumn(
 			String title, String desc, Class<X> type, StatRowParser parser,
 			List<StatisticalSubmissionInfo<S>> stats, boolean exportable) {
@@ -250,7 +359,21 @@ public class SubmDataStatHelper<E extends ExerciseData, S extends SubmissionInfo
 		return new StatisticsInfoColumn<X>(title, desc, type, res, exportable);
 	}
 
-	public SubmissionVisualizer<?, ?> getSubmissionViewerFor(
+	/**
+	 * Loads a {@link SubmissionVisualizer} with given
+	 * {@link StatisticalSubmissionInfo} and {@link TempFilesManager} and with
+	 * parameters from current state of the {@link SubmDataStatHelper}.
+	 * 
+	 * @param statInfo
+	 *            {@link StatisticalSubmissionInfo} to load
+	 * @param tempManToUse
+	 *            {@link TempFilesManager} to use
+	 * @return initialized {@link SubmissionVisualizer}
+	 * @throws ExerciseException
+	 *             if something goes wrong when initializing the
+	 *             submission-viewer
+	 */
+	private SubmissionVisualizer<?, ?> getSubmissionViewerFor(
 			StatisticalSubmissionInfo<?> statInfo, TempFilesManager tempManToUse)
 			throws ExerciseException {
 		SubmissionVisualizer<E, S> res = exerDesc.newSubmissionVisualizer();
@@ -272,11 +395,12 @@ public class SubmDataStatHelper<E extends ExerciseData, S extends SubmissionInfo
 	}
 
 	/**
-	 * Views statistics for given user and current survey in a modal popup
-	 * window
+	 * Loads and opens to a pop-up a {@link SubmissionVisualizer} for given
+	 * {@link StatisticalSubmissionInfo}-object and currently used
+	 * exercise-instance and -type.
 	 * 
-	 * @param userId
-	 *            the id of the user whose statistics are viewed
+	 * @param {@link StatisticalSubmissionInfo} for which to load the
+	 *        {@link SubmissionVisualizer}
 	 */
 	public void viewUserSubmission(StatisticalSubmissionInfo<?> statInfo) {
 
@@ -346,6 +470,10 @@ public class SubmDataStatHelper<E extends ExerciseData, S extends SubmissionInfo
 
 	}
 
+	/**
+	 * @return the statistics-view from the current
+	 *         {@link SubmissionStatisticsGiver}
+	 */
 	public Component getSpecificStatsView() {
 		return currStatsGiver.getView();
 	}

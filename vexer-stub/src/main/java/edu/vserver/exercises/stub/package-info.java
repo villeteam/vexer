@@ -8,19 +8,20 @@
  * The stub depends on interfaces on stable {@link edu.vserver.exercises.model}
  * -package as does the real ViLLE. Stub however implements only the 
  * functionality directly related to exercises and does that in a quick 
- * and dirty way. The current version of stub can reliable be used only 
+ * and dirty way. The current version of stub can be used reliably only 
  * for single-user testing.
  * </p>
  * <p>
  * For correct behavior in real ViLLE, exercise-types developed in the stub 
  * are not allowed to rely any implementation detail of the stub (apart from
- * the general look-and-feel). Reversions of stub with more features are
+ * the general look-and-feel). New versions of stub with more features are
  * likely.
  * </p>
  * <p>
  * Packages {@link edu.vserver.exercises.model}, {@link edu.vserver.exercises.helpers}, 
- * and {@link edu.vserver.standardutils} can be relied on. Those packages should 
- * see only new features preserving full back-wards compatibility.
+ * and {@link edu.vserver.standardutils} can be relied on. Those packages will mostly be 
+ * updated in a backwards-compatible way, though it is possible that some more profound 
+ * changes will be needed from time to time.
  * </p>
  */
 package edu.vserver.exercises.stub;

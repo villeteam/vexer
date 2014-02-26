@@ -12,8 +12,9 @@ import edu.vserver.exercises.model.Executor;
 import edu.vserver.standardutils.Localizer;
 
 /**
- * A class wrapping to submit-and-reset functionalities of {@link Executor} and
- * looking approximately the same as the menu in real ViLLE does.
+ * A class allowing user to call submit and reset of {@link Executor} through
+ * GUI. The look of the view is approximately the same as the what the menu
+ * looks in real ViLLE.
  * 
  * @author Riku Haavisto
  */
@@ -30,6 +31,15 @@ class ResetSubmitControlView extends HorizontalLayout implements
 	/* Buttons */
 	private final Button resetButton, submitButton;
 
+	/**
+	 * Constructs a new {@link ResetSubmitControlView} for controlling the given
+	 * {@link Executor}.
+	 * 
+	 * @param localizer
+	 *            {@link Localizer} to localize the GUI
+	 * @param exerciseExec
+	 *            {@link Executor} to control
+	 */
 	public ResetSubmitControlView(Localizer localizer,
 			Executor<?, ?> exerciseExec) {
 		this.exerciseExec = exerciseExec;

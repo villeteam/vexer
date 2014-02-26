@@ -9,22 +9,23 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.VerticalLayout;
 
 import edu.vserver.exercises.helpers.StandardSubmissionType;
+import edu.vserver.exercises.model.Editor;
 import edu.vserver.exercises.model.ExecutionSettings;
 import edu.vserver.exercises.model.Executor;
 import edu.vserver.exercises.model.ExerciseException;
 import edu.vserver.exercises.model.ExerciseTypeDescriptor;
 import edu.vserver.exercises.model.GeneralExerciseInfo;
 import edu.vserver.exercises.model.StatisticalSubmissionInfo;
-import edu.vserver.exercises.model.SubmissionResult;
 import edu.vserver.exercises.model.SubmissionInfo;
 import edu.vserver.exercises.model.SubmissionListener;
+import edu.vserver.exercises.model.SubmissionResult;
 import edu.vserver.standardutils.Localizer;
 import edu.vserver.standardutils.StandardUIFactory;
 import edu.vserver.standardutils.TempFilesManager;
 
 /**
  * A quick-and-dirty class for loading {@link Executor} -implementor for testing
- * and storing {@link SubmissionInfo}-objects from it.
+ * and storing {@link SubmissionInfo}-objects from submissions made using it.
  * 
  * @author Riku Haavisto
  * 
@@ -38,11 +39,26 @@ class TestingExerciseView<S extends SubmissionInfo> extends VerticalLayout {
 
 	private static final String testingExerViewId = "testingexerview";
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 6423843365009117711L;
 
+	/**
+	 * Loads and returns a new {@link TestingExerciseView} suitable for testing
+	 * exercises in student-mode.
+	 * 
+	 * @param toLoad
+	 *            {@link ExerciseTypeDescriptor} for the exercise-type for which
+	 *            to load an {@link Executor}
+	 * @param localizer
+	 *            {@link Localizer} for localizing the UI
+	 * @param exerInfo
+	 *            {@link GeneralExerciseInfo} storing general info on the
+	 *            exercise-instance
+	 * @param execSettings
+	 *            {@link ExecutionSettings} to use
+	 * @param tempMan
+	 *            {@link TempFilesManager} for managing temporary files
+	 * @return the loaded {@link TestingExerciseView}
+	 */
 	public static <S extends SubmissionInfo> TestingExerciseView<S> getViewForStudentTesting(
 			ExerciseTypeDescriptor<?, S> toLoad, Localizer localizer,
 			GeneralExerciseInfo exerInfo, ExecutionSettings execSettings,
@@ -62,6 +78,21 @@ class TestingExerciseView<S extends SubmissionInfo> extends VerticalLayout {
 				tempMan);
 	}
 
+	/**
+	 * Loads and returns a {@link TestingExerciseView} suitable for testing
+	 * exercise-instances directly from {@link Editor} while still under
+	 * editing.
+	 * 
+	 * @param execToUse
+	 *            pre-loaded {@link Executor} to use
+	 * @param exerInfo
+	 *            {@link GeneralExerciseInfo} with general info on exercise
+	 * @param localizer
+	 *            {@link Localizer} for localizing the UI
+	 * @param tempMan
+	 *            {@link TempFilesManager} for managing temporary files
+	 * @return newly constructed {@link TestingExerciseView}
+	 */
 	public static TestingExerciseView<?> getViewForTestingInEditor(
 			Executor<?, ? extends SubmissionInfo> execToUse,
 			GeneralExerciseInfo exerInfo, Localizer localizer,
@@ -72,6 +103,24 @@ class TestingExerciseView<S extends SubmissionInfo> extends VerticalLayout {
 		return getViewFor(execToUse, exerInfo, true, localizer, null, tempMan);
 	}
 
+	/**
+	 * Constructs and returns a new {@link TestingExerciseView}.
+	 * 
+	 * @param execToUse
+	 *            pre-loaded {@link Executor}
+	 * @param exerInfo
+	 *            general info on exercise
+	 * @param editorTest
+	 *            whether the view is for testing exercise in editor, or for
+	 *            'real' student-side testing (ie. whether to save submissions)
+	 * @param localizer
+	 *            {@link Localizer} for localizing the UI
+	 * @param toLoad
+	 *            {@link ExerciseTypeDescriptor} of the exercise-type used
+	 * @param tempMan
+	 *            {@link TempFilesManager} for managing temporary files
+	 * @return newly constructed {@link TestingExerciseView}
+	 */
 	private static <S extends SubmissionInfo> TestingExerciseView<S> getViewFor(
 			Executor<?, S> execToUse, GeneralExerciseInfo exerInfo,
 			boolean editorTest, Localizer localizer,
@@ -87,6 +136,23 @@ class TestingExerciseView<S extends SubmissionInfo> extends VerticalLayout {
 	private final ExerciseTypeDescriptor<?, S> stubUsed;
 	private final TempFilesManager tempMan;
 
+	/**
+	 * Constructs a new {@link TestingExerciseView}.
+	 * 
+	 * @param execToUse
+	 *            pre-loaded {@link Executor}
+	 * @param exerInfo
+	 *            general info on exercise
+	 * @param editorTest
+	 *            whether the view is for testing exercise in editor, or for
+	 *            'real' student-side testing (ie. whether to save submissions)
+	 * @param localizer
+	 *            {@link Localizer} for localizing the UI
+	 * @param desc
+	 *            {@link ExerciseTypeDescriptor} of the exercise-type used
+	 * @param tempMan
+	 *            {@link TempFilesManager} for managing temporary files
+	 */
 	private TestingExerciseView(Executor<?, S> execToUse,
 			GeneralExerciseInfo exerInfo, boolean editorTest,
 			Localizer localizer, ExerciseTypeDescriptor<?, S> desc,
@@ -102,6 +168,9 @@ class TestingExerciseView<S extends SubmissionInfo> extends VerticalLayout {
 
 	}
 
+	/**
+	 * Draws the UI and attaches needed listeners to the {@link Executor}
+	 */
 	private void doLayout() {
 
 		removeAllComponents();
@@ -138,8 +207,8 @@ class TestingExerciseView<S extends SubmissionInfo> extends VerticalLayout {
 
 				@Override
 				public void submitted(SubmissionResult<S> submission) {
-					if (Arrays.binarySearch(StandardSubmissionType.values(),
-							submission.getSubmissionType()) < 0) {
+					if (!Arrays.asList(StandardSubmissionType.values())
+							.contains(submission.getSubmissionType())) {
 						throw new IllegalArgumentException(
 								"For correct behavior the SubmissionType from "
 										+ "askSubmit must be passed as such to "

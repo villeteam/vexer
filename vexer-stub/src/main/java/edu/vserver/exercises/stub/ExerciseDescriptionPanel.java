@@ -18,6 +18,9 @@ import edu.vserver.standardutils.StandardUIFactory;
  * Quick and dirty implementation of the general look of
  * ViLLE-ExerciseDescriptionPanel. Meant to provide an exercise-type developer
  * with a quite real-like view of what the new exercise-type should look like.
+ * In real-Ville the view contains more info (depending on the situation), for
+ * example it might contain a rating for the exercise. However the view is of
+ * similar size and colors.
  * 
  * @author Riku Haavisto
  */

@@ -41,6 +41,15 @@ import edu.vserver.standardutils.TestTempFilesManager;
  */
 class StubStartView extends VerticalLayout {
 
+	/*
+	 * The implementation is pretty straight-forward and a bit messy, but if
+	 * something needs changing it should be too hard to figure what controls
+	 * what.
+	 * 
+	 * The controls are initialized in roughly the same order they appear in the
+	 * actual GUI.
+	 */
+
 	/**
 	 * 
 	 */
@@ -587,6 +596,13 @@ class StubStartView extends VerticalLayout {
 
 	}
 
+	/**
+	 * Handles updating exercise-type specific controls.
+	 * 
+	 * @param changed
+	 *            whether the exercise-type was actually changed or this is only
+	 *            the initial set-up
+	 */
 	private void handleExerTypeInstances(boolean changed) {
 
 		List<String> instancesOfType = StubDataFilesHandler
@@ -694,6 +710,14 @@ class StubStartView extends VerticalLayout {
 		}
 	}
 
+	/**
+	 * Sets certain buttons enabled or disabled related to views that cannot be
+	 * loaded if there are no exercise-instances of currently selected
+	 * exercise-type.
+	 * 
+	 * @param enabled
+	 *            whether to enable or disable the buttons
+	 */
 	private void setEnabledInstanceDependents(boolean enabled) {
 		student.setEnabled(enabled);
 		submissionViewer.setEnabled(enabled);

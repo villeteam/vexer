@@ -52,6 +52,10 @@ public abstract class VilleExerStubUI extends UI {
 
 		setStyleName("main-style");
 
+		// parses required data (exer-types to test, locales to test,
+		// resource-directory)
+		// and then initiates the stub-UI
+
 		List<ExerciseTypeDescriptor<?, ?>> typesToLoad = getTypesToLoad();
 		List<Locale> localesToTest = getLocalesToTest();
 		String stubResPath = getStubResourceBaseDir();
@@ -69,6 +73,7 @@ public abstract class VilleExerStubUI extends UI {
 
 		} else {
 
+			// add the stub-styles implementation for Dynamic-Styles
 			DynamicStyles.registerDynamicStylesFactory(new StubStylesFactory());
 
 			StubSessionData.initIfNeeded(typesToLoad, stubResPath,
@@ -122,6 +127,14 @@ public abstract class VilleExerStubUI extends UI {
 		}
 	}
 
+	/**
+	 * Method for trying to find {@link ExerciseTypeDescriptor}s by reflection
+	 * if none are explicitly set to be loaded.
+	 * 
+	 * @return all {@link ExerciseTypeDescriptor}-instances that might represent
+	 *         {@link ExerciseTypeDescriptor} that could be loaded for testing
+	 *         in the stub
+	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private static Set<Class<?>> findPotentialClasses() {
 		logger.info("No exer-types to load were explicitly set");
@@ -135,14 +148,25 @@ public abstract class VilleExerStubUI extends UI {
 		return (Set) subTypes;
 	}
 
+	/**
+	 * Instantiates an {@link ExerciseTypeDescriptor} from the given
+	 * {@link Class} if that is possible (eg. class is not abstract helper
+	 * class).
+	 * 
+	 * @param parseFrom
+	 *            {@link Class}-file representing the class that will be parsed
+	 * @return {@link ExerciseTypeDescriptor} parsed or null if one cannot be
+	 *         parsed
+	 */
 	private static ExerciseTypeDescriptor<?, ?> parseDescFromCls(
 			Class<?> parseFrom) {
 		ExerciseTypeDescriptor<?, ?> res = null;
 
-		// abstract-classes can only represent 'helper'
+		// abstract-classes can only represent 'helpers'
 
 		try {
-			// first try to find a field containing type-descriptor
+			// first try to find a field containing type-descriptor as a
+			// singleton-like instance
 
 			Field[] clsFields = parseFrom.getFields();
 

@@ -30,6 +30,18 @@ class TestingExerciseInfoView extends VerticalLayout {
 	/* fields & labels */
 	private final Label titleLabel;
 
+	/**
+	 * Constructs a new {@link TestingExerciseInfoView}
+	 * 
+	 * @param localizer
+	 *            {@link Localizer} for localizing the UI
+	 * @param exerInfo
+	 *            {@link GeneralExerciseInfo} containing general info on the
+	 *            exercise (name and description)
+	 * @param desc
+	 *            {@link ExerciseTypeDescriptor} containing info on the used
+	 *            exercise-type
+	 */
 	public TestingExerciseInfoView(Localizer localizer,
 			GeneralExerciseInfo exerInfo, ExerciseTypeDescriptor<?, ?> desc) {
 

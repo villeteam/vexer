@@ -22,6 +22,10 @@ final class StubResourceGiverImpl implements Localizer {
 
 	private final Locale currLocale;
 
+	/**
+	 * Constructs a new {@link StubResourceGiverImpl} that uses given
+	 * {@link Locale}
+	 */
 	public StubResourceGiverImpl(Locale currLocale) {
 		this.currLocale = currLocale;
 	}

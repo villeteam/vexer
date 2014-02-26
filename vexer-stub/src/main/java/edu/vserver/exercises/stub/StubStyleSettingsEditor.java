@@ -25,7 +25,13 @@ import edu.vserver.standardutils.ui.DynamicStyles.DynamicStylesEditor;
 import edu.vserver.standardutils.ui.DynamicStyles.StyleSettings;
 import edu.vserver.standardutils.ui.DynamicStyles.StyleSettings.BorderStyle;
 
-public class StubStyleSettingsEditor extends VerticalLayout implements
+/**
+ * Stub-implementor for {@link DynamicStylesEditor}.
+ * 
+ * @author Erkki Kaila, Riku Haavisto
+ * 
+ */
+class StubStyleSettingsEditor extends VerticalLayout implements
 		DynamicStylesEditor {
 
 	/**

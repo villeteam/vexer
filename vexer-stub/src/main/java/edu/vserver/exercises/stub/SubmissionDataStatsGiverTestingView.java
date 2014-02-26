@@ -48,6 +48,21 @@ class SubmissionDataStatsGiverTestingView<E extends ExerciseData, S extends Subm
 
 	private static final long serialVersionUID = 2019222167594454557L;
 
+	/**
+	 * Constructs and returns a new {@link SubmissionDataStatsGiverTestingView}.
+	 * Explicit type-parameters are not needed when using this factory-method.
+	 * 
+	 * @param toLoad
+	 *            {@link ExerciseTypeDescriptor} for exer-type for which to load
+	 *            a {@link SubmissionStatisticsGiver}
+	 * @param exerName
+	 *            name (or id) of the exercise-instance to load
+	 * @param localizer
+	 *            {@link Localizer} for localizing the UI
+	 * @param tempMan
+	 *            {@link TempFilesManager} for managing temporary files
+	 * @return newly constructed {@link SubmissionDataStatsGiverTestingView}
+	 */
 	public static SubmissionDataStatsGiverTestingView<?, ?> getViewFor(
 			ExerciseTypeDescriptor<?, ?> toLoad, String exerName,
 			Localizer localizer, TempFilesManager tempMan) {
@@ -63,6 +78,16 @@ class SubmissionDataStatsGiverTestingView<E extends ExerciseData, S extends Subm
 		return getViewFor(toUse, localizer);
 	}
 
+	/**
+	 * Constructs and returns a new {@link SubmissionDataStatsGiverTestingView}.
+	 * 
+	 * @param backingDataColl
+	 *            {@link SubmDataStatHelper}-helper class holding needed data
+	 *            and the actual {@link SubmissionStatisticsGiver}
+	 * @param localizer
+	 *            {@link Localizer} for localizing the UI
+	 * @return newly constructed {@link SubmissionDataStatsGiverTestingView}
+	 */
 	private static <E extends ExerciseData, S extends SubmissionInfo> SubmissionDataStatsGiverTestingView<E, S> getViewFor(
 			SubmDataStatHelper<E, S> backingDataColl, Localizer localizer) {
 
@@ -73,6 +98,15 @@ class SubmissionDataStatsGiverTestingView<E extends ExerciseData, S extends Subm
 	private final SubmDataStatHelper<E, S> backingDataColl;
 	private final Localizer localizer;
 
+	/**
+	 * Conscructs a new {@link SubmissionDataStatsGiverTestingView}.
+	 * 
+	 * @param main
+	 *            {@link Localizer} for localizing the UI
+	 * @param backingDataColl
+	 *            {@link SubmDataStatHelper} holding the actual data used in
+	 *            this view
+	 */
 	private SubmissionDataStatsGiverTestingView(Localizer main,
 			SubmDataStatHelper<E, S> backingDataColl) {
 
@@ -84,6 +118,9 @@ class SubmissionDataStatsGiverTestingView<E extends ExerciseData, S extends Subm
 		doLayout();
 	}
 
+	/**
+	 * Loads the layout for this view
+	 */
 	private void doLayout() {
 		setMargin(true);
 		setSpacing(true);

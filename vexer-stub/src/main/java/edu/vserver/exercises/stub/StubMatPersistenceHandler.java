@@ -15,12 +15,35 @@ import edu.vserver.standardutils.AFFile;
 import edu.vserver.standardutils.AbstractFile;
 import edu.vserver.standardutils.Util;
 
+/**
+ * Stub-implementation for scoped material saving and loading (
+ * {@link ByRefSaver} and {@link ByRefLoader}).
+ * 
+ * 
+ * 
+ * @author Riku Haavisto
+ * 
+ */
 public class StubMatPersistenceHandler implements ByRefSaver, ByRefLoader {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1432351237084696903L;
 
 	private final String matScope;
 	private final Set<String> regToBeSaved = new HashSet<String>();
 	private final boolean inSaveMode;
 
+	/**
+	 * Constructs a new {@link StubMatPersistenceHandler} and initializes it to
+	 * use certain matScope-folder.
+	 * 
+	 * @param matScope
+	 *            path to folder to be used as material-scope
+	 * @param inSaveMode
+	 *            whether to allow saving by reference or not
+	 */
 	StubMatPersistenceHandler(String matScope, boolean inSaveMode) {
 		this.matScope = matScope;
 		this.inSaveMode = inSaveMode;
@@ -70,6 +93,11 @@ public class StubMatPersistenceHandler implements ByRefSaver, ByRefLoader {
 		}
 	}
 
+	/**
+	 * This method attempts to clean-up all the saved material-files that have
+	 * become obsolete (were not saved when the exercise-instance was last
+	 * saved).
+	 */
 	void cleanupObsoleteFiles() {
 		if (!inSaveMode) {
 			throw new IllegalStateException("Not in save mode!");
@@ -87,7 +115,8 @@ public class StubMatPersistenceHandler implements ByRefSaver, ByRefLoader {
 		}
 	}
 
-	// this is used only as a marker class
+	// this is used only as a marker class to know which files have already been
+	// saved to disk
 	private static final class ExistingAFFile extends AFFile {
 
 		public ExistingAFFile(File file) {

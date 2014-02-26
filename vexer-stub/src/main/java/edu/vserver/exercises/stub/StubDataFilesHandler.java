@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 
 import org.apache.commons.io.FileUtils;
 
+import edu.vserver.exercises.model.Editor;
 import edu.vserver.exercises.model.ExerciseData;
 import edu.vserver.exercises.model.ExerciseException;
 import edu.vserver.exercises.model.ExerciseTypeDescriptor;
@@ -21,7 +22,7 @@ import edu.vserver.exercises.model.SubmissionInfo;
 import edu.vserver.standardutils.TempFilesManager;
 
 /**
- * A class handling file operations to store data needed by the stub-versions
+ * A class handling file operations to store data needed by the exercise-stub's
  * persistence layer. Stores and loads {@link ExerciseData}- and
  * {@link SubmissionInfo} -instances. All files are stored inside the folder
  * returned by {@link VilleExerStubUI #getStubResourceBaseDir()}.
@@ -41,15 +42,40 @@ final class StubDataFilesHandler {
 	private static final String matFolderName = "materials";
 
 	private StubDataFilesHandler() {
-
+		// only static methods
 	}
 
+	/**
+	 * Returns the base-directory for storing files belonging to certain
+	 * exercise-type ({@link ExerciseTypeDescriptor}) and certain
+	 * exercise-instance identified by its name.
+	 * 
+	 * @param type
+	 *            {@link ExerciseTypeDescriptor} representing given
+	 *            exercise-type
+	 * @param exerName
+	 *            name (or id) of certain exercise-instance
+	 * @return folder to be used for storing data belonging to certain
+	 *         exercise-type and -instance
+	 */
 	private static String getExerInstanceBaseDir(
 			ExerciseTypeDescriptor<?, ?> type, String exerName) {
 		return StubSessionData.getInstance().getTypeBaseDir(type)
 				+ File.separatorChar + exerName;
 	}
 
+	/**
+	 * Returns a folder for storing submission-data files for certain
+	 * exercise-instance of certain exercise-type.
+	 * 
+	 * @param type
+	 *            {@link ExerciseTypeDescriptor} representing given
+	 *            exercise-type
+	 * @param exerName
+	 *            name (or id) of certain exercise-instance
+	 * @return folder to be used for storing submission-data belonging to
+	 *         certain exercise-type and -instance
+	 */
 	private static String getSubmBaseDir(ExerciseTypeDescriptor<?, ?> type,
 			String exerName) {
 		return StubSessionData.getInstance().getTypeBaseDir(type)
@@ -57,24 +83,71 @@ final class StubDataFilesHandler {
 				+ submDirName;
 	}
 
+	/**
+	 * Returns path to be used for storing the serialized {@link ExerciseData}
+	 * (not necessarily XML) corresponding to certain exercise-instance of
+	 * certain exercise-type.
+	 * 
+	 * @param type
+	 *            {@link ExerciseTypeDescriptor} representing given
+	 *            exercise-type
+	 * @param exerName
+	 *            name (or id) of certain exercise-instance
+	 * @return path to store data representing certain exercise-instance of
+	 *         certain exercise-type
+	 */
 	private static String parseCorrXmlPath(ExerciseTypeDescriptor<?, ?> type,
 			String exerName) {
 		return StubSessionData.getInstance().getTypeBaseDir(type)
 				+ File.separator + exerName + File.separator + xmlFileName;
 	}
 
+	/**
+	 * Returns a folder for storing material-files for certain exercise-instance
+	 * of certain exercise-type (the "material-scope")
+	 * 
+	 * @param type
+	 *            {@link ExerciseTypeDescriptor} representing given
+	 *            exercise-type
+	 * @param exerName
+	 *            name (or id) of certain exercise-instance
+	 * @return folder to be used for storing material-files belonging to certain
+	 *         exercise-type and -instance
+	 */
 	private static String parseCorrMatScope(ExerciseTypeDescriptor<?, ?> type,
 			String exerName) {
 		return StubSessionData.getInstance().getTypeBaseDir(type)
 				+ File.separator + exerName + File.separator + matFolderName;
 	}
 
+	/**
+	 * Returns path to be used for storing description corresponding to certain
+	 * exercise-instance of certain exercise-type.
+	 * 
+	 * @param type
+	 *            {@link ExerciseTypeDescriptor} representing given
+	 *            exercise-type
+	 * @param exerName
+	 *            name (or id) of certain exercise-instance
+	 * @return path to store description for certain exercise-instance of
+	 *         certain exercise-type
+	 */
 	private static String getDescPath(ExerciseTypeDescriptor<?, ?> type,
 			String exerName) {
 		return getExerInstanceBaseDir(type, exerName) + File.separator
 				+ descFileName;
 	}
 
+	/**
+	 * Initializes the folder hierarchy for certain exercise-instance of certain
+	 * exercise-type if the hierarchy does not yet exist.
+	 * 
+	 * @param type
+	 *            {@link ExerciseTypeDescriptor} corresponding to used
+	 *            exercise-type
+	 * @param exerName
+	 *            name (or id) of certain exercise-instance
+	 */
 	private static void createIfNeededExerInstanceFolderStructure(
 			ExerciseTypeDescriptor<?, ?> type, String exerName) {
 
@@ -101,6 +174,16 @@ final class StubDataFilesHandler {
 
 	}
 
+	/**
+	 * Loads names of all the exercise-instances that are present in currently
+	 * used stub-resources-folder for certain exercise-type.
+	 * 
+	 * @param type
+	 *            {@link ExerciseTypeDescriptor} for exercise-type for which to
+	 *            find existing exercise-instances
+	 * @return names of all currently existing exercise-instances for certain
+	 *         exercise-type
+	 */
 	public static List<String> getPresentExerInstances(
 			ExerciseTypeDescriptor<?, ?> type) {
 		ArrayList<String> res = new ArrayList<String>();
@@ -119,6 +202,15 @@ final class StubDataFilesHandler {
 		return res;
 	}
 
+	/**
+	 * Deletes an exercise-instance and all the data belonging to it.
+	 * 
+	 * @param type
+	 *            {@link ExerciseTypeDescriptor} of the exercise-type of the
+	 *            exercise to delete
+	 * @param exerName
+	 *            name of the exercise-instance to delete
+	 */
 	public static void deleteExerInstance(ExerciseTypeDescriptor<?, ?> type,
 			String exerName) {
 		String instanceBasePath = getExerInstanceBaseDir(type, exerName);
@@ -128,6 +220,19 @@ final class StubDataFilesHandler {
 		}
 	}
 
+	/**
+	 * Loads the bytes storing the {@link SubmissionInfo} that was last made to
+	 * certain exercise-instance of certain exercise-type. This method is mainly
+	 * useful for loading the actual bytes stored, so that the user can inspect
+	 * them through stub-UI to see whether there is something odd in them.
+	 * 
+	 * @param type
+	 *            {@link ExerciseTypeDescriptor} of exercise-type to load
+	 * @param exerName
+	 *            name (or id) of the exercise-instance
+	 * @return bytes stored from latest {@link SubmissionInfo} made to given
+	 *         exercise-instance
+	 */
 	public static byte[] loadLatestBareSubmInfo(
 			ExerciseTypeDescriptor<?, ?> type, String exerName) {
 
@@ -149,9 +254,8 @@ final class StubDataFilesHandler {
 			File submDataFile = new File(fileToLoadPath);
 			if (submDataFile.exists()) {
 				submDataPres = FileUtils.readFileToByteArray(submDataFile);
-				// TODO FIXME
 				res = StatisticalSubmInfoSerializer.INSTANCE
-						.loadOnlySubmDataForInspecting(submDataPres, false);
+						.loadOnlySubmDataForInspecting(submDataPres);
 
 			}
 
@@ -168,6 +272,21 @@ final class StubDataFilesHandler {
 
 	}
 
+	/**
+	 * Loads the latest {@link SubmissionInfo} made to certain exercise instance
+	 * and casts it to correct class (type parameter S).
+	 * 
+	 * @param submDataClass
+	 *            actual class {@link Class} to use for {@link SubmissionInfo}
+	 * @param type
+	 *            {@link ExerciseTypeDescriptor} of the used exercise-type
+	 * @param exerName
+	 *            name (or id) of the used exercise-instance
+	 * @param tempManager
+	 *            {@link TempFilesManager} for managing temporary files
+	 * @return {@link SubmissionInfo} of correct type S that was last made to
+	 *         given exercise-instance
+	 */
 	public static <S extends SubmissionInfo> S loadLatestSubmInfo(
 			Class<S> submDataClass, ExerciseTypeDescriptor<?, S> type,
 			String exerName, TempFilesManager tempManager) {
@@ -214,6 +333,19 @@ final class StubDataFilesHandler {
 
 	}
 
+	/**
+	 * Writes the given {@link StatisticalSubmissionInfo} object in serialized
+	 * form to the disck to correct path.
+	 * 
+	 * @param type
+	 *            {@link ExerciseTypeDescriptor} for the exercise-type used
+	 * @param exerName
+	 *            name (or id) of the exercise-instance to use
+	 * @param submInfo
+	 *            {@link StatisticalSubmissionInfo} to write to disk
+	 * @param tempManager
+	 *            {@link TempFilesManager} used
+	 */
 	public static <S extends SubmissionInfo> void writeSubmToDisk(
 			ExerciseTypeDescriptor<?, S> type, String exerName,
 			StatisticalSubmissionInfo<S> submInfo, TempFilesManager tempManager) {
@@ -236,6 +368,15 @@ final class StubDataFilesHandler {
 		}
 	}
 
+	/**
+	 * Finds the largest number that is currently used as a file name in certain
+	 * folder.
+	 * 
+	 * @param fromFolder
+	 *            folder in which files are stored using ascending numbers as
+	 *            names
+	 * @return largest number currently in use as a file name in given folder
+	 */
 	private static int getLargestUsedOrderNum(File fromFolder) {
 		int largestUsed = 0;
 		if (!(fromFolder.exists() && fromFolder.isDirectory())) {
@@ -260,10 +401,27 @@ final class StubDataFilesHandler {
 		return largestUsed;
 	}
 
+	/**
+	 * Finds the next number that can safely be used as a file name in a folder
+	 * where files are named with ascending numbers.
+	 * 
+	 * @param fromFolder
+	 *            from which folder to look for next free order number
+	 * @return next free number in given folder
+	 */
 	private static int getNextFreeOrderNum(File fromFolder) {
 		return getLargestUsedOrderNum(fromFolder) + 1;
 	}
 
+/**
+	 * Loads all submissions made to certain exercise-instance.
+	 * 
+	 * @param type {@link ExerciseTypeDescriptor) representing the used exercise-type
+	 * @param exerName name (or id) of the used exercise-instance
+	 * @param submDataType {@link Class} of the used {@link SubmissionInfo}
+	 * @param tempManager {@link TempFilesManager} for managing temporary files
+	 * @return all the {@link StatisticalSubmissionInfo}-objects representing submissions made to certain exercise-instance
+	 */
 	public static <S extends SubmissionInfo> List<StatisticalSubmissionInfo<S>> loadAllSubmissions(
 			ExerciseTypeDescriptor<?, S> type, String exerName,
 			Class<S> submDataType, TempFilesManager tempManager) {
@@ -319,6 +477,17 @@ final class StubDataFilesHandler {
 
 	}
 
+	/**
+	 * Casts a {@link StatisticalSubmissionInfo} to correct type parameter S of
+	 * the correct {@link SubmissionInfo}-implementor.
+	 * 
+	 * @param submDataClass
+	 *            {@link Class} of correct {@link SubmissionInfo}
+	 * @param genInfo
+	 *            a generic {@link StatisticalSubmissionInfo} to be casted
+	 * @return {@link StatisticalSubmissionInfo} casted to use correct
+	 *         type-parameter S
+	 */
 	private static <S extends SubmissionInfo> StatisticalSubmissionInfo<S> castSubminfo(
 			Class<S> submDataClass, StatisticalSubmissionInfo<?> genInfo) {
 		return new StatisticalSubmissionInfo<S>(genInfo.getTimeOnTask(),
@@ -326,6 +495,22 @@ final class StubDataFilesHandler {
 				submDataClass.cast(genInfo.getSubmissionData()));
 	}
 
+	/**
+	 * Saves a new exercise-instance to disk
+	 * 
+	 * @param type
+	 *            {@link ExerciseTypeDescriptor} for used exercise-type
+	 * @param exerInfo
+	 *            {@link GeneralExerciseInfo} containing name and description
+	 *            for the exercise to be saved
+	 * @param dataToSave
+	 *            {@link ExerciseData} object containing the actual exercise
+	 *            data to be serialized and saved
+	 * @param tempManager
+	 *            {@link TempFilesManager} for handling temporary files
+	 * @throws ExerciseException
+	 *             if something goes wrong when saving the exercise-instance
+	 */
 	public static <E extends ExerciseData> void saveExerStream(
 			ExerciseTypeDescriptor<E, ?> type, GeneralExerciseInfo exerInfo,
 			E dataToSave, TempFilesManager tempManager)
@@ -362,6 +547,15 @@ final class StubDataFilesHandler {
 		}
 	}
 
+	/**
+	 * Loads the description from disk to certain exercise-instance.
+	 * 
+	 * @param type
+	 *            {@link ExerciseTypeDescriptor} for exercise-type used
+	 * @param exerName
+	 *            name (or id) of the exercise-instance
+	 * @return description of the given exercise-instance
+	 */
 	public static String getExerDescription(ExerciseTypeDescriptor<?, ?> type,
 			String exerName) {
 		String res = "";
@@ -385,8 +579,28 @@ final class StubDataFilesHandler {
 		return res;
 	}
 
+	/**
+	 * Loads a serialized data of an exercise-instance and parses it to correct
+	 * {@link ExerciseData}-object
+	 * 
+	 * @param exerTypeDataClass
+	 *            {@link Class}-file representing the correct
+	 *            {@link ExerciseData}-implementor
+	 * @param persistenceHandler
+	 *            {@link PersistenceHandler} to be used for parsing the
+	 *            serialized data to {@link ExerciseData}-object
+	 * @param type
+	 *            {@link ExerciseTypeDescriptor} for exercise-type to use
+	 * @param exerName
+	 *            name (or id) of the exercise-instance to use
+	 * @param tempManager
+	 *            {@link TempFilesManager} to handle temporary files
+	 * @return parsed {@link ExerciseData}-object, or null if the {@link Editor}
+	 *         is to be loaded for editing a new exercise
+	 */
 	public static <E extends ExerciseData, S extends SubmissionInfo> E loadExerDataForEditor(
-			Class<E> exerTypeDataClass, PersistenceHandler<E, S> xmlHandler,
+			Class<E> exerTypeDataClass,
+			PersistenceHandler<E, S> persistenceHandler,
 			ExerciseTypeDescriptor<?, ?> type, String exerName,
 			TempFilesManager tempManager) {
 		E res = null;
@@ -402,8 +616,8 @@ final class StubDataFilesHandler {
 		if ((new File(pathToData)).exists()) {
 
 			try {
-				res = loadExerTypeData(exerTypeDataClass, xmlHandler, type,
-						exerName, tempManager);
+				res = loadExerTypeData(exerTypeDataClass, persistenceHandler,
+						type, exerName, tempManager);
 			} catch (ExerciseException e) {
 				// Should this be reported to user ; at least in a notification
 				// that creating new because the old exercise could not be
@@ -418,8 +632,30 @@ final class StubDataFilesHandler {
 		return res;
 	}
 
+	/**
+	 * Loads a serialized data of an exercise-instance and parses it to correct
+	 * {@link ExerciseData}-object. Opposed to the
+	 * {@link #loadExerDataForEditor(Class, PersistenceHandler, ExerciseTypeDescriptor, String, TempFilesManager)
+	 * loadExerDataForEditor()} this method is meant to be used only when the
+	 * exercise-data should exist.
+	 * 
+	 * @param exerTypeDataClass
+	 *            {@link Class}-file representing the correct
+	 *            {@link ExerciseData}-implementor
+	 * @param persistenceHandler
+	 *            {@link PersistenceHandler} to be used for parsing the
+	 *            serialized data to {@link ExerciseData}-object
+	 * @param type
+	 *            {@link ExerciseTypeDescriptor} for exercise-type to use
+	 * @param exerName
+	 *            name (or id) of the exercise-instance to use
+	 * @param tempManager
+	 *            {@link TempFilesManager} to handle temporary files
+	 * @return parsed {@link ExerciseData}-object
+	 */
 	public static <E extends ExerciseData, S extends SubmissionInfo> E loadExerTypeData(
-			Class<E> exerTypeDataClass, PersistenceHandler<E, S> xmlHandler,
+			Class<E> exerTypeDataClass,
+			PersistenceHandler<E, S> persistenceHandler,
 			ExerciseTypeDescriptor<?, ?> type, String exerName,
 			TempFilesManager tempManager) throws ExerciseException {
 		E res = null;
@@ -430,7 +666,8 @@ final class StubDataFilesHandler {
 		try {
 			dataPres = FileUtils.readFileToByteArray(new File(pathToData));
 
-			res = xmlHandler.loadExerData(dataPres, tempManager, matLoader);
+			res = persistenceHandler.loadExerData(dataPres, tempManager,
+					matLoader);
 		} catch (FileNotFoundException e) {
 			throw new ExerciseException(
 					ExerciseException.ErrorType.EXERCISE_XML_NOT_FOUND,
@@ -444,6 +681,17 @@ final class StubDataFilesHandler {
 
 	}
 
+	/**
+	 * Loads the bytes stored for certain exercise-instace. This method is
+	 * mainly useful for loading the bytes so that user of the stub can inspect
+	 * them straight from the stub-UI.
+	 * 
+	 * @param type
+	 *            {@link ExerciseTypeDescriptor} of the used exercise-type
+	 * @param exerName
+	 *            name (or id) of the exercise-instance
+	 * @return bytes storing the data of certain exercise-instance
+	 */
 	public static byte[] loadExerTypeData(ExerciseTypeDescriptor<?, ?> type,
 			String exerName) {
 		String pathToData = parseCorrXmlPath(type, exerName);

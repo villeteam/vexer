@@ -7,7 +7,8 @@ import com.vaadin.server.Resource;
 import edu.vserver.standardutils.StandardIcon;
 
 /**
- * A stub-class containing some info purely for testing purposes.
+ * A stub-class containing some mock values to be used when testing exercises
+ * without having the actual info.
  * 
  * @author Riku Haavisto
  * 
@@ -24,17 +25,25 @@ class TestStubDescription implements Serializable {
 	private TestStubDescription() {
 	}
 
+	/**
+	 * @return string to use as test-description
+	 */
 	public String getDescription() {
 		return "Description";
 	}
 
+	/**
+	 * @return icon to use as test-icon
+	 */
 	public Resource getIcon() {
 		return StandardIcon.EDIT_ICON_SMALL.getIcon();
 	}
 
+	/**
+	 * @return string to use as test-name
+	 */
 	public String getName() {
 		return "Name";
-
 	}
 
 }

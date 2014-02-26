@@ -38,6 +38,22 @@ class SubmissionVisualizerTestingView<E extends ExerciseData, S extends Submissi
 
 	private static final long serialVersionUID = 2019222167594454557L;
 
+	/**
+	 * Constructs a new {@link SubmissionVisualizerTestingView} to test
+	 * implementors of {@link SubmissionVisualizer}. When using this
+	 * factory-method no explicit type-parameters are needed.
+	 * 
+	 * @param toLoad
+	 *            {@link ExerciseTypeDescriptor} for the exercise-type for which
+	 *            to load the {@link SubmissionVisualizer}
+	 * @param exerName
+	 *            name (or id) of the exercise-instance to load
+	 * @param localizer
+	 *            {@link Localizer} for localizing the UI
+	 * @param tempMan
+	 *            {@link TempFilesManager} for managing temporary files
+	 * @return newly constructed {@link SubmissionVisualizerTestingView}
+	 */
 	public static SubmissionVisualizerTestingView<?, ?> getViewFor(
 			ExerciseTypeDescriptor<?, ?> toLoad, String exerName,
 			Localizer localizer, TempFilesManager tempMan) {
@@ -54,6 +70,16 @@ class SubmissionVisualizerTestingView<E extends ExerciseData, S extends Submissi
 		return getViewFor(toUse, localizer);
 	}
 
+	/**
+	 * Constructs a new {@link SubmissionVisualizerTestingView} for given
+	 * {@link SubmissionVisualizer}
+	 * 
+	 * @param visualizer
+	 *            {@link SubmissionVisualizer} to use
+	 * @param localizer
+	 *            {@link Localizer} for localizing the UI
+	 * @return the loaded {@link SubmissionVisualizerTestingView}
+	 */
 	private static <E extends ExerciseData, S extends SubmissionInfo> SubmissionVisualizerTestingView<E, S> getViewFor(
 			SubmissionVisualizer<E, S> visualizer, Localizer localizer) {
 
@@ -63,6 +89,15 @@ class SubmissionVisualizerTestingView<E extends ExerciseData, S extends Submissi
 	private final SubmissionVisualizer<E, S> visualizer;
 	private final Localizer localizer;
 
+	/**
+	 * Constructs a new {@link SubmissionVisualizerTestingView} for the given
+	 * {@link SubmissionVisualizer}
+	 * 
+	 * @param main
+	 *            {@link Localizer} for localizing the UI
+	 * @param visualizer
+	 *            {@link SubmissionVisualizer} to use
+	 */
 	private SubmissionVisualizerTestingView(Localizer main,
 			SubmissionVisualizer<E, S> visualizer) {
 
@@ -74,6 +109,9 @@ class SubmissionVisualizerTestingView<E extends ExerciseData, S extends Submissi
 		doLayout();
 	}
 
+	/**
+	 * Draws the UI
+	 */
 	private void doLayout() {
 		setMargin(true);
 		setSpacing(true);

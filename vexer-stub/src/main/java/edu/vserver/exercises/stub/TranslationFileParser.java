@@ -7,12 +7,30 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.logging.Logger;
 
-public class TranslationFileParser {
+/**
+ * A class wrapping the actual parsing of contents of an Ville-translation
+ * (.trl) file.
+ * 
+ * @author Riku Haavisto
+ * 
+ */
+public final class TranslationFileParser {
 
 	private static final String keyConstant = "@key:";
 	private static final String splitter = ":";
 	private static final String prefixSplitter = ".";
 
+	/**
+	 * Static method for parsing list of strings from a .trl-file and prefixing
+	 * all the translations with given prefix.
+	 * 
+	 * @param prefix
+	 *            prefix or namespace to use for this set of translations
+	 * @param trlFileLines
+	 *            lines of a .trl-file that will be parsed
+	 * @return a map from language specifier strings to maps of (prefixed)
+	 *         key-translation -pairs
+	 */
 	public static Map<String, Map<String, String>> parseTranslationFile(
 			String prefix, List<String> trlFileLines) {
 		TranslationFileParser actParser = new TranslationFileParser();
@@ -26,23 +44,30 @@ public class TranslationFileParser {
 
 	= new HashMap<String, Map<String, String>>();;
 
+	private final List<String> allIsoLangs = Arrays.asList(Locale
+			.getISOLanguages());
+
 	private String currKey = "";
 	private String currOpenTranslationLang = "";
 	private String currOpenTranslation = "";
 	private String currPrefix = "";
 
-	public TranslationFileParser() {
-
+	// just use the static method
+	private TranslationFileParser() {
 	}
 
-	public void clear() {
-		dictsByLang.clear();
-		currKey = "";
-		currOpenTranslation = "";
-		currOpenTranslationLang = "";
-		currPrefix = "";
-	}
-
+	/**
+	 * Method for looping through the lines of a Ville-translation file and
+	 * parsing all the keys and translations it contains and returning them as a
+	 * map.
+	 * 
+	 * @param prefix
+	 *            namespace or prefix to be added to all translation-keys
+	 * @param lines
+	 *            lines of the Ville-translation file to load
+	 * @return a map from language specifier strings to maps of (prefixed)
+	 *         key-translation -pairs
+	 */
 	public Map<String, Map<String, String>> parseFile(String prefix,
 			List<String> lines) {
 
@@ -71,7 +96,7 @@ public class TranslationFileParser {
 				currOpenTranslationLang = "";
 				currOpenTranslation = "";
 			}
-			// breaks the current translation
+			// breaks the current translation but not the current key
 			// only way to start a new translation, is to start by lang-tag
 			else if (currLine.matches("^@\\w+:.*$")) {
 				addCurrOpenTranslation();
@@ -97,13 +122,18 @@ public class TranslationFileParser {
 
 	}
 
+	/**
+	 * Adds the currently open key-translation pair to the map of known
+	 * translations. State is not cleared as it depends on the reason for adding
+	 * the open-translation to map (ie. whether translation language or
+	 * translation key changed).
+	 */
 	private void addCurrOpenTranslation() {
 
 		if (!"".equals(currOpenTranslationLang) && !"".equals(currKey)
 				&& !"".equals(currOpenTranslation)) {
 
-			if (Arrays.binarySearch(Locale.getISOLanguages(),
-					currOpenTranslationLang) < 0) {
+			if (!allIsoLangs.contains(currOpenTranslationLang)) {
 				throw new IllegalStateException(
 						"Not a valid ISO-language-code: "
 								+ currOpenTranslationLang);
@@ -132,6 +162,8 @@ public class TranslationFileParser {
 		}
 	}
 
+	// TODO: it would probably be a good idea to implement some simple
+	// format-checking...
 	private static boolean checkLineFormat(String line) {
 		return true;
 	}

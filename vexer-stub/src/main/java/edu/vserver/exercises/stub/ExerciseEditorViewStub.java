@@ -38,6 +38,18 @@ class ExerciseEditorViewStub<E extends ExerciseData> extends VerticalLayout {
 
 	private final EditorHelperStubImpl<E> genInfoEditor;
 
+	/**
+	 * Constructs a new {@link ExerciseEditorViewStub}.
+	 * 
+	 * @param toLoad
+	 *            {@link ExerciseTypeDescriptor} for the exercise for which the
+	 *            load the editor
+	 * @param info
+	 *            {@link GeneralExerciseInfo} name and description of the
+	 *            exercise
+	 * @param localizer
+	 *            {@link Localizer} for localizing the UI
+	 */
 	public ExerciseEditorViewStub(final ExerciseTypeDescriptor<E, ?> toLoad,
 			GeneralExerciseInfo info, final Localizer localizer) {
 
@@ -60,7 +72,7 @@ class ExerciseEditorViewStub<E extends ExerciseData> extends VerticalLayout {
 							toLoad.newExerciseXML(), toLoad, exerName,
 							tempManager), genInfoEditor);
 		} catch (ExerciseException e) {
-			// TODO FIXME this should be shown to user probably somehow ...
+			// this should maybe be shown directly to user of the stub
 			logger.log(Level.SEVERE, "Failed loading editor-view", e);
 		}
 
@@ -124,6 +136,21 @@ class ExerciseEditorViewStub<E extends ExerciseData> extends VerticalLayout {
 		return new ExerciseEditorViewStub<E>(controller, info, localizer);
 	}
 
+	/**
+	 * Constructs and returns a new {@link ExerciseEditorViewStub} with given
+	 * parameters.
+	 * 
+	 * @param toLoad
+	 *            {@link ExerciseTypeDescriptor} for the exercise for which the
+	 *            load the editor
+	 * 
+	 * @param info
+	 *            {@link GeneralExerciseInfo} name and description of the
+	 *            exercise
+	 * @param localizer
+	 *            {@link Localizer} for localizing the UI
+	 * @return newly constructed {@link ExerciseEditorViewStub}
+	 */
 	public static ExerciseEditorViewStub<?> getViewFor(
 			ExerciseTypeDescriptor<?, ?> toLoad, GeneralExerciseInfo info,
 			Localizer localizer) {

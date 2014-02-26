@@ -6,7 +6,13 @@ import org.json.JSONObject;
 
 import edu.vserver.standardutils.ui.DynamicStyles.StyleSettings;
 
-public class StubStyleSettings implements StyleSettings {
+/**
+ * Stub-implementor for {@link StyleSettings}
+ * 
+ * @author Erkki Kaila, Riku Haavisto
+ * 
+ */
+class StubStyleSettings implements StyleSettings {
 
 	/* colors */
 	private String backgroundColor;

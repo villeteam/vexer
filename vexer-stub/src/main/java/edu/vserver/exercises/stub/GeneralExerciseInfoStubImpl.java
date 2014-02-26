@@ -18,6 +18,15 @@ class GeneralExerciseInfoStubImpl implements GeneralExerciseInfo {
 	private final String name;
 	private final String desc;
 
+	/**
+	 * Construct a new {@link GeneralExerciseInfoStubImpl} with given name and
+	 * description
+	 * 
+	 * @param name
+	 *            name for the exercise
+	 * @param desc
+	 *            description for the exercise
+	 */
 	public GeneralExerciseInfoStubImpl(String name, String desc) {
 		this.name = name;
 		this.desc = desc;

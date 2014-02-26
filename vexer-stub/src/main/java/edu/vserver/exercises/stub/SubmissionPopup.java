@@ -18,7 +18,7 @@ import edu.vserver.standardutils.StandardUIFactory;
 /**
  * A pop-up view imitating the view presented for student in real ViLLE after a
  * successful submission. This view might also contain a feedback component if
- * such is present if {@link SubmissionResult} returned from the
+ * such is present in {@link SubmissionResult} returned from the
  * {@link Executor}.
  * 
  * @author Riku Haavisto
