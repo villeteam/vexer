@@ -6,16 +6,16 @@ import com.vaadin.ui.Layout;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
-import edu.vserver.exercises.helpers.ExerciseExecutionHelper;
-import edu.vserver.exercises.model.ExecutionSettings;
-import edu.vserver.exercises.model.ExecutionState;
-import edu.vserver.exercises.model.ExecutionStateChangeListener;
-import edu.vserver.exercises.model.Executor;
-import edu.vserver.exercises.model.ExerciseException;
-import edu.vserver.exercises.model.SubmissionListener;
-import edu.vserver.exercises.model.SubmissionType;
-import edu.vserver.standardutils.Localizer;
-import edu.vserver.standardutils.TempFilesManager;
+import fi.utu.ville.exercises.helpers.ExerciseExecutionHelper;
+import fi.utu.ville.exercises.model.ExecutionSettings;
+import fi.utu.ville.exercises.model.ExecutionState;
+import fi.utu.ville.exercises.model.ExecutionStateChangeListener;
+import fi.utu.ville.exercises.model.Executor;
+import fi.utu.ville.exercises.model.ExerciseException;
+import fi.utu.ville.exercises.model.SubmissionListener;
+import fi.utu.ville.exercises.model.SubmissionType;
+import fi.utu.ville.standardutils.Localizer;
+import fi.utu.ville.standardutils.TempFilesManager;
 
 public class ${VilleJavaClassPrefix}Executor extends VerticalLayout implements
 		Executor<${VilleJavaClassPrefix}ExerciseData, ${VilleJavaClassPrefix}SubmissionInfo> {

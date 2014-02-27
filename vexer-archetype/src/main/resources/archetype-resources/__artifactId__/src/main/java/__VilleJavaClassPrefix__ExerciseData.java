@@ -1,7 +1,7 @@
 package ${package};
 
-import edu.vserver.exercises.model.ExerciseData;
-import edu.vserver.standardutils.AbstractFile;
+import fi.utu.ville.exercises.model.ExerciseData;
+import fi.utu.ville.standardutils.AbstractFile;
 
 public class ${VilleJavaClassPrefix}ExerciseData implements ExerciseData {
 

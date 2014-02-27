@@ -8,14 +8,14 @@ import com.vaadin.ui.Layout;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
-import edu.vserver.exercises.model.Editor;
-import edu.vserver.exercises.model.EditorHelper;
-import edu.vserver.exercises.model.EditorHelper.EditedExerciseGiver;
-import edu.vserver.standardutils.AFFile;
-import edu.vserver.standardutils.AbstractFile;
-import edu.vserver.standardutils.Localizer;
-import edu.vserver.standardutils.SimpleFileUploader;
-import edu.vserver.standardutils.SimpleFileUploader.UploaderListener;
+import fi.utu.ville.exercises.model.Editor;
+import fi.utu.ville.exercises.model.EditorHelper;
+import fi.utu.ville.exercises.model.EditorHelper.EditedExerciseGiver;
+import fi.utu.ville.standardutils.AFFile;
+import fi.utu.ville.standardutils.AbstractFile;
+import fi.utu.ville.standardutils.Localizer;
+import fi.utu.ville.standardutils.SimpleFileUploader;
+import fi.utu.ville.standardutils.SimpleFileUploader.UploaderListener;
 
 public class ${VilleJavaClassPrefix}Editor extends HorizontalLayout implements
 		Editor<${VilleJavaClassPrefix}ExerciseData> {

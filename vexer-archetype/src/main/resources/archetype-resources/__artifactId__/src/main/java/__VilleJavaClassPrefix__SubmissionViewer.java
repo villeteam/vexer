@@ -4,10 +4,10 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 
-import edu.vserver.exercises.model.ExerciseException;
-import edu.vserver.exercises.model.SubmissionVisualizer;
-import edu.vserver.standardutils.Localizer;
-import edu.vserver.standardutils.TempFilesManager;
+import fi.utu.ville.exercises.model.ExerciseException;
+import fi.utu.ville.exercises.model.SubmissionVisualizer;
+import fi.utu.ville.standardutils.Localizer;
+import fi.utu.ville.standardutils.TempFilesManager;
 
 public class ${VilleJavaClassPrefix}SubmissionViewer extends VerticalLayout implements
 		SubmissionVisualizer<${VilleJavaClassPrefix}ExerciseData, ${VilleJavaClassPrefix}SubmissionInfo> {

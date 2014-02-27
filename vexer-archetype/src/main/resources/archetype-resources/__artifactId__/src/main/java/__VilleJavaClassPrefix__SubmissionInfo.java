@@ -1,6 +1,6 @@
 package ${package};
 
-import edu.vserver.exercises.model.SubmissionInfo;
+import fi.utu.ville.exercises.model.SubmissionInfo;
 
 public class ${VilleJavaClassPrefix}SubmissionInfo implements SubmissionInfo {
 

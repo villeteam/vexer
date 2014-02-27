@@ -2,12 +2,12 @@ package ${package};
 
 import com.vaadin.server.Resource;
 
-import edu.vserver.exercises.helpers.GsonPersistenceHandler;
-import edu.vserver.exercises.model.ExerciseTypeDescriptor;
-import edu.vserver.exercises.model.PersistenceHandler;
-import edu.vserver.exercises.model.SubmissionStatisticsGiver;
-import edu.vserver.exercises.model.SubmissionVisualizer;
-import edu.vserver.standardutils.Localizer;
+import fi.utu.ville.exercises.helpers.GsonPersistenceHandler;
+import fi.utu.ville.exercises.model.ExerciseTypeDescriptor;
+import fi.utu.ville.exercises.model.PersistenceHandler;
+import fi.utu.ville.exercises.model.SubmissionStatisticsGiver;
+import fi.utu.ville.exercises.model.SubmissionVisualizer;
+import fi.utu.ville.standardutils.Localizer;
 
 public class ${VilleJavaClassPrefix}Descriptor implements
 		ExerciseTypeDescriptor<${VilleJavaClassPrefix}ExerciseData, ${VilleJavaClassPrefix}SubmissionInfo> {

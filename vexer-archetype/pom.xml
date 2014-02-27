@@ -3,7 +3,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <parent>
-    <groupId>edu.vserver.exercises</groupId>
+    <groupId>fi.utu.ville.exercises</groupId>
     <artifactId>vexer</artifactId>
     <version>0.0.4-SNAPSHOT</version>
   </parent>	

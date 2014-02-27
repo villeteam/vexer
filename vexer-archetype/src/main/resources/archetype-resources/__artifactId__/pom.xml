@@ -63,12 +63,12 @@
 
 	<dependencies>
         <dependency>
-            <groupId>edu.vserver.exercises</groupId>
+            <groupId>fi.utu.ville.exercises</groupId>
             <artifactId>vexer-model</artifactId>
             <version>\${vexer.version}</version>
         </dependency>	
         <dependency>
-            <groupId>edu.vserver.exercises</groupId>
+            <groupId>fi.utu.ville.exercises</groupId>
             <artifactId>vexer-helpers</artifactId>
             <version>\${vexer.version}</version>
         </dependency>	

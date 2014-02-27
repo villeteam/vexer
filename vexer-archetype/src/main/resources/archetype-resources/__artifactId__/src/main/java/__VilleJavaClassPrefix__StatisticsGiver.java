@@ -6,12 +6,12 @@ import java.util.List;
 
 import com.vaadin.ui.Component;
 
-import edu.vserver.exercises.model.ExerciseException;
-import edu.vserver.exercises.model.StatisticalSubmissionInfo;
-import edu.vserver.exercises.model.StatisticsInfoColumn;
-import edu.vserver.exercises.model.SubmissionStatisticsGiver;
-import edu.vserver.standardutils.Localizer;
-import edu.vserver.standardutils.TempFilesManager;
+import fi.utu.ville.exercises.model.ExerciseException;
+import fi.utu.ville.exercises.model.StatisticalSubmissionInfo;
+import fi.utu.ville.exercises.model.StatisticsInfoColumn;
+import fi.utu.ville.exercises.model.SubmissionStatisticsGiver;
+import fi.utu.ville.standardutils.Localizer;
+import fi.utu.ville.standardutils.TempFilesManager;
 
 public class ${VilleJavaClassPrefix}StatisticsGiver implements
 	SubmissionStatisticsGiver<${VilleJavaClassPrefix}ExerciseData, ${VilleJavaClassPrefix}SubmissionInfo> {
