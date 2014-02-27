@@ -138,7 +138,7 @@ public abstract class VilleExerStubUI extends UI {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private static Set<Class<?>> findPotentialClasses() {
 		logger.info("No exer-types to load were explicitly set");
-		logger.info("Trying to find exer-types from classpath with package edu.vserver.*");
+		logger.info("Trying to find exer-types from classpath with package fi.utu.ville.*");
 
 		Reflections reflections = new Reflections("fi.utu.ville");
 
