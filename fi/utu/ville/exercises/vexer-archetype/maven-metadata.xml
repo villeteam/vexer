@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>fi.utu.ville.exercises</groupId>
+  <artifactId>vexer-archetype</artifactId>
+  <versioning>
+    <versions>
+      <version>0.0.4-SNAPSHOT</version>
+    </versions>
+    <lastUpdated>20140227101003</lastUpdated>
+  </versioning>
+</metadata>
