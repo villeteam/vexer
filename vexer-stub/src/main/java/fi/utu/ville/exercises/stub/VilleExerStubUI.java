@@ -140,7 +140,7 @@ public abstract class VilleExerStubUI extends UI {
 		logger.info("No exer-types to load were explicitly set");
 		logger.info("Trying to find exer-types from classpath with package fi.utu.ville.*");
 
-		Reflections reflections = new Reflections("fi.utu.ville");
+		Reflections reflections = new Reflections("fi.utu.ville", "edu.vserver");
 
 		Set<Class<? extends ExerciseTypeDescriptor>> subTypes = reflections
 				.getSubTypesOf(ExerciseTypeDescriptor.class);
