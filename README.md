@@ -15,16 +15,16 @@ Project is licensed under MIT-license (see LICENSE.txt).
 2. On command line, navigate to the directory you want the ville-exercise-type project to be created in
 3. Run:
 
-    mvn archetype:generate -DarchetypeGroupId=edu.vserver.exercises -DarchetypeArtifactId=vexer-archetype 
+    mvn archetype:generate -DarchetypeGroupId=fi.utu.ville.exercises -DarchetypeArtifactId=vexer-archetype 
     -DarchetypeVersion=0.0.4-SNAPSHOT -DarchetypeRepository=https://raw.github.com/villeteam/vexer/mvn-repo/
 
 4. After a while you will be asked to provide some information, namely:
-    - groupId: you can use "edu.vserver.exercises"
+    - groupId: you can use "fi.utu.ville.exercises"
     - archetypeId: you can but anything here when testing (eg. "testexer");
       if you were to seriously start developing a new Ville-exercise, please
       contact VilleTeam for to ensure that your artifactId is unique
     - version: some version number ( the suggested 1.0-SNAPSHOT is fine)
-    - package: you can use "edu.vserver.exercises.artifactId you used"
+    - package: you can use "fi.utu.ville.exercises.artifactId you used"
     - VilleJavaClassPrefix: if you for example used testexer for artifactId you can use TestExer here
 
 5. Change working directory to the newly generated directory (named after artifactId you used)
@@ -64,9 +64,8 @@ Project is licensed under MIT-license (see LICENSE.txt).
 ## NOTES
 You can of course use any of your Maven and IDE -skills to set up the project in a different manner.
 A few points you should notice:
-- Exercise types are at the moment looked automatically only from packages starting with edu.vserver, 
+- Exercise types are at the moment looked automatically only from packages starting with fi.utu.ville, 
     if you use some other package for your exercise-type, you must override VilleExerStubUI's method
     getTypesToLoad() in generated {package}.stub.StubUI in {artifactId}-stub module
 - As we hit a more stable state with the project we will hopefully be migrating the artifacts
-    to some other place than github, this might include changing the groupId as edu.vserver is 
-    not really our domain-name but just a name that we have been using internally
+    to some other place than github...
