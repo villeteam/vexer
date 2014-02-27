@@ -155,7 +155,7 @@
  <p>You can also select whether exercise is executed in normal or exam mode. 
  This is only needed in special cases.</p>
  <p>Used VilleexercisestubTestUI is by default located in
- test/edu.vserver.exercises.stub.test -folder.</p>
+ test/fi.utu.ville.exercises.stub.test -folder.</p>
 
 @key:STUB_TEST_BUTTONS_INFO
 @en:<p>Here you can test your implementors for different aspects of

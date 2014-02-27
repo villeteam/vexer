@@ -22,7 +22,7 @@
 	<context-param>
 		<description>Exer-types to load</description>
 	    <param-name>typesToLoad</param-name>
-	    <param-value>edu.vserver.exercises.template.TemplateTypeDescriptor</param-value>
+	    <param-value>fi.utu.ville.exercises.template.TemplateTypeDescriptor</param-value>
 	</context-param>
 	-->
 	

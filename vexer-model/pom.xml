@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <parent>
-        <groupId>edu.vserver.exercises</groupId>
+        <groupId>fi.utu.ville.exercises</groupId>
         <artifactId>vexer</artifactId>
         <version>0.0.4-SNAPSHOT</version>
     </parent>		
@@ -13,7 +13,7 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>edu.vserver</groupId>
+			<groupId>fi.utu.ville</groupId>
 			<artifactId>ville-standardutils</artifactId> 
 			<version>${standardutils.version}</version>
 		</dependency>
