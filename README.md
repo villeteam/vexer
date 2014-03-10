@@ -16,18 +16,18 @@ Project is licensed under MIT-license (see LICENSE.txt).
 3. Run:
 
     mvn archetype:generate -DarchetypeGroupId=fi.utu.ville.exercises -DarchetypeArtifactId=vexer-archetype 
-    -DarchetypeVersion=0.0.4-SNAPSHOT -DarchetypeRepository=https://raw.github.com/villeteam/vexer/mvn-repo/
+    -DarchetypeVersion=0.0.5-SNAPSHOT -DarchetypeRepository=https://raw.github.com/villeteam/vexer/mvn-repo/
 
 4. After a while you will be asked to provide some information, namely:
     - groupId: you can use "fi.utu.ville.exercises"
-    - archetypeId: you can but anything here when testing (eg. "testexer");
+    - artifactId: you can use anything here when testing (eg. "testexer");
       if you were to seriously start developing a new Ville-exercise, please
-      contact VilleTeam for to ensure that your artifactId is unique
+      contact VilleTeam to ensure that your artifactId is unique
     - version: some version number ( the suggested 1.0-SNAPSHOT is fine)
-    - package: you can use "fi.utu.ville.exercises.artifactId you used"
+    - package: you can use "fi.utu.ville.exercises.'artifactId you used'"
     - VilleJavaClassPrefix: if you for example used testexer for artifactId you can use TestExer here
 
-5. Change working directory to the newly generated directory (named after artifactId you used)
+5. Change working directory to the newly generated directory (named after 'artifactId you used')
 6. Run:
 
     mvn install
@@ -45,18 +45,19 @@ Project is licensed under MIT-license (see LICENSE.txt).
 0. Complete the steps in "give it a test run"
 1. You'll find the Java source files for the generated Ville-exercise type 
     in folder "installation dir"/"artifactId/"artifactId"/src/main/java
-2. Compile the classes after you have made changed to directory 
-    "installation dir"/"artifactId"/"artifactId"/target/classes by 
-    (for example) running:
+2. Compile the classes after you have made changes. Compiled .class files must 
+    go to "installation dir"/"artifactId"/"artifactId"/target/classes . You can 
+    do this (for example) by running:
     
     mvn compile ( in dir "installation dir"/"artifactId"/"artifactId" )
 
-3. The Jetty-server should be configured in such a way, that you can leave it running and 
-    it should pick up any changes you make to your source files 
+3. The Jetty-server should be configured in such a way, that you can leave it running 
+    and it should pick up any changes after compilation of source files to .class files
+    is done
 
 4. Start using some IDE as this will definetely speed-up Java development
     - To import the generated project to Eclipse you can use "File>Import>Existing Maven Projects", 
-      then selecting as root directory "installation dir"/"artifactId" and pressing "Finish" 
+      then select as root directory "installation dir"/"artifactId" and press "Finish" 
     - There are lots of resources on the internet on integrating Maven to different IDEs
     - You can still leave Jetty running in the background, and it should pick up changes you
       make to Java-sources through an IDE once the IDE has compiled the sources
