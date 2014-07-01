@@ -2,6 +2,8 @@ package fi.utu.ville.exercises.helpers;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.util.Hashtable;
+import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -12,7 +14,6 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
-
 import fi.utu.ville.exercises.model.ExerciseData;
 import fi.utu.ville.exercises.model.ExerciseException;
 import fi.utu.ville.exercises.model.ExerciseTypeDescriptor;
@@ -57,6 +58,7 @@ implements PersistenceHandler<E, S> {
 
 	private final Class<E> exerDataClass;
 	private final Class<S> submInfoClass;
+	private final Hashtable<Type, Object> typeAdapters = new Hashtable<>();
 
 	/**
 	 * Generates a new {@link GsonPersistenceHandler} that can be returned from
@@ -80,11 +82,7 @@ implements PersistenceHandler<E, S> {
 	@Override
 	public byte[] saveExerData(E etd, TempFilesManager tempManager,
 			ByRefSaver refSaver) throws ExerciseException {
-		GsonBuilder gsonBuilder = new GsonBuilder();
-		ByRefSerializer brSer = new ByRefSerializer(refSaver);
-
-		gsonBuilder.registerTypeAdapter(AbstractFile.class, brSer);
-
+		GsonBuilder gsonBuilder = getGsonSaver(refSaver);
 		Gson ser = gsonBuilder.create();
 		String json = ser.toJson(etd);
 		try {
@@ -100,10 +98,7 @@ implements PersistenceHandler<E, S> {
 			ByRefLoader refLoader) throws ExerciseException {
 		try {
 			String src = new String(dataPres, "UTF-8");
-			GsonBuilder gsonBuilder = new GsonBuilder();
-			ByRefDeserializer brSer = new ByRefDeserializer(refLoader);
-
-			gsonBuilder.registerTypeAdapter(AbstractFile.class, brSer);
+			GsonBuilder gsonBuilder = getGsonLoader(refLoader);
 
 			Gson ser = gsonBuilder.create();
 			E res = ser.fromJson(src, exerDataClass);
@@ -140,6 +135,40 @@ implements PersistenceHandler<E, S> {
 			throw new IllegalStateException("UTF-8 missing", e);
 		}
 	}
+	
+	/**
+	 * Registers a type adapter to use with Json conversion. If a type isn't converted or loaded from
+	 * Json properly this method can be used to register a type adapter for said type.
+	 * @param type type to register the adapter to
+	 * @param typeAdapter typeadapter to use. This object must implement at least one of the InstanceCreator, 
+	 * JsonSerializer, and a JsonDeserializer interfaces.
+	 */
+	public void registerTypeAdapter(Type type, Object typeAdapter) {
+		typeAdapters.put(type,typeAdapter);
+	}
+
+	private GsonBuilder getGsonLoader(ByRefLoader refLoader) {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		ByRefDeserializer brSer = new ByRefDeserializer(refLoader);
+		gsonBuilder.registerTypeAdapter(AbstractFile.class, brSer);
+		registerCustomAdapters(gsonBuilder);
+		return gsonBuilder;
+	}
+	
+	private GsonBuilder getGsonSaver(ByRefSaver refSaver) {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		ByRefSerializer brSer = new ByRefSerializer(refSaver);
+		gsonBuilder.registerTypeAdapter(AbstractFile.class, brSer);
+		registerCustomAdapters(gsonBuilder);
+		return gsonBuilder;
+	}
+	
+	private void registerCustomAdapters(GsonBuilder builder) {
+		for(Map.Entry<Type, Object> adapter : typeAdapters.entrySet()) {
+			builder.registerTypeAdapter(adapter.getKey(), adapter.getValue());
+		}
+	}
+	
 
 	/**
 	 * {@link JsonSerializer}-implementor that can be used to automatically save
@@ -164,7 +193,6 @@ implements PersistenceHandler<E, S> {
 			try {
 				refStr = refSaver.saveByReference(src);
 			} catch (ExerciseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			return new JsonPrimitive(refStr);
@@ -198,7 +226,6 @@ implements PersistenceHandler<E, S> {
 			try {
 				res = refLoader.loadByReference(json.getAsString());
 			} catch (ExerciseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			return res;
