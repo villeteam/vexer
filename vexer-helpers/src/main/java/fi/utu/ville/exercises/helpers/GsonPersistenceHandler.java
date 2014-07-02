@@ -14,6 +14,8 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
+import com.google.gson.TypeAdapter;
+
 import fi.utu.ville.exercises.model.ExerciseData;
 import fi.utu.ville.exercises.model.ExerciseException;
 import fi.utu.ville.exercises.model.ExerciseTypeDescriptor;
@@ -40,6 +42,11 @@ import fi.utu.ville.standardutils.TempFilesManager;
  * {@link SubmissionInfo} classes comply to {@link Gson}-requirements).
  * </p>
  * 
+ * <p>
+ * For fields that are not Gson-convertable, {@link TypeHandler} can be registered
+ * to handle the field.
+ * </p>
+ * 
  * @author Riku Haavisto
  * 
  * @param <E>
@@ -58,7 +65,7 @@ implements PersistenceHandler<E, S> {
 
 	private final Class<E> exerDataClass;
 	private final Class<S> submInfoClass;
-	private final Hashtable<Type, Object> typeAdapters = new Hashtable<>();
+	private final Hashtable<Type, Object> typeAdapters = new Hashtable<Type, Object>();
 
 	/**
 	 * Generates a new {@link GsonPersistenceHandler} that can be returned from
@@ -77,6 +84,17 @@ implements PersistenceHandler<E, S> {
 	public GsonPersistenceHandler(Class<E> exerDataClass, Class<S> submInfoClass) {
 		this.exerDataClass = exerDataClass;
 		this.submInfoClass = submInfoClass;
+	}
+	
+	/**
+	 * Registers a type adapter to use with Json conversion. If a type isn't converted or loaded from
+	 * Json properly this method can be used to register a type adapter for said type.
+	 * @param type type to register the adapter to
+	 * @param typeAdapter typeadapter to use. This object must implement at least one of the InstanceCreator, 
+	 * JsonSerializer, and a JsonDeserializer interfaces.
+	 */
+	public void registerTypeAdapter(Type type, Object typeAdapter) {
+		typeAdapters.put(type,typeAdapter);
 	}
 
 	@Override
@@ -134,17 +152,6 @@ implements PersistenceHandler<E, S> {
 			// Won't happen
 			throw new IllegalStateException("UTF-8 missing", e);
 		}
-	}
-	
-	/**
-	 * Registers a type adapter to use with Json conversion. If a type isn't converted or loaded from
-	 * Json properly this method can be used to register a type adapter for said type.
-	 * @param type type to register the adapter to
-	 * @param typeAdapter typeadapter to use. This object must implement at least one of the InstanceCreator, 
-	 * JsonSerializer, and a JsonDeserializer interfaces.
-	 */
-	public void registerTypeAdapter(Type type, Object typeAdapter) {
-		typeAdapters.put(type,typeAdapter);
 	}
 
 	private GsonBuilder getGsonLoader(ByRefLoader refLoader) {
