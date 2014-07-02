@@ -664,7 +664,7 @@ class StubStartView extends VerticalLayout {
 			submissionViewer.setEnabled(true);
 			statsViewer.setEnabled(true);
 
-			Button delInstance = new Button(null);
+			Button delInstance = new Button();
 
 			delInstance.setDescription(StubState.getCurrent()
 					.getCurrResourceGiver()

@@ -541,8 +541,8 @@ public class StatSubmInfoFilterEditor<S extends SubmissionInfo> implements
 		private final List<FilterEditorView<B>> children = new ArrayList<FilterEditorView<B>>();
 
 		// extra buttons
-		private final Button addEditorBtn = new Button(null);
-		private final Button groupToConnectorBtn = new Button(null);
+		private final Button addEditorBtn = new Button();
+		private final Button groupToConnectorBtn = new Button();
 
 		// direct access to filter-connector editor ( no need to do castings
 		// that often...), this is just casted 'theEditor'
@@ -951,11 +951,11 @@ public class StatSubmInfoFilterEditor<S extends SubmissionInfo> implements
 		protected boolean ctrlMinified;
 
 		// buttons
-		private final Button remButton = new Button(null);
-		private final Button editButton = new Button(null);
-		private final Button invertButton = new Button(null);
+		private final Button remButton = new Button();
+		private final Button editButton = new Button();
+		private final Button invertButton = new Button();
 
-		protected final Button minMaxCtrlBtn = new Button(null);
+		protected final Button minMaxCtrlBtn = new Button();
 
 		// layouts
 		protected final HorizontalLayout mainStateView = new HorizontalLayout();

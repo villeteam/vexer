@@ -45,7 +45,7 @@ class StubStartSectionTitle extends HorizontalLayout {
 		titleLabel.setSizeUndefined();
 		addComponent(titleLabel);
 
-		Button showHelp = new Button(null);
+		Button showHelp = new Button();
 		showHelp.setIcon(StandardIcon.INFO.getIcon());
 		showHelp.setStyleName(BaseTheme.BUTTON_LINK);
 
