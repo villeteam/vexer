@@ -7,6 +7,7 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
+import fi.utu.ville.exercises.model.VilleUI;
 import fi.utu.ville.exercises.model.Editor;
 import fi.utu.ville.exercises.model.ExerciseData;
 import fi.utu.ville.exercises.model.ExerciseException;
@@ -67,7 +68,8 @@ class ExerciseEditorViewStub<E extends ExerciseData> extends VerticalLayout {
 		Editor<E> generalEditor = toLoad.newExerciseEditor();
 
 		try {
-			generalEditor.initialize(localizer, StubDataFilesHandler
+			// TODO: quick fix passes null instead of an actual VilleUI
+			generalEditor.initialize(null, localizer, StubDataFilesHandler
 					.loadExerDataForEditor(toLoad.getTypeDataClass(),
 							toLoad.newExerciseXML(), toLoad, exerName,
 							tempManager), genInfoEditor);

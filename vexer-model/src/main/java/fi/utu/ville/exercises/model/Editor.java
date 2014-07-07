@@ -39,7 +39,9 @@ public interface Editor<E extends ExerciseData> extends Serializable {
 	/**
 	 * Iniates the editor. If called with null as oldData, the implementor
 	 * creates a new default {@link ExerciseData} as the base for the object.
-	 * 
+	 * @param ui
+	 *			  {@link VilleUI} making it possible to push other views the editor
+	 *			  creates to the stack.
 	 * @param localizer
 	 *            {@link Localizer} making it possible to localize UI
 	 * @param oldData
@@ -50,7 +52,7 @@ public interface Editor<E extends ExerciseData> extends Serializable {
 	 *            environment-dependent aspects of editing an exercise; also
 	 *            contains method for fetching {@link TempFilesManager}
 	 */
-	void initialize(Localizer localizer, E oldData, EditorHelper<E> editorHelper)
+	void initialize(VilleUI ui, Localizer localizer, E oldData, EditorHelper<E> editorHelper)
 			throws ExerciseException;
 
 }

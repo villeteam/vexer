@@ -1,5 +1,7 @@
 package fi.utu.ville.exercises.helpers;
 
+import fi.utu.ville.exercises.model.VilleUI;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -269,7 +271,7 @@ public final class ExerTypeVoidImplCollection {
 		}
 
 		@Override
-		public void initialize(Localizer localizer, VoidExerciseData oldData,
+		public void initialize(VilleUI villeUI, Localizer localizer, VoidExerciseData oldData,
 				EditorHelper<VoidExerciseData> genExerInfoEditor)
 				throws ExerciseException {
 			doLayout(genExerInfoEditor);
