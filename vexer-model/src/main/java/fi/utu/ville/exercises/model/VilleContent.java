@@ -1,14 +1,19 @@
 package fi.utu.ville.exercises.model;
 
 import com.vaadin.ui.VerticalLayout;
+import fi.utu.ville.exercises.model.VilleUI;
 
 public abstract class VilleContent extends VerticalLayout {
 
 	private static final long serialVersionUID = 1L;
-	private final VilleUI ui;
+	private VilleUI ui;
 
 	public VilleContent(VilleUI ui) {
-		this.ui = ui;
+		init(ui);
+	}
+
+	public void init(VilleUI ui) {
+		this.ui = ui; 
 	}
 
 	public abstract void doLayout();

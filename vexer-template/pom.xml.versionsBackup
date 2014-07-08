@@ -4,19 +4,14 @@
     <parent>
         <groupId>fi.utu.ville.exercises</groupId>
         <artifactId>vexer</artifactId>
-        <version>0.0.8-SNAPSHOT</version>
-    </parent>		
+        <version>0.0.7-SNAPSHOT</version>
+    </parent>	
     <modelVersion>4.0.0</modelVersion>
-	<artifactId>vexer-stub</artifactId>
+	<artifactId>vexer-template</artifactId>
 	<packaging>jar</packaging>
-	<name>Ville-plugin-exercise Stub</name>
+	<name>Ville-plugin-exercise Template</name>
 
 	<dependencies>
-		<dependency>
-			<groupId>fi.utu.ville</groupId>
-			<artifactId>ville-standardutils</artifactId> 
-			<version>${standardutils.version}</version>
-		</dependency>
 		<dependency>
 			<groupId>fi.utu.ville.exercises</groupId>
 			<artifactId>vexer-model</artifactId>
@@ -26,22 +21,6 @@
 			<groupId>fi.utu.ville.exercises</groupId>
 			<artifactId>vexer-helpers</artifactId>
 			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.reflections</groupId>
-			<artifactId>reflections</artifactId>
-			<version>0.9.9-RC1</version>
-		</dependency>
-		
-		<dependency>
-		<groupId>org.apache.poi</groupId>
-		<artifactId>poi</artifactId>
-		<version>3.9</version>
-		</dependency>
-		<dependency>
-   			<groupId>org.vaadin.addons</groupId>
-   			<artifactId>tableexport</artifactId>
-   			<version>1.4.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.vaadin</groupId>
@@ -54,11 +33,12 @@
 			<version>${vaadin.version}</version>
 			<scope>provided</scope>
 		</dependency>
+		
+		<!-- vexer-testutils for testing -->
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>3.0.1</version>
-			<scope>provided</scope>
+			<groupId>fi.utu.ville.exercises</groupId>
+			<artifactId>vexer-testutils</artifactId>
+			<version>${project.version}</version>
 		</dependency>
 		
 		<!-- This can be replaced with TestNG or some other test framework supported by the surefire plugin -->
@@ -88,7 +68,7 @@
 							<!-- Package format version - do not change -->
 							<Vaadin-Package-Version>1</Vaadin-Package-Version>
 							<Vaadin-License-Title>MIT</Vaadin-License-Title>
-							<Vaadin-Stylesheets>VAADIN/themes/vexer-stub/vexer-stub.scss</Vaadin-Stylesheets>
+							<Vaadin-Stylesheets>VAADIN/themes/vexer-template/vexer-template.scss</Vaadin-Stylesheets>
 						</manifestEntries>
 					</archive>
 				</configuration>
@@ -121,6 +101,16 @@
 					</execution>
 				</executions>
 			</plugin>
+
+            <!-- no need to deploy, only for local testing  -->
+            <plugin>
+                <groupId>com.github.github</groupId>
+                <artifactId>site-maven-plugin</artifactId>
+                <version>0.9</version>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
 
 			<!-- Testing -->
 			<plugin>
