@@ -16,7 +16,7 @@ Project is licensed under MIT-license (see LICENSE.txt).
 3. Run:
 
     mvn archetype:generate -DarchetypeGroupId=fi.utu.ville.exercises -DarchetypeArtifactId=vexer-archetype 
-    -DarchetypeVersion=0.0.5-SNAPSHOT -DarchetypeRepository=https://raw.github.com/villeteam/vexer/mvn-repo/
+    -DarchetypeVersion=0.0.9-SNAPSHOT -DarchetypeRepository=https://raw.github.com/villeteam/vexer/mvn-repo/
 
 4. After a while you will be asked to provide some information, namely:
     - groupId: you can use "fi.utu.ville.exercises"
