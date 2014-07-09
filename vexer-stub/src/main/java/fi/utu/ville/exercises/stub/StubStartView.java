@@ -26,6 +26,7 @@ import com.vaadin.ui.themes.BaseTheme;
 
 import fi.utu.ville.exercises.model.ExecutionSettings;
 import fi.utu.ville.exercises.model.ExerciseTypeDescriptor;
+import fi.utu.ville.exercises.model.VilleUI;
 import fi.utu.ville.standardutils.Localizer;
 import fi.utu.ville.standardutils.StandardIcon;
 import fi.utu.ville.standardutils.StandardUIFactory;
@@ -83,6 +84,8 @@ class StubStartView extends VerticalLayout {
 	private final NativeSelect localesToTest = new NativeSelect();
 
 	private final NativeSelect execSettings = new NativeSelect();
+
+	private VilleUI ui;
 
 	public StubStartView() {
 
@@ -250,7 +253,7 @@ class StubStartView extends VerticalLayout {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				getUI().setContent(
-						ExerciseEditorViewStub.getViewFor(StubState
+						ExerciseEditorViewStub.getViewFor(ui, StubState
 								.getCurrent().getCurrDesc(),
 								new GeneralExerciseInfoStubImpl(StubState
 										.getCurrent().getCurrExerName(), ""),

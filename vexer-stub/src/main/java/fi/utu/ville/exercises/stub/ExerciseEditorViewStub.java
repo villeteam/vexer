@@ -5,9 +5,7 @@ import java.util.logging.Logger;
 
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
-import com.vaadin.ui.VerticalLayout;
 
-import fi.utu.ville.exercises.model.VilleUI;
 import fi.utu.ville.exercises.model.Editor;
 import fi.utu.ville.exercises.model.ExerciseData;
 import fi.utu.ville.exercises.model.ExerciseException;
@@ -15,6 +13,8 @@ import fi.utu.ville.exercises.model.ExerciseSaveListener;
 import fi.utu.ville.exercises.model.ExerciseTypeDescriptor;
 import fi.utu.ville.exercises.model.GeneralExerciseInfo;
 import fi.utu.ville.exercises.model.PersistenceHandler;
+import fi.utu.ville.exercises.model.VilleContent;
+import fi.utu.ville.exercises.model.VilleUI;
 import fi.utu.ville.standardutils.Localizer;
 import fi.utu.ville.standardutils.TestTempFilesManager;
 
@@ -28,7 +28,7 @@ import fi.utu.ville.standardutils.TestTempFilesManager;
  * @param <E>
  *            {@link ExerciseData}-implementor to be edited
  */
-class ExerciseEditorViewStub<E extends ExerciseData> extends VerticalLayout {
+class ExerciseEditorViewStub<E extends ExerciseData> extends VilleContent {
 
 	private static final Logger logger = Logger
 			.getLogger(ExerciseEditorViewStub.class.getName());
@@ -51,9 +51,10 @@ class ExerciseEditorViewStub<E extends ExerciseData> extends VerticalLayout {
 	 * @param localizer
 	 *            {@link Localizer} for localizing the UI
 	 */
-	public ExerciseEditorViewStub(final ExerciseTypeDescriptor<E, ?> toLoad,
+	public ExerciseEditorViewStub(VilleUI ui,
+			final ExerciseTypeDescriptor<E, ?> toLoad,
 			GeneralExerciseInfo info, final Localizer localizer) {
-
+		super(ui);
 		setWidth("100%");
 		setMargin(true);
 
@@ -133,9 +134,9 @@ class ExerciseEditorViewStub<E extends ExerciseData> extends VerticalLayout {
 	}
 
 	private static <E extends ExerciseData> ExerciseEditorViewStub<E> getView(
-			ExerciseTypeDescriptor<E, ?> controller, GeneralExerciseInfo info,
-			Localizer localizer) {
-		return new ExerciseEditorViewStub<E>(controller, info, localizer);
+			VilleUI ui, ExerciseTypeDescriptor<E, ?> controller,
+			GeneralExerciseInfo info, Localizer localizer) {
+		return new ExerciseEditorViewStub<E>(ui, controller, info, localizer);
 	}
 
 	/**
@@ -153,15 +154,27 @@ class ExerciseEditorViewStub<E extends ExerciseData> extends VerticalLayout {
 	 *            {@link Localizer} for localizing the UI
 	 * @return newly constructed {@link ExerciseEditorViewStub}
 	 */
-	public static ExerciseEditorViewStub<?> getViewFor(
+	public static ExerciseEditorViewStub<?> getViewFor(VilleUI ui,
 			ExerciseTypeDescriptor<?, ?> toLoad, GeneralExerciseInfo info,
 			Localizer localizer) {
-		return getView(toLoad, info, localizer);
+		return getView(ui, toLoad, info, localizer);
 	}
 
 	@Override
 	public void detach() {
 		super.detach();
 		tempManager.shutdown();
+	}
+
+	@Override
+	public void doLayout() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public boolean isOkToExit() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 }
