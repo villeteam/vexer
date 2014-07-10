@@ -125,7 +125,7 @@ class SubmissionVisualizerTestingView<E extends ExerciseData, S extends Submissi
 			// Add panels to layout
 			addComponent(visualizer.getView());
 
-			addComponent(StandardUIFactory.getHr());
+			// addComponent(StandardUIFactory.getHr());
 
 			Label exportTitle = new Label(
 					localizer.getUIText(StubUiConstants.EXPORT_OUTPUT));
@@ -139,7 +139,7 @@ class SubmissionVisualizerTestingView<E extends ExerciseData, S extends Submissi
 			exportLabel.setId(submVisualizerTestExportLabel);
 			addComponent(exportLabel);
 		} else {
-			this.addComponent(StandardUIFactory.getErrorPanel(localizer
+			this.addComponent(StandardUIFactory.getWarningPanel(localizer
 					.getUIText(StubUiConstants.NO_SUBMISSIONS_TO_VISUALIZE)));
 		}
 

@@ -22,13 +22,12 @@ import com.vaadin.ui.Panel;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
-import com.vaadin.ui.themes.BaseTheme;
 
 import fi.utu.ville.exercises.model.ExecutionSettings;
 import fi.utu.ville.exercises.model.ExerciseTypeDescriptor;
 import fi.utu.ville.exercises.model.VilleUI;
 import fi.utu.ville.standardutils.Localizer;
-import fi.utu.ville.standardutils.StandardIcon;
+import fi.utu.ville.standardutils.StandardIcon.Icon;
 import fi.utu.ville.standardutils.StandardUIFactory;
 import fi.utu.ville.standardutils.TestTempFilesManager;
 
@@ -114,23 +113,23 @@ class StubStartView extends VerticalLayout {
 		execSettings.setCaption(localizer
 				.getUIText(StubUiConstants.EXEC_SETTINGS_SEL_CAPT));
 
-		student = StandardUIFactory.getDefaultButton(
+		student = StandardUIFactory.getButton(
 				localizer.getUIText(StubUiConstants.TEST_EXECUTOR), null);
-		editor = StandardUIFactory.getDefaultButton(
+		editor = StandardUIFactory.getButton(
 				localizer.getUIText(StubUiConstants.TEST_EDITOR), null);
-		submissionViewer = StandardUIFactory.getDefaultButton(
+		submissionViewer = StandardUIFactory.getButton(
 				localizer.getUIText(StubUiConstants.TEST_SUBM_VIEWER), null);
-		statsViewer = StandardUIFactory.getDefaultButton(
+		statsViewer = StandardUIFactory.getButton(
 				localizer.getUIText(StubUiConstants.TEST_STATS_VIEWER), null);
-		reloadLangFiles = StandardUIFactory.getDefaultButton(
+		reloadLangFiles = StandardUIFactory.getButton(
 				localizer.getUIText(StubUiConstants.RELOAD_LANG_FILES), null);
-		deleteFiles = StandardUIFactory.getDefaultButton(
+		deleteFiles = StandardUIFactory.getButton(
 				localizer.getUIText(StubUiConstants.DELETE_DATA_FILES), null);
-		restartStub = StandardUIFactory.getDefaultButton("restart-stub", null);
+		restartStub = StandardUIFactory.getButton("restart-stub", null);
 
-		inspectCurrExerData = StandardUIFactory.getDefaultButton(
+		inspectCurrExerData = StandardUIFactory.getButton(
 				"Inspect generated exer-data", null);
-		inspectCurrSubmInfo = StandardUIFactory.getDefaultButton(
+		inspectCurrSubmInfo = StandardUIFactory.getButton(
 				"Inspect generated submission-info", null);
 
 		localesToTest.setNullSelectionAllowed(false);
@@ -359,7 +358,7 @@ class StubStartView extends VerticalLayout {
 			}
 		});
 
-		Button listIcons = StandardUIFactory.getDefaultButton(
+		Button listIcons = StandardUIFactory.getButton(
 				localizer.getUIText(StubUiConstants.LIST_STANDARD_ICONS), null);
 
 		listIcons.addClickListener(new Button.ClickListener() {
@@ -667,15 +666,12 @@ class StubStartView extends VerticalLayout {
 			submissionViewer.setEnabled(true);
 			statsViewer.setEnabled(true);
 
-			Button delInstance = new Button();
+			Button delInstance = StandardUIFactory.getButton("Delete",
+					Icon.DELETE);
 
 			delInstance.setDescription(StubState.getCurrent()
 					.getCurrResourceGiver()
 					.getUIText(StubUiConstants.DEL_EXER_INSTANCE));
-
-			delInstance.setStyleName(BaseTheme.BUTTON_LINK);
-
-			delInstance.setIcon(StandardIcon.DELETE_ICON.getIcon());
 
 			delInstance.addClickListener(new ClickListener() {
 

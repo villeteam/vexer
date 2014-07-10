@@ -736,7 +736,7 @@ public class StatSubmInfoFilterTable<S extends SubmissionInfo> {
 				final StatisticalSubmissionInfo<S> statSubmInfo,
 				final Localizer localizer) {
 			// TODO localize
-			Button res = StandardUIFactory.getDefaultButton("Show", null);
+			Button res = StandardUIFactory.getButton("Show", null);
 
 			res.addClickListener(new Button.ClickListener() {
 
@@ -769,7 +769,7 @@ public class StatSubmInfoFilterTable<S extends SubmissionInfo> {
 					} catch (ExerciseException e) {
 						e.printStackTrace();
 						layout.addComponent(StandardUIFactory
-								.getErrorPanel("Could not load visualization!"));
+								.getWarningPanel("Could not load visualization!"));
 					}
 
 					popup.setContent(layout);

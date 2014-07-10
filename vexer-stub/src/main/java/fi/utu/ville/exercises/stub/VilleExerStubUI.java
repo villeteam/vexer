@@ -64,7 +64,7 @@ public abstract class VilleExerStubUI extends UI {
 				|| localesToTest.isEmpty()) {
 
 			setContent(StandardUIFactory
-					.getErrorPanel("Types-to-load and locales-to-test must be non-empty, and stub-base-resource-dir not null. <br/>"
+					.getWarningPanel("Types-to-load and locales-to-test must be non-empty, and stub-base-resource-dir not null. <br/>"
 							+ "Types-to-load: "
 							+ typesToLoad
 							+ "; locales-to-test: "

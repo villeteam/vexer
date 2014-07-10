@@ -4,8 +4,6 @@ import java.io.Serializable;
 
 import com.vaadin.server.Resource;
 
-import fi.utu.ville.standardutils.StandardIcon;
-
 /**
  * A stub-class containing some mock values to be used when testing exercises
  * without having the actual info.
@@ -36,7 +34,8 @@ class TestStubDescription implements Serializable {
 	 * @return icon to use as test-icon
 	 */
 	public Resource getIcon() {
-		return StandardIcon.EDIT_ICON_SMALL.getIcon();
+		return null;
+		// return StandardIcon.EDIT_ICON_SMALL.getIcon();
 	}
 
 	/**

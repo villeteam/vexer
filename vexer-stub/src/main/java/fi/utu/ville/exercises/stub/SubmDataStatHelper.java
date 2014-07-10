@@ -294,7 +294,7 @@ public class SubmDataStatHelper<E extends ExerciseData, S extends SubmissionInfo
 			List<Button> res = new ArrayList<Button>();
 			for (int i = 0; i < answers.size(); i++) {
 				final int ind = i;
-				Button btn = StandardUIFactory.getDefaultButton(
+				Button btn = StandardUIFactory.getButton(
 						localizer.getUIText(StandardUIConstants.VISUALIZE),
 						null);
 

@@ -9,9 +9,8 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
-import com.vaadin.ui.themes.BaseTheme;
 
-import fi.utu.ville.standardutils.StandardIcon;
+import fi.utu.ville.standardutils.StandardIcon.Icon;
 import fi.utu.ville.standardutils.StandardUIFactory;
 
 /**
@@ -45,9 +44,7 @@ class StubStartSectionTitle extends HorizontalLayout {
 		titleLabel.setSizeUndefined();
 		addComponent(titleLabel);
 
-		Button showHelp = new Button();
-		showHelp.setIcon(StandardIcon.INFO.getIcon());
-		showHelp.setStyleName(BaseTheme.BUTTON_LINK);
+		Button showHelp = StandardUIFactory.getButton("Help", Icon.HELP);
 
 		showHelp.addClickListener(new Button.ClickListener() {
 

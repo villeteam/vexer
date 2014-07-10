@@ -193,10 +193,10 @@ class SubmissionDataStatsGiverTestingView<E extends ExerciseData, S extends Subm
 
 		addComponent(exportExcelBtn);
 
-		addComponent(StandardUIFactory.getHr());
+		// addComponent(StandardUIFactory.getHr());
 
-		Button specViewBtn = StandardUIFactory.getDefaultButton(
-				"spec-stats-view", null);
+		Button specViewBtn = StandardUIFactory.getButton("spec-stats-view",
+				null);
 
 		final Component specView = backingDataColl.getSpecificStatsView();
 

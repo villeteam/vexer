@@ -70,7 +70,7 @@ class ExerciseEditorViewStub<E extends ExerciseData> extends VilleContent {
 
 		try {
 			// TODO: quick fix passes null instead of an actual VilleUI
-			generalEditor.initialize(null, localizer, StubDataFilesHandler
+			generalEditor.initialize(ui, localizer, StubDataFilesHandler
 					.loadExerDataForEditor(toLoad.getTypeDataClass(),
 							toLoad.newExerciseXML(), toLoad, exerName,
 							tempManager), genInfoEditor);

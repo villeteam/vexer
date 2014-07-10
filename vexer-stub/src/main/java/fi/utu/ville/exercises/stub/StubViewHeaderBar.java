@@ -8,7 +8,7 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 
 import fi.utu.ville.standardutils.Localizer;
-import fi.utu.ville.standardutils.StandardIcon;
+import fi.utu.ville.standardutils.StandardIcon.Icon;
 import fi.utu.ville.standardutils.StandardUIFactory;
 
 /**
@@ -42,9 +42,9 @@ public class StubViewHeaderBar extends VerticalLayout {
 		actualLayout.setMargin(true);
 		actualLayout.setSpacing(true);
 
-		Button backToStubStartView = StandardUIFactory.getDefaultButton(
+		Button backToStubStartView = StandardUIFactory.getButton(
 				localizer.getUIText(StubUiConstants.BACK_TO_STUB_START),
-				StandardIcon.BACK_MEDIUM.getIcon());
+				Icon.PREVIOUS);
 
 		backToStubStartView.addClickListener(new Button.ClickListener() {
 
@@ -58,7 +58,8 @@ public class StubViewHeaderBar extends VerticalLayout {
 		});
 		actualLayout.addComponent(backToStubStartView);
 
-		Label infoLabel = StandardUIFactory.getInformationPanel(infoText);
+		HorizontalLayout infoLabel = StandardUIFactory
+				.getInformationPanel(infoText);
 
 		actualLayout.addComponent(infoLabel);
 		actualLayout.setExpandRatio(infoLabel, 1.0f);

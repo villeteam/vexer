@@ -28,8 +28,6 @@ import fi.utu.ville.exercises.model.ExerciseSaveListener;
 import fi.utu.ville.exercises.model.ExerciseTypeDescriptor;
 import fi.utu.ville.exercises.model.GeneralExerciseInfo;
 import fi.utu.ville.standardutils.Localizer;
-import fi.utu.ville.standardutils.StandardIcon;
-import fi.utu.ville.standardutils.StandardUIConstants;
 import fi.utu.ville.standardutils.StandardUIFactory;
 import fi.utu.ville.standardutils.TempFilesManager;
 
@@ -167,15 +165,9 @@ class EditorHelperStubImpl<E extends ExerciseData> implements EditorHelper<E> {
 			HorizontalLayout buttonLayout = new HorizontalLayout();
 			buttonLayout.setSpacing(true);
 
-			saveButton = StandardUIFactory.getDefaultButton(
-					localizer.getUIText(StandardUIConstants.SAVE),
-					StandardIcon.SAVE_ICON.getIcon());
-			testButton = StandardUIFactory.getDefaultButton(
-					localizer.getUIText(StandardUIConstants.TEST),
-					StandardIcon.PREVIEW.getIcon());
-			cancelButton = StandardUIFactory.getDefaultButton(
-					localizer.getUIText(StandardUIConstants.CLOSE),
-					StandardIcon.DELETE_ICON.getIcon());
+			saveButton = StandardUIFactory.getSaveButton(localizer);
+			testButton = StandardUIFactory.getTestButton(localizer);
+			cancelButton = StandardUIFactory.getCloseButton(localizer);
 
 			cancelButton.addClickListener(new Button.ClickListener() {
 

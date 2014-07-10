@@ -1,7 +1,7 @@
 package fi.utu.ville.exercises.stub;
 
-import com.vaadin.ui.Embedded;
 import com.vaadin.ui.GridLayout;
+import com.vaadin.ui.Label;
 
 import fi.utu.ville.standardutils.StandardIcon;
 
@@ -28,9 +28,10 @@ class StandardIconGallery extends GridLayout {
 
 	private void doLayout() {
 
-		for (StandardIcon icon : StandardIcon.values()) {
-			addComponent(new Embedded(icon.name(), icon.getIcon()));
-		}
+		addComponent(new Label("We use Vaadin's font-awesome extension"));
+		// for (StandardIcon icon : StandardIcon.values()) {
+		// addComponent(new Embedded(icon.name(), icon.getIcon()));
+		// }
 
 	}
 }

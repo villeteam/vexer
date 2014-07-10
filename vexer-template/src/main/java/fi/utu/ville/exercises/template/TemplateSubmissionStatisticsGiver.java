@@ -21,9 +21,9 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import fi.utu.ville.exercises.helpers.StatSubmInfoFilterEditor;
-import fi.utu.ville.exercises.helpers.StatSubmInfoFilterTable;
 import fi.utu.ville.exercises.helpers.StatSubmInfoFilterEditor.FilterEditor;
 import fi.utu.ville.exercises.helpers.StatSubmInfoFilterEditor.FilterEditorFactory;
+import fi.utu.ville.exercises.helpers.StatSubmInfoFilterTable;
 import fi.utu.ville.exercises.helpers.StatSubmInfoFilterTable.ShowSubmissionColGenerator;
 import fi.utu.ville.exercises.helpers.StatSubmInfoFilterTable.SubmInfoColumnGenerator;
 import fi.utu.ville.exercises.helpers.StatsGiverHelper.BySubmMatcher;
@@ -186,7 +186,7 @@ public class TemplateSubmissionStatisticsGiver extends VerticalLayout implements
 		centeredLayout.addComponent(genTableEditor.getView());
 		centeredLayout.addComponent(genTable.getStatInfoTableView());
 
-		Button drawAnswLengthTableBtn = StandardUIFactory.getDefaultButton(
+		Button drawAnswLengthTableBtn = StandardUIFactory.getButton(
 				"Draw freq-table", null);
 
 		drawAnswLengthTableBtn.addClickListener(new ClickListener() {
@@ -270,7 +270,8 @@ public class TemplateSubmissionStatisticsGiver extends VerticalLayout implements
 
 		@Override
 		public Resource getFilterIcon() {
-			return StandardIcon.CALCULATOR_MEDIUM.getIcon();
+			return null;
+			// return StandardIcon.CALCULATOR_MEDIUM.getIcon();
 		}
 
 		@Override

@@ -11,7 +11,6 @@ import com.vaadin.ui.Window;
 import fi.utu.ville.exercises.model.Executor;
 import fi.utu.ville.exercises.model.SubmissionResult;
 import fi.utu.ville.standardutils.Localizer;
-import fi.utu.ville.standardutils.StandardIcon;
 import fi.utu.ville.standardutils.StandardUIConstants;
 import fi.utu.ville.standardutils.StandardUIFactory;
 
@@ -70,9 +69,7 @@ class SubmissionPopup extends Window {
 					Alignment.MIDDLE_CENTER);
 		}
 
-		Button close = StandardUIFactory.getDefaultButton(
-				localizer.getUIText(StandardUIConstants.CLOSE),
-				StandardIcon.SUBMIT_ICON.getIcon());
+		Button close = StandardUIFactory.getCloseButton(localizer);
 		close.addClickListener(new Button.ClickListener() {
 
 			private static final long serialVersionUID = 7996549476059355446L;

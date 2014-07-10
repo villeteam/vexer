@@ -42,8 +42,7 @@ import fi.utu.ville.exercises.helpers.StatsGiverHelper.StatSubmInfoFilterConnect
 import fi.utu.ville.exercises.helpers.StatsGiverHelper.TimeOnTaskFilter;
 import fi.utu.ville.exercises.model.SubmissionInfo;
 import fi.utu.ville.standardutils.Localizer;
-import fi.utu.ville.standardutils.StandardIcon;
-import fi.utu.ville.standardutils.StandardUIConstants;
+import fi.utu.ville.standardutils.StandardIcon.Icon;
 import fi.utu.ville.standardutils.StandardUIFactory;
 
 /**
@@ -377,18 +376,15 @@ public class StatSubmInfoFilterEditor<S extends SubmissionInfo> implements
 
 		mainLayout.addComponent(mainLevelPanel);
 
-		hideShowEditorBtn = StandardUIFactory.getDefaultButton("show editor",
-				null);
+		hideShowEditorBtn = StandardUIFactory.getButton("show editor", null);
 
 		hideShowEditorBtn.addClickListener(clickListener);
 
-		clearBtn = StandardUIFactory.getDefaultButton("clear filter",
-				StandardIcon.CLEAR_SMALL.getIcon());
+		clearBtn = StandardUIFactory.getButton("clear filter", null);
 
 		clearBtn.addClickListener(clickListener);
 
-		applyBtn = StandardUIFactory.getDefaultButton("apply filter",
-				StandardIcon.TODO_LIST_SMALL.getIcon());
+		applyBtn = StandardUIFactory.getButton("apply filter", Icon.ATTACH);
 
 		applyBtn.addClickListener(clickListener);
 
@@ -493,7 +489,6 @@ public class StatSubmInfoFilterEditor<S extends SubmissionInfo> implements
 		@Override
 		public Component getMinifiedView() {
 			Image img = new Image();
-			img.setSource(StandardIcon.PARENTHESES_MEDIUM.getIcon());
 			img.setDescription(getFilterStateDesc());
 			return img;
 		}
@@ -577,13 +572,10 @@ public class StatSubmInfoFilterEditor<S extends SubmissionInfo> implements
 				ctrlMinified = false;
 			}
 
-			addEditorBtn.setIcon(StandardIcon.ADD_SMALL.getIcon());
 			addEditorBtn.setDescription("Add editor");
 			addEditorBtn.setStyleName(BaseTheme.BUTTON_LINK);
 			addEditorBtn.addClickListener(this);
 
-			groupToConnectorBtn.setIcon(StandardIcon.PARENTHESES_SMALL
-					.getIcon());
 			groupToConnectorBtn.setDescription("Group to connector");
 			groupToConnectorBtn.setStyleName(BaseTheme.BUTTON_LINK);
 			groupToConnectorBtn.addClickListener(this);
@@ -658,7 +650,6 @@ public class StatSubmInfoFilterEditor<S extends SubmissionInfo> implements
 				controlsLayout.setVisible(false);
 
 				Image img = new Image();
-				img.setSource(StandardIcon.PARENTHESES_MEDIUM.getIcon());
 				String connector = actEditor.getCurrType().connector;
 				String desc = actEditor.getCurrType().name() + ": ( ";
 				for (int i = 0, n = children.size(); i < n; i++) {
@@ -862,7 +853,7 @@ public class StatSubmInfoFilterEditor<S extends SubmissionInfo> implements
 
 			cont.addComponent(selLayout);
 
-			Button okButton = StandardUIFactory.getDefaultButton("OK", null);
+			Button okButton = StandardUIFactory.getOKButton(localizer);
 
 			okButton.addClickListener(new ClickListener() {
 
@@ -1015,7 +1006,6 @@ public class StatSubmInfoFilterEditor<S extends SubmissionInfo> implements
 			minMaxCtrlBtn.setStyleName(BaseTheme.BUTTON_LINK);
 			minMaxCtrlBtn.addClickListener(this);
 
-			remButton.setIcon(StandardIcon.DELETE_ICON.getIcon());
 			remButton.setStyleName(BaseTheme.BUTTON_LINK);
 			remButton.addClickListener(this);
 			if (parent == null) {
@@ -1023,7 +1013,6 @@ public class StatSubmInfoFilterEditor<S extends SubmissionInfo> implements
 				remButton.setVisible(false);
 			}
 
-			editButton.setIcon(StandardIcon.EDIT_ICON_SMALL.getIcon());
 			editButton.setStyleName(BaseTheme.BUTTON_LINK);
 			editButton.addClickListener(this);
 
@@ -1087,22 +1076,18 @@ public class StatSubmInfoFilterEditor<S extends SubmissionInfo> implements
 
 		private void updateMinMaxCrtl() {
 			if (ctrlMinified) {
-				minMaxCtrlBtn.setIcon(StandardIcon.VERY_SMALL_ARROW_UP
-						.getIcon());
+
 				controlsLayout.setVisible(false);
 			} else {
-				minMaxCtrlBtn.setIcon(StandardIcon.VERY_SMALL_ARROW_DOWN
-						.getIcon());
+
 				controlsLayout.setVisible(true);
 			}
 		}
 
 		private void updateInvertedIndicator() {
 			if (inverted) {
-				invertButton.setIcon(StandardIcon.EXCLAM_RED_SMALL.getIcon());
 			} else {
-				invertButton.setIcon(StandardIcon.GREEN_UNDERSCORE_SMALL
-						.getIcon());
+
 			}
 		}
 
@@ -1142,8 +1127,7 @@ public class StatSubmInfoFilterEditor<S extends SubmissionInfo> implements
 			// closing the popup with other methods effectively cancel
 			// any edits done
 
-			Button okButton = StandardUIFactory.getDefaultButton(
-					localizer.getUIText(StandardUIConstants.OK), null);
+			Button okButton = StandardUIFactory.getOKButton(localizer);
 
 			okButton.addClickListener(new ClickListener() {
 
@@ -1226,7 +1210,7 @@ public class StatSubmInfoFilterEditor<S extends SubmissionInfo> implements
 
 		@Override
 		public Resource getFilterIcon() {
-			return StandardIcon.CLOCK_MEDIUM.getIcon();
+			return null;
 		}
 
 		@Override
@@ -1335,7 +1319,8 @@ public class StatSubmInfoFilterEditor<S extends SubmissionInfo> implements
 
 		@Override
 		public Resource getFilterIcon() {
-			return StandardIcon.STAR_MEDIUM.getIcon();
+			return null;
+			// return StandardIcon.STAR_MEDIUM.getIcon();
 		}
 
 		@Override
@@ -1428,7 +1413,8 @@ public class StatSubmInfoFilterEditor<S extends SubmissionInfo> implements
 
 		@Override
 		public Resource getFilterIcon() {
-			return StandardIcon.STOP_WATCH_MEDIUM.getIcon();
+			return null;
+			// return StandardIcon.STOP_WATCH_MEDIUM.getIcon();
 		}
 
 		@Override

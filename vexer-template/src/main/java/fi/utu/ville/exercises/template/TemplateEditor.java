@@ -2,7 +2,6 @@ package fi.utu.ville.exercises.template;
 
 import java.io.File;
 
-import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Layout;
 import com.vaadin.ui.TextField;
@@ -11,13 +10,15 @@ import com.vaadin.ui.VerticalLayout;
 import fi.utu.ville.exercises.model.Editor;
 import fi.utu.ville.exercises.model.EditorHelper;
 import fi.utu.ville.exercises.model.EditorHelper.EditedExerciseGiver;
+import fi.utu.ville.exercises.model.VilleContent;
+import fi.utu.ville.exercises.model.VilleUI;
 import fi.utu.ville.standardutils.AFFile;
 import fi.utu.ville.standardutils.AbstractFile;
 import fi.utu.ville.standardutils.Localizer;
 import fi.utu.ville.standardutils.SimpleFileUploader;
 import fi.utu.ville.standardutils.SimpleFileUploader.UploaderListener;
 
-public class TemplateEditor extends HorizontalLayout implements
+public class TemplateEditor extends VilleContent implements
 		Editor<TemplateExerciseData> {
 
 	/**
@@ -25,7 +26,7 @@ public class TemplateEditor extends HorizontalLayout implements
 	 */
 	private static final long serialVersionUID = -4600841604409240872L;
 
-    public static final int MAX_FILE_SIZE_KB = 1024;
+	public static final int MAX_FILE_SIZE_KB = 1024;
 	public static final String IMAGE_MIME_FILTER = "^image/.*$";
 
 	private EditorHelper<TemplateExerciseData> editorHelper;
@@ -37,6 +38,7 @@ public class TemplateEditor extends HorizontalLayout implements
 	private Localizer localizer;
 
 	public TemplateEditor() {
+		super(null);
 	}
 
 	@Override
@@ -45,7 +47,8 @@ public class TemplateEditor extends HorizontalLayout implements
 	}
 
 	@Override
-	public void initialize(Localizer localizer, TemplateExerciseData oldData,
+	public void initialize(VilleUI ui, Localizer localizer,
+			TemplateExerciseData oldData,
 			EditorHelper<TemplateExerciseData> editorHelper) {
 
 		this.localizer = localizer;
@@ -63,9 +66,21 @@ public class TemplateEditor extends HorizontalLayout implements
 
 	private void doLayout(TemplateExerciseData oldData) {
 
-		this.setMargin(true);
+		this.setMargin(false);
 		this.setSpacing(true);
 		this.setWidth("100%");
+
+		addComponent(editorHelper
+				.getControlbar(new EditedExerciseGiver<TemplateExerciseData>() {
+
+					@Override
+					public TemplateExerciseData getCurrExerData(
+							boolean forSaving) {
+						return getCurrentExercise();
+					}
+				}));
+
+		addComponent(editorHelper.getInfoEditorView());
 
 		String oldQuestion;
 		if (oldData != null) {
@@ -80,18 +95,6 @@ public class TemplateEditor extends HorizontalLayout implements
 		controlsLayout.setWidth("400px");
 
 		controlsLayout.addComponent(editorHelper.getInfoEditorView());
-
-		controlsLayout.addComponent(editorHelper
-				.getControlbar(new EditedExerciseGiver<TemplateExerciseData>() {
-
-					@Override
-					public TemplateExerciseData getCurrExerData(
-							boolean forSaving) {
-						return getCurrentExercise();
-					}
-				}));
-
-		this.addComponent(controlsLayout);
 
 		VerticalLayout editlayout = new VerticalLayout();
 
@@ -133,5 +136,16 @@ public class TemplateEditor extends HorizontalLayout implements
 
 		this.addComponent(editlayout);
 
+	}
+
+	@Override
+	public void doLayout() {
+
+	}
+
+	@Override
+	public boolean isOkToExit() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 }

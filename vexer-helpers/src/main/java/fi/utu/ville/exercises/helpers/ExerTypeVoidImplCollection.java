@@ -1,7 +1,5 @@
 package fi.utu.ville.exercises.helpers;
 
-import fi.utu.ville.exercises.model.VilleUI;
-
 import java.util.Collections;
 import java.util.List;
 
@@ -10,12 +8,11 @@ import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 
-import com.vaadin.server.Resource;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
-import com.vaadin.ui.Label;
+import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Layout;
 import com.vaadin.ui.VerticalLayout;
 
@@ -27,6 +24,7 @@ import fi.utu.ville.exercises.model.ExecutionStateChangeListener;
 import fi.utu.ville.exercises.model.Executor;
 import fi.utu.ville.exercises.model.ExerciseData;
 import fi.utu.ville.exercises.model.ExerciseException;
+import fi.utu.ville.exercises.model.ExerciseException.ErrorType;
 import fi.utu.ville.exercises.model.ExerciseTypeDescriptor;
 import fi.utu.ville.exercises.model.PersistenceHandler;
 import fi.utu.ville.exercises.model.StatisticalSubmissionInfo;
@@ -36,9 +34,8 @@ import fi.utu.ville.exercises.model.SubmissionListener;
 import fi.utu.ville.exercises.model.SubmissionStatisticsGiver;
 import fi.utu.ville.exercises.model.SubmissionType;
 import fi.utu.ville.exercises.model.SubmissionVisualizer;
-import fi.utu.ville.exercises.model.ExerciseException.ErrorType;
+import fi.utu.ville.exercises.model.VilleUI;
 import fi.utu.ville.standardutils.Localizer;
-import fi.utu.ville.standardutils.StandardIcon;
 import fi.utu.ville.standardutils.StandardUIConstants;
 import fi.utu.ville.standardutils.StandardUIFactory;
 import fi.utu.ville.standardutils.TempFilesManager;
@@ -112,20 +109,20 @@ public final class ExerTypeVoidImplCollection {
 			return "Void-description";
 		}
 
-		@Override
-		public Resource getSmallTypeIcon() {
-			return StandardIcon.EDIT_ICON_SMALL.getIcon();
-		}
-
-		@Override
-		public Resource getMediumTypeIcon() {
-			return StandardIcon.EDIT_ICON_SMALL.getIcon();
-		}
-
-		@Override
-		public Resource getLargeTypeIcon() {
-			return StandardIcon.EDIT_ICON_SMALL.getIcon();
-		}
+		// @Override
+		// public Resource getSmallTypeIcon() {
+		// return StandardIcon.EDIT_ICON_SMALL.getIcon();
+		// }
+		//
+		// @Override
+		// public Resource getMediumTypeIcon() {
+		// return StandardIcon.EDIT_ICON_SMALL.getIcon();
+		// }
+		//
+		// @Override
+		// public Resource getLargeTypeIcon() {
+		// return StandardIcon.EDIT_ICON_SMALL.getIcon();
+		// }
 
 	}
 
@@ -271,7 +268,8 @@ public final class ExerTypeVoidImplCollection {
 		}
 
 		@Override
-		public void initialize(VilleUI villeUI, Localizer localizer, VoidExerciseData oldData,
+		public void initialize(VilleUI villeUI, Localizer localizer,
+				VoidExerciseData oldData,
 				EditorHelper<VoidExerciseData> genExerInfoEditor)
 				throws ExerciseException {
 			doLayout(genExerInfoEditor);
@@ -434,7 +432,7 @@ public final class ExerTypeVoidImplCollection {
 
 		@Override
 		public Layout getView() {
-			Label info = StandardUIFactory
+			HorizontalLayout info = StandardUIFactory
 					.getInformationPanel(localizer
 							.getUIText(StandardUIConstants.TYPE_SUBMISSION_STATISTICS_GIVER_NOT_IMPL));
 			Layout res = new VerticalLayout();
@@ -481,7 +479,7 @@ public final class ExerTypeVoidImplCollection {
 
 		@Override
 		public Layout getView() {
-			Label info = StandardUIFactory
+			HorizontalLayout info = StandardUIFactory
 					.getInformationPanel(localizer
 							.getUIText(StandardUIConstants.TYPE_SUBMISSION_VIEWER_NOT_IMPLEMENTED));
 			Layout res = new VerticalLayout();

@@ -8,7 +8,6 @@ import fi.utu.ville.exercises.model.PersistenceHandler;
 import fi.utu.ville.exercises.model.SubmissionStatisticsGiver;
 import fi.utu.ville.exercises.model.SubmissionVisualizer;
 import fi.utu.ville.standardutils.Localizer;
-import fi.utu.ville.standardutils.StandardIcon;
 
 public class TemplateTypeDescriptor implements
 		ExerciseTypeDescriptor<TemplateExerciseData, TemplateSubmissionInfo> {
@@ -73,17 +72,20 @@ public class TemplateTypeDescriptor implements
 
 	@Override
 	public Resource getSmallTypeIcon() {
-		return StandardIcon.EDIT_ICON_SMALL.getIcon();
+		return null;
+		// return StandardIcon.EDIT_ICON_SMALL.getIcon();
 	}
 
 	@Override
 	public Resource getMediumTypeIcon() {
-		return StandardIcon.EDIT_ICON_SMALL.getIcon();
+		return null;
+		// return StandardIcon.EDIT_ICON_SMALL.getIcon();
 	}
 
 	@Override
 	public Resource getLargeTypeIcon() {
-		return StandardIcon.EDIT_ICON_SMALL.getIcon();
+		return null;
+		// return StandardIcon.EDIT_ICON_SMALL.getIcon();
 	}
 
 	@Override

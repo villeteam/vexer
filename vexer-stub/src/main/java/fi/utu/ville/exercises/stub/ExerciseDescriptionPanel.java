@@ -10,7 +10,6 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.BaseTheme;
 
 import fi.utu.ville.standardutils.Localizer;
-import fi.utu.ville.standardutils.StandardIcon;
 import fi.utu.ville.standardutils.StandardUIConstants;
 import fi.utu.ville.standardutils.StandardUIFactory;
 
@@ -45,7 +44,7 @@ class ExerciseDescriptionPanel extends VerticalLayout {
 		this.setWidth("100%");
 		this.setSpacing(true);
 
-		descPanel = StandardUIFactory.getBorderlessLightPanel();
+		descPanel = StandardUIFactory.getExpandablePanel();
 		descPanel.setWidth("100%");
 		descPanel.setHeight("100px");
 
@@ -60,14 +59,14 @@ class ExerciseDescriptionPanel extends VerticalLayout {
 
 		descPanel.setContent(descLayout);
 
-		expandButton = new Button();
+		expandButton = new Button("-");
 
 		expandButton.setId("stub.expandbutton");
 
 		expandButton.addStyleName(BaseTheme.BUTTON_LINK);
 		expandButton.setDescription(localizer
 				.getUIText(StandardUIConstants.EXPAND_SHRINK_DESCRIPTION));
-		expandButton.setIcon(StandardIcon.VERY_SMALL_ARROW_DOWN.getIcon());
+		// expandButton.setIcon(StandardIcon.VERY_SMALL_ARROW_DOWN.getIcon());
 		expandButton.setWidth("40px");
 		expandButton.setHeight("14px");
 		expandButton.addClickListener(new Button.ClickListener() {
@@ -92,10 +91,13 @@ class ExerciseDescriptionPanel extends VerticalLayout {
 	private void handlePanelExpand() {
 		if (descriptionExpanded) {
 			descPanel.setHeight("100px");
-			expandButton.setIcon(StandardIcon.VERY_SMALL_ARROW_DOWN.getIcon());
+			expandButton.setCaption("+");
+			// expandButton.setIcon(StandardIcon.VERY_SMALL_ARROW_DOWN.getIcon());
 		} else {
 			descPanel.setHeight("400px");
-			expandButton.setIcon(StandardIcon.VERY_SMALL_ARROW_UP.getIcon());
+			expandButton.setCaption("-");
+
+			// expandButton.setIcon(StandardIcon.VERY_SMALL_ARROW_UP.getIcon());
 		}
 		descriptionExpanded = !descriptionExpanded;
 

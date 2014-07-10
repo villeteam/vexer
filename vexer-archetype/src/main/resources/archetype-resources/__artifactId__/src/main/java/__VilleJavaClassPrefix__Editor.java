@@ -16,8 +16,10 @@ import fi.utu.ville.standardutils.AbstractFile;
 import fi.utu.ville.standardutils.Localizer;
 import fi.utu.ville.standardutils.SimpleFileUploader;
 import fi.utu.ville.standardutils.SimpleFileUploader.UploaderListener;
+import fi.utu.ville.exercises.model.VilleContent;
+import fi.utu.ville.exercises.model.VilleUI;
 
-public class ${VilleJavaClassPrefix}Editor extends HorizontalLayout implements
+public class ${VilleJavaClassPrefix}Editor extends VilleContent implements
 		Editor<${VilleJavaClassPrefix}ExerciseData> {
 
 	/**
@@ -38,6 +40,7 @@ public class ${VilleJavaClassPrefix}Editor extends HorizontalLayout implements
 	private Localizer localizer;
 
 	public ${VilleJavaClassPrefix}Editor() {
+		super(null;)
 	}
 
 	@Override
@@ -46,9 +49,9 @@ public class ${VilleJavaClassPrefix}Editor extends HorizontalLayout implements
 	}
 
 	@Override
-	public void initialize(Localizer localizer, ${VilleJavaClassPrefix}ExerciseData oldData,
+	public void initialize(VilleUI ui, Localizer localizer, ${VilleJavaClassPrefix}ExerciseData oldData,
 			EditorHelper<${VilleJavaClassPrefix}ExerciseData> editorHelper) {
-
+		this.init(ui);
 		this.localizer = localizer;
 
 		this.editorHelper = editorHelper;
@@ -62,9 +65,16 @@ public class ${VilleJavaClassPrefix}Editor extends HorizontalLayout implements
 		return new ${VilleJavaClassPrefix}ExerciseData(questionText.getValue(), currImgFile);
 	}
 
-	private void doLayout(${VilleJavaClassPrefix}ExerciseData oldData) {
+	@Override
+	public boolean isOkToExit() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	
+	@Override
+	public void doLayout(${VilleJavaClassPrefix}ExerciseData oldData) {
 
-		this.setMargin(true);
+		this.setMargin(false);
 		this.setSpacing(true);
 		this.setWidth("100%");
 
