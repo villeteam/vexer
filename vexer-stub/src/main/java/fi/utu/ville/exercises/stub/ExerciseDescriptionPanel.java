@@ -4,103 +4,161 @@ import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Component;
+import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.themes.BaseTheme;
 
 import fi.utu.ville.standardutils.Localizer;
+import fi.utu.ville.standardutils.StandardIcon.Icon;
 import fi.utu.ville.standardutils.StandardUIConstants;
 import fi.utu.ville.standardutils.StandardUIFactory;
 
-/**
- * Quick and dirty implementation of the general look of
- * ViLLE-ExerciseDescriptionPanel. Meant to provide an exercise-type developer
- * with a quite real-like view of what the new exercise-type should look like.
- * In real-Ville the view contains more info (depending on the situation), for
- * example it might contain a rating for the exercise. However the view is of
- * similar size and colors.
- * 
- * @author Riku Haavisto
- */
-class ExerciseDescriptionPanel extends VerticalLayout {
+public class ExerciseDescriptionPanel extends VerticalLayout {
+
+	private static final long serialVersionUID = 1L;
+
+	private final boolean showWindowButton;
+
+	private final String description;
+
+	private enum ContentHeight {
+		MINIMIZED("0px"), DEFAULT("150px"), MAXIMIZED("400px");
+
+		private final String height;
+
+		ContentHeight(String height) {
+			this.height = height;
+		}
+
+		public String getHeight() {
+			return height;
+		}
+	}
+
+	private ContentHeight contentHeight = ContentHeight.DEFAULT;
+
+	private HorizontalLayout content;
+
+	private Panel infoPanel;
+
+	private Localizer localizer;
+
+	public ExerciseDescriptionPanel(Localizer localizer, String description) {
+		this.showWindowButton = false;
+		this.description = description;
+		this.localizer = localizer;
+		doLayout();
+	}
+
+	public void doLayout() {
+		this.removeAllComponents();
+		addTitleBar();
+		addContentLayout();
+	}
 
 	/**
-	 * 
+	 * Minimize the description panel to maximize exercise area. Used in math
+	 * driller.
 	 */
-	private static final long serialVersionUID = 6052200434268942950L;
+	public void minimizeDescriptionPanl() {
+		contentHeight = ContentHeight.MINIMIZED;
+		setContentSize();
 
-	/* Buttons */
-	private final Button expandButton;
-	private final Panel descPanel;
+	}
 
-	/* fields & labels */
-	private final Label descField;
+	private void addTitleBar() {
+		HorizontalLayout titleBar = StandardUIFactory.getHeaderBarBlue();
+		titleBar.setWidth("100%");
+		Label descLabel = new Label(
+				localizer.getUIText(StandardUIConstants.DESCRIPTION));
+		titleBar.addComponent(descLabel);
+		titleBar.setComponentAlignment(descLabel, Alignment.MIDDLE_LEFT);
 
-	private boolean descriptionExpanded = false;
+		HorizontalLayout controlLayout = new HorizontalLayout();
+		controlLayout.setSpacing(true);
 
-	public ExerciseDescriptionPanel(Localizer localizer, String descText) {
+		Button minimizeButton = StandardUIFactory
+				.getWindowControlButton(Icon.WINDOW_MINIMIZE);
+		minimizeButton.addClickListener(new Button.ClickListener() {
 
-		this.setWidth("100%");
-		this.setSpacing(true);
-
-		descPanel = StandardUIFactory.getExpandablePanel();
-		descPanel.setWidth("100%");
-		descPanel.setHeight("100px");
-
-		VerticalLayout descLayout = new VerticalLayout();
-
-		descField = new Label();
-		descField.setWidth("100%");
-		descField.setContentMode(ContentMode.HTML);
-		descField.setStyleName("text");
-		descField.setValue(descText);
-		descLayout.addComponent(descField);
-
-		descPanel.setContent(descLayout);
-
-		expandButton = new Button("-");
-
-		expandButton.setId("stub.expandbutton");
-
-		expandButton.addStyleName(BaseTheme.BUTTON_LINK);
-		expandButton.setDescription(localizer
-				.getUIText(StandardUIConstants.EXPAND_SHRINK_DESCRIPTION));
-		// expandButton.setIcon(StandardIcon.VERY_SMALL_ARROW_DOWN.getIcon());
-		expandButton.setWidth("40px");
-		expandButton.setHeight("14px");
-		expandButton.addClickListener(new Button.ClickListener() {
-
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 9021072515972864218L;
+			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				handlePanelExpand();
+				if (contentHeight == ContentHeight.MAXIMIZED) {
+					contentHeight = ContentHeight.DEFAULT;
+					setContentSize();
+				} else if (contentHeight == ContentHeight.DEFAULT) {
+					contentHeight = ContentHeight.MINIMIZED;
+					setContentSize();
+				}
 			}
+
+		});
+		Button maximizeButton = StandardUIFactory
+				.getWindowControlButton(Icon.WINDOW_MAXIMIZE);
+
+		maximizeButton.addClickListener(new Button.ClickListener() {
+
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void buttonClick(ClickEvent event) {
+				if (contentHeight == ContentHeight.MINIMIZED) {
+					contentHeight = ContentHeight.DEFAULT;
+					setContentSize();
+				} else if (contentHeight == ContentHeight.DEFAULT) {
+					contentHeight = ContentHeight.MAXIMIZED;
+					setContentSize();
+				}
+			}
+
 		});
 
-		addComponent(descPanel);
-		setExpandRatio(descPanel, 1.0f);
-		addComponent(expandButton);
-		setComponentAlignment(expandButton, Alignment.BOTTOM_CENTER);
+		controlLayout.addComponent(minimizeButton);
+		controlLayout.addComponent(maximizeButton);
+
+		titleBar.addComponent(controlLayout);
+		titleBar.setComponentAlignment(controlLayout, Alignment.MIDDLE_RIGHT);
+
+		addComponent(titleBar);
 	}
 
-	private void handlePanelExpand() {
-		if (descriptionExpanded) {
-			descPanel.setHeight("100px");
-			expandButton.setCaption("+");
-			// expandButton.setIcon(StandardIcon.VERY_SMALL_ARROW_DOWN.getIcon());
-		} else {
-			descPanel.setHeight("400px");
-			expandButton.setCaption("-");
+	private void addContentLayout() {
+		content = new HorizontalLayout();
+		content.setWidth("100%");
+		setContentSize();
 
-			// expandButton.setIcon(StandardIcon.VERY_SMALL_ARROW_UP.getIcon());
-		}
-		descriptionExpanded = !descriptionExpanded;
+		Label descLabel = new Label(description, ContentMode.HTML);
+		Panel descPanel = StandardUIFactory.getExpandablePanel();
+		descPanel.setHeight("100%");
+		descPanel.setContent(new VerticalLayout());
+		((VerticalLayout) descPanel.getContent()).addComponent(descLabel);
 
+		content.addComponent(descPanel);
+		content.setExpandRatio(descPanel, 1);
+
+		infoPanel = StandardUIFactory.getExpandablePanel();
+		infoPanel.setWidth("400px");
+		infoPanel.setHeight("100%");
+
+		content.addComponent(infoPanel);
+
+		addComponent(content);
+	}
+
+	public void addComponentToInfoPanel(Component component) {
+		((VerticalLayout) infoPanel.getContent()).addComponent(component);
+	}
+
+	private void setContentSize() {
+		content.setHeight(contentHeight.getHeight());
+	}
+
+	public void clearInfoPanel() {
+		((VerticalLayout) infoPanel.getContent()).removeAllComponents();
 	}
 
 }

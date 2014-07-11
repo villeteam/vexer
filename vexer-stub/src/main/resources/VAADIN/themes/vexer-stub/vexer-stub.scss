@@ -310,12 +310,14 @@ div.v-loading-indicator, div.v-loading-indicator-delay, div.v-loading-indicator-
 		border-radius: 0.2em;
 	    -webkit-border-radius: 0.2em;
 	    -moz-border-radius: 0.2em;
-		padding: 5px 25px 22px 10px;
+		padding: 5px 25px 4px 10px;
 		background-color: $color-gray-5;
 		background-image: none;
 		box-shadow: 0 1px 2px $color-gray-2;
 		
-		.v-button-caption {
+		.v-button-caption,
+		.v-button-caption:active,
+		.v-button-caption:focus {
 			font-weight: bold;
 			font-size: 14px !important;
 			color: $color-gray-1;

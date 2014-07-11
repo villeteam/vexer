@@ -10,6 +10,7 @@ import fi.utu.ville.exercises.model.ExecutionState;
 import fi.utu.ville.exercises.model.ExecutionStateChangeListener;
 import fi.utu.ville.exercises.model.Executor;
 import fi.utu.ville.standardutils.Localizer;
+import fi.utu.ville.standardutils.StandardUIFactory;
 
 /**
  * A class allowing user to call submit and reset of {@link Executor} through
@@ -43,8 +44,8 @@ class ResetSubmitControlView extends HorizontalLayout implements
 	public ResetSubmitControlView(Localizer localizer,
 			Executor<?, ?> exerciseExec) {
 		this.exerciseExec = exerciseExec;
-		setMargin(true);
-		setSpacing(true);
+		setMargin(false);
+		setSpacing(false);
 
 		submitButton = StubUiFactory.getSubmitButton(localizer);
 		submitButton.addClickListener(this);
@@ -57,11 +58,12 @@ class ResetSubmitControlView extends HorizontalLayout implements
 		setWidth("100%");
 		addStyleName("exercisemenu-buttons-panel");
 
-		HorizontalLayout middleButtons = new HorizontalLayout();
+		HorizontalLayout middleButtons = StandardUIFactory.getButtonPanel(
+				submitButton, resetButton);
 
-		middleButtons.addComponent(submitButton);
-
-		middleButtons.addComponent(resetButton);
+		// middleButtons.addComponent(submitButton);
+		//
+		// middleButtons.addComponent(resetButton);
 
 		addComponent(middleButtons);
 

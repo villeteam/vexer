@@ -9,6 +9,7 @@ import com.vaadin.ui.VerticalLayout;
 import fi.utu.ville.exercises.model.ExerciseTypeDescriptor;
 import fi.utu.ville.exercises.model.GeneralExerciseInfo;
 import fi.utu.ville.standardutils.Localizer;
+import fi.utu.ville.standardutils.StandardUIFactory;
 
 /**
  * A view imitating the view used in real ViLLE for showing info about an
@@ -45,22 +46,22 @@ class TestingExerciseInfoView extends VerticalLayout {
 	public TestingExerciseInfoView(Localizer localizer,
 			GeneralExerciseInfo exerInfo, ExerciseTypeDescriptor<?, ?> desc) {
 
-		setStyleName("studentexercise-description-panel");
+		// setStyleName("studentexercise-description-panel");
 		setWidth("100%");
 
-		setSpacing(true);
-		setMargin(true);
+		setSpacing(false);
+		setMargin(false);
 
-		HorizontalLayout iconAndTitleLayout = new HorizontalLayout();
-		iconAndTitleLayout.setSpacing(true);
-		iconAndTitleLayout.setSizeUndefined();
+		HorizontalLayout iconAndTitleLayout = StandardUIFactory
+				.getHeaderBarGreen();
+		iconAndTitleLayout.setSpacing(false);
 
 		icon = new Embedded(null, (desc != null ? desc.getMediumTypeIcon()
 				: TestStubDescription.INSTANCE.getIcon()));
 
 		titleLabel = new Label((exerInfo != null ? exerInfo.getName()
 				: TestStubDescription.INSTANCE.getName()));
-		titleLabel.setStyleName("studentexercise-title");
+		// titleLabel.setStyleName("studentexercise-title");
 		titleLabel.setSizeUndefined();
 
 		iconAndTitleLayout.addComponent(icon);
@@ -68,6 +69,9 @@ class TestingExerciseInfoView extends VerticalLayout {
 		iconAndTitleLayout.addComponent(titleLabel);
 		iconAndTitleLayout.setComponentAlignment(titleLabel,
 				Alignment.MIDDLE_LEFT);
+
+		iconAndTitleLayout.setExpandRatio(titleLabel, 1.0f);
+		iconAndTitleLayout.setExpandRatio(icon, 0f);
 
 		addComponent(iconAndTitleLayout);
 		setComponentAlignment(iconAndTitleLayout, Alignment.MIDDLE_LEFT);

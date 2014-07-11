@@ -15,7 +15,9 @@ import fi.utu.ville.standardutils.AFFile;
 import fi.utu.ville.standardutils.AbstractFile;
 import fi.utu.ville.standardutils.Localizer;
 import fi.utu.ville.standardutils.SimpleFileUploader;
+import fi.utu.ville.standardutils.StandardUIFactory;
 import fi.utu.ville.standardutils.SimpleFileUploader.UploaderListener;
+import fi.utu.ville.standardutils.ui.AbstractEditorLayout;
 import fi.utu.ville.exercises.model.VilleContent;
 import fi.utu.ville.exercises.model.VilleUI;
 
@@ -38,6 +40,9 @@ public class ${VilleJavaClassPrefix}Editor extends VilleContent implements
 	private AbstractFile currImgFile;
 
 	private Localizer localizer;
+	
+	private AbstractEditorLayout layout;
+
 
 	public ${VilleJavaClassPrefix}Editor() {
 		super(null;)
@@ -75,9 +80,14 @@ public class ${VilleJavaClassPrefix}Editor extends VilleContent implements
 	public void doLayout(${VilleJavaClassPrefix}ExerciseData oldData) {
 
 		this.setMargin(false);
-		this.setSpacing(true);
+		this.setSpacing(false);
 		this.setWidth("100%");
 
+		layout = StandardUIFactory.getTwoColumnView();
+		addComponent(layout);
+		
+		layout.setTitle("Editor");
+		
 		String oldQuestion;
 		if (oldData != null) {
 			oldQuestion = oldData.getQuestion();
@@ -87,12 +97,10 @@ public class ${VilleJavaClassPrefix}Editor extends VilleContent implements
 			currImgFile = null;
 		}
 
-		VerticalLayout controlsLayout = new VerticalLayout();
-		controlsLayout.setWidth("400px");
 
-		controlsLayout.addComponent(editorHelper.getInfoEditorView());
+		layout.addToLeft(editorHelper.getInfoEditorView());
 
-		controlsLayout.addComponent(editorHelper
+		layout.addToTop(editorHelper
 				.getControlbar(new EditedExerciseGiver<${VilleJavaClassPrefix}ExerciseData>() {
 
 					@Override
@@ -102,7 +110,6 @@ public class ${VilleJavaClassPrefix}Editor extends VilleContent implements
 					}
 				}));
 
-		this.addComponent(controlsLayout);
 
 		VerticalLayout editlayout = new VerticalLayout();
 
@@ -142,7 +149,7 @@ public class ${VilleJavaClassPrefix}Editor extends VilleContent implements
 		editlayout.addComponent(questionText);
 		editlayout.addComponent(uploader);
 
-		this.addComponent(editlayout);
+		layout.addToRight(editlayout);
 
 	}
 }

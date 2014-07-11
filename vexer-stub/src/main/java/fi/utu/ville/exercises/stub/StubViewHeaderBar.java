@@ -35,7 +35,6 @@ public class StubViewHeaderBar extends VerticalLayout {
 	 *            already localized info-text to show to user of the view
 	 */
 	public StubViewHeaderBar(Localizer localizer, String infoText) {
-
 		HorizontalLayout actualLayout = new HorizontalLayout();
 		actualLayout.setWidth("100%");
 		actualLayout.addStyleName("stub-header-bar");
@@ -56,6 +55,7 @@ public class StubViewHeaderBar extends VerticalLayout {
 
 			}
 		});
+
 		actualLayout.addComponent(backToStubStartView);
 
 		HorizontalLayout infoLabel = StandardUIFactory

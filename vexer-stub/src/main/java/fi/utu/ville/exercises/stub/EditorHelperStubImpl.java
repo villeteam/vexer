@@ -2,7 +2,6 @@ package fi.utu.ville.exercises.stub;
 
 import java.util.HashSet;
 
-import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -160,10 +159,10 @@ class EditorHelperStubImpl<E extends ExerciseData> implements EditorHelper<E> {
 		public ControlButtons() {
 
 			setWidth("100%");
-			setMargin(true);
+			setMargin(false);
 
-			HorizontalLayout buttonLayout = new HorizontalLayout();
-			buttonLayout.setSpacing(true);
+			// HorizontalLayout buttonLayout = new HorizontalLayout();
+			// buttonLayout.setSpacing(false);
 
 			saveButton = StandardUIFactory.getSaveButton(localizer);
 			testButton = StandardUIFactory.getTestButton(localizer);
@@ -240,12 +239,15 @@ class EditorHelperStubImpl<E extends ExerciseData> implements EditorHelper<E> {
 				}
 			});
 
-			buttonLayout.addComponent(saveButton);
-			buttonLayout.addComponent(testButton);
-			buttonLayout.addComponent(cancelButton);
+			addComponent(StandardUIFactory.getButtonPanel(testButton,
+					saveButton, cancelButton));
 
-			addComponent(buttonLayout);
-			setComponentAlignment(buttonLayout, Alignment.MIDDLE_CENTER);
+			// buttonLayout.addComponent(saveButton);
+			// buttonLayout.addComponent(testButton);
+			// buttonLayout.addComponent(cancelButton);
+			//
+			// addComponent(buttonLayout);
+			// setComponentAlignment(buttonLayout, Alignment.MIDDLE_CENTER);
 
 		}
 	}

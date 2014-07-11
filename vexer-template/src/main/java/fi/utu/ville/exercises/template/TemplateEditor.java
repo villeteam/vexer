@@ -17,6 +17,8 @@ import fi.utu.ville.standardutils.AbstractFile;
 import fi.utu.ville.standardutils.Localizer;
 import fi.utu.ville.standardutils.SimpleFileUploader;
 import fi.utu.ville.standardutils.SimpleFileUploader.UploaderListener;
+import fi.utu.ville.standardutils.StandardUIFactory;
+import fi.utu.ville.standardutils.ui.AbstractEditorLayout;
 
 public class TemplateEditor extends VilleContent implements
 		Editor<TemplateExerciseData> {
@@ -36,6 +38,8 @@ public class TemplateEditor extends VilleContent implements
 	private AbstractFile currImgFile;
 
 	private Localizer localizer;
+
+	private AbstractEditorLayout layout;
 
 	public TemplateEditor() {
 		super(null);
@@ -67,10 +71,13 @@ public class TemplateEditor extends VilleContent implements
 	private void doLayout(TemplateExerciseData oldData) {
 
 		this.setMargin(false);
-		this.setSpacing(true);
+		this.setSpacing(false);
 		this.setWidth("100%");
 
-		addComponent(editorHelper
+		layout = StandardUIFactory.getTwoColumnView();
+		addComponent(layout);
+
+		layout.addToTop(editorHelper
 				.getControlbar(new EditedExerciseGiver<TemplateExerciseData>() {
 
 					@Override
@@ -80,7 +87,8 @@ public class TemplateEditor extends VilleContent implements
 					}
 				}));
 
-		addComponent(editorHelper.getInfoEditorView());
+		layout.setTitle("Editor");
+		layout.addToLeft(editorHelper.getInfoEditorView());
 
 		String oldQuestion;
 		if (oldData != null) {
@@ -90,11 +98,11 @@ public class TemplateEditor extends VilleContent implements
 			oldQuestion = "";
 			currImgFile = null;
 		}
-
-		VerticalLayout controlsLayout = new VerticalLayout();
-		controlsLayout.setWidth("400px");
-
-		controlsLayout.addComponent(editorHelper.getInfoEditorView());
+		//
+		// VerticalLayout controlsLayout = new VerticalLayout();
+		// controlsLayout.setWidth("400px");
+		//
+		// controlsLayout.addComponent(editorHelper.getInfoEditorView());
 
 		VerticalLayout editlayout = new VerticalLayout();
 
@@ -134,7 +142,7 @@ public class TemplateEditor extends VilleContent implements
 		editlayout.addComponent(questionText);
 		editlayout.addComponent(uploader);
 
-		this.addComponent(editlayout);
+		layout.addToRight(editlayout);
 
 	}
 

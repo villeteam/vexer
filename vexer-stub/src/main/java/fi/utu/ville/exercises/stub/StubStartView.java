@@ -27,6 +27,7 @@ import fi.utu.ville.exercises.model.ExecutionSettings;
 import fi.utu.ville.exercises.model.ExerciseTypeDescriptor;
 import fi.utu.ville.exercises.model.VilleUI;
 import fi.utu.ville.standardutils.Localizer;
+import fi.utu.ville.standardutils.StandardIcon;
 import fi.utu.ville.standardutils.StandardIcon.Icon;
 import fi.utu.ville.standardutils.StandardUIFactory;
 import fi.utu.ville.standardutils.TestTempFilesManager;
@@ -96,6 +97,8 @@ class StubStartView extends VerticalLayout {
 
 		setSizeFull();
 		addStyleName("stub-start");
+
+		StandardIcon.load();
 
 		List<Locale> locales = StubSessionData.getInstance().getLocalesToTest();
 

@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import org.apache.commons.io.FileUtils;
 import org.reflections.Reflections;
 
+import com.vaadin.annotations.StyleSheet;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
 import com.vaadin.server.VaadinRequest;
@@ -30,6 +31,7 @@ import fi.utu.ville.standardutils.ui.DynamicStyles;
  */
 @Theme(value = "ville-theme")
 @Title(value = "Ville exercise-type stub")
+@StyleSheet({ "fonts/Lato.ttf", "fonts/fonts.css" })
 public abstract class VilleExerStubUI extends UI {
 
 	/**
