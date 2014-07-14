@@ -56,6 +56,7 @@ class ExerciseEditorViewStub<E extends ExerciseData> extends VilleContent {
 			GeneralExerciseInfo info, final Localizer localizer) {
 		super(ui);
 		setWidth("100%");
+		setHeight("100%");
 		setMargin(true);
 
 		String exerName = info.getName();
