@@ -156,4 +156,9 @@ public class TemplateEditor extends VilleContent implements
 		// TODO Auto-generated method stub
 		return true;
 	}
+
+	@Override
+	public String getViewName() {
+		return "template-editor";
+	}
 }

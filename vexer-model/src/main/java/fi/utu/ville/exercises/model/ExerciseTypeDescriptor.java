@@ -2,6 +2,7 @@ package fi.utu.ville.exercises.model;
 
 import java.io.Serializable;
 
+import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Resource;
 
 import fi.utu.ville.standardutils.Localizer;
@@ -149,5 +150,13 @@ public interface ExerciseTypeDescriptor<E extends ExerciseData, S extends Submis
 	 * @return true if submissions to this exercise-type require manual grading
 	 */
 	boolean isManuallyGraded();
+	
+	/**
+	 * For example: return FontAwesome.COGS.getHtml().
+	 * FontAwesome 4.1.0 is supported.
+	 * 
+	 * @return FontIcon as HTML String
+	 */
+	String getHTMLIcon();
 
 }

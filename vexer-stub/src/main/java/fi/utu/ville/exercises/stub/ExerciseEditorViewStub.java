@@ -38,6 +38,8 @@ class ExerciseEditorViewStub<E extends ExerciseData> extends VilleContent {
 	private final TestTempFilesManager tempManager;
 
 	private final EditorHelperStubImpl<E> genInfoEditor;
+	
+	private final String exerName;
 
 	/**
 	 * Constructs a new {@link ExerciseEditorViewStub}.
@@ -59,7 +61,7 @@ class ExerciseEditorViewStub<E extends ExerciseData> extends VilleContent {
 		setHeight("100%");
 		setMargin(true);
 
-		String exerName = info.getName();
+		exerName = info.getName();
 
 		tempManager = new TestTempFilesManager(StubSessionData.getInstance()
 				.getStubExerMaterialsTempDir());
@@ -177,5 +179,10 @@ class ExerciseEditorViewStub<E extends ExerciseData> extends VilleContent {
 	public boolean isOkToExit() {
 		// TODO Auto-generated method stub
 		return true;
+	}
+
+	@Override
+	public String getViewName() {
+		return exerName;
 	}
 }

@@ -1,5 +1,6 @@
 package fi.utu.ville.exercises.template;
 
+import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Resource;
 
 import fi.utu.ville.exercises.helpers.GsonPersistenceHandler;
@@ -91,6 +92,11 @@ public class TemplateTypeDescriptor implements
 	@Override
 	public boolean isManuallyGraded() {
 		return false;
+	}
+
+	@Override
+	public String getHTMLIcon() {
+		return FontAwesome.COGS.getHtml();
 	}
 
 }
