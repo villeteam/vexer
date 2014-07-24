@@ -1,6 +1,5 @@
 package fi.utu.ville.exercises.template;
 
-import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Resource;
 
 import fi.utu.ville.exercises.helpers.GsonPersistenceHandler;
@@ -9,6 +8,7 @@ import fi.utu.ville.exercises.model.PersistenceHandler;
 import fi.utu.ville.exercises.model.SubmissionStatisticsGiver;
 import fi.utu.ville.exercises.model.SubmissionVisualizer;
 import fi.utu.ville.standardutils.Localizer;
+import fi.utu.ville.standardutils.StandardIcon.IconVariant;
 
 public class TemplateTypeDescriptor implements
 		ExerciseTypeDescriptor<TemplateExerciseData, TemplateSubmissionInfo> {
@@ -96,7 +96,7 @@ public class TemplateTypeDescriptor implements
 
 	@Override
 	public String getHTMLIcon() {
-		return FontAwesome.COGS.getHtml();
+		return TemplateFontIcons.COGS.getIcon().variant(IconVariant.BLACK);
 	}
 
 }

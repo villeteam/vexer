@@ -2,7 +2,6 @@ package fi.utu.ville.exercises.model;
 
 import java.io.Serializable;
 
-import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Resource;
 
 import fi.utu.ville.standardutils.Localizer;

@@ -133,6 +133,7 @@ class ExerciseEditorViewStub<E extends ExerciseData> extends VilleContent {
 				localizer.getUIText(StubUiConstants.EDITOR_TEST_INFO)));
 
 		addComponent(generalEditor.getView());
+		setExpandRatio(generalEditor.getView(), 1);
 
 	}
 

@@ -2,10 +2,12 @@ package fi.utu.ville.exercises.template;
 
 import java.io.File;
 
+import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Layout;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
+
 
 import fi.utu.ville.exercises.model.Editor;
 import fi.utu.ville.exercises.model.EditorHelper;
@@ -17,6 +19,7 @@ import fi.utu.ville.standardutils.AbstractFile;
 import fi.utu.ville.standardutils.Localizer;
 import fi.utu.ville.standardutils.SimpleFileUploader;
 import fi.utu.ville.standardutils.SimpleFileUploader.UploaderListener;
+import fi.utu.ville.standardutils.StandardIcon.IconVariant;
 import fi.utu.ville.standardutils.StandardUIFactory;
 import fi.utu.ville.standardutils.ui.AbstractEditorLayout;
 
@@ -98,19 +101,15 @@ public class TemplateEditor extends VilleContent implements
 			oldQuestion = "";
 			currImgFile = null;
 		}
-		//
-		// VerticalLayout controlsLayout = new VerticalLayout();
-		// controlsLayout.setWidth("400px");
-		//
-		// controlsLayout.addComponent(editorHelper.getInfoEditorView());
 
 		VerticalLayout editlayout = new VerticalLayout();
 
 		Label questionTextCapt = new Label(
 				localizer.getUIText(TemplateUiConstants.QUESTION_TEXT));
 		questionTextCapt.addStyleName("template-exercise-title");
+		
 		questionText = new TextField(null, oldQuestion);
-
+		
 		SimpleFileUploader uploader = new SimpleFileUploader(localizer,
 				editorHelper.getTempManager(), MAX_FILE_SIZE_KB,
 				IMAGE_MIME_FILTER);
@@ -138,8 +137,11 @@ public class TemplateEditor extends VilleContent implements
 		if (currImgFile != null) {
 			uploader.setAbstractUploadedFile(currImgFile);
 		}
+		
 		editlayout.addComponent(questionTextCapt);
 		editlayout.addComponent(questionText);
+		editlayout.addComponent(
+				new Label(TemplateFontIcons.UPLOAD.getIcon().variant(IconVariant.BLACK),ContentMode.HTML));
 		editlayout.addComponent(uploader);
 
 		layout.addToRight(editlayout);
