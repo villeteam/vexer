@@ -1,7 +1,7 @@
 package fi.utu.ville.exercises.stub;
 
+import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Alignment;
-import com.vaadin.ui.Embedded;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
@@ -26,7 +26,7 @@ class TestingExerciseInfoView extends VerticalLayout {
 	private static final long serialVersionUID = -7323519115445232073L;
 
 	/* assignment icon */
-	private final Embedded icon;
+	//private final Label icon;
 
 	/* fields & labels */
 	private final Label titleLabel;
@@ -56,22 +56,17 @@ class TestingExerciseInfoView extends VerticalLayout {
 				.getHeaderBarGreen();
 		iconAndTitleLayout.setSpacing(false);
 
-		icon = new Embedded(null, (desc != null ? desc.getMediumTypeIcon()
-				: TestStubDescription.INSTANCE.getIcon()));
-
-		titleLabel = new Label((exerInfo != null ? exerInfo.getName()
-				: TestStubDescription.INSTANCE.getName()));
+		titleLabel = new Label((desc != null ? desc.getHTMLIcon()
+				: "") + " " + (exerInfo != null ? exerInfo.getName()
+				: TestStubDescription.INSTANCE.getName()),ContentMode.HTML);
 		// titleLabel.setStyleName("studentexercise-title");
 		titleLabel.setSizeUndefined();
 
-		iconAndTitleLayout.addComponent(icon);
-		iconAndTitleLayout.setComponentAlignment(icon, Alignment.MIDDLE_LEFT);
 		iconAndTitleLayout.addComponent(titleLabel);
 		iconAndTitleLayout.setComponentAlignment(titleLabel,
 				Alignment.MIDDLE_LEFT);
 
 		iconAndTitleLayout.setExpandRatio(titleLabel, 1.0f);
-		iconAndTitleLayout.setExpandRatio(icon, 0f);
 
 		addComponent(iconAndTitleLayout);
 		setComponentAlignment(iconAndTitleLayout, Alignment.MIDDLE_LEFT);
