@@ -9,3 +9,5 @@ target/
 # ignore VAADIN-widgetsets (auto-generated but placed 
 #  in src-side of maven)
 **/VAADIN/widgetsets
+.DS_Store
+*.versionsBackup
