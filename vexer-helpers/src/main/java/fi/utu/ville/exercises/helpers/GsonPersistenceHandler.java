@@ -1,5 +1,6 @@
 package fi.utu.ville.exercises.helpers;
 
+
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.Hashtable;
@@ -43,7 +44,7 @@ import fi.utu.ville.standardutils.TempFilesManager;
  * </p>
  * 
  * <p>
- * For fields that are not Gson-convertable, {@link TypeHandler} can be registered
+ * For fields that are not Gson-convertable, {@link TypeAdapter} can be registered
  * to handle the field.
  * </p>
  * 
@@ -130,7 +131,9 @@ implements PersistenceHandler<E, S> {
 	@Override
 	public byte[] saveSubmission(S subm, TempFilesManager tempManager)
 			throws ExerciseException {
-		Gson ser = new Gson();
+		
+		Gson ser = getSubmissionGson();
+		
 		String json = ser.toJson(subm);
 		try {
 			return json.getBytes("UTF-8");
@@ -145,7 +148,7 @@ implements PersistenceHandler<E, S> {
 			TempFilesManager tempManager) throws ExerciseException {
 		try {
 			String src = new String(dataPres, "UTF-8");
-			Gson ser = new Gson();
+			Gson ser = getSubmissionGson();
 			S res = ser.fromJson(src, submInfoClass);
 			return res;
 		} catch (UnsupportedEncodingException e) {
@@ -168,6 +171,12 @@ implements PersistenceHandler<E, S> {
 		gsonBuilder.registerTypeAdapter(AbstractFile.class, brSer);
 		registerCustomAdapters(gsonBuilder);
 		return gsonBuilder;
+	}
+	
+	private Gson getSubmissionGson() {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		registerCustomAdapters(gsonBuilder);
+		return gsonBuilder.create();
 	}
 	
 	private void registerCustomAdapters(GsonBuilder builder) {
@@ -238,5 +247,4 @@ implements PersistenceHandler<E, S> {
 			return res;
 		}
 	}
-
 }
