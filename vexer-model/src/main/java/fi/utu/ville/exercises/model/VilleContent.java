@@ -21,6 +21,10 @@ public abstract class VilleContent extends VerticalLayout implements View {
 	public abstract void doLayout();
 
 	public abstract boolean isOkToExit();
+	
+	public DialogWithConfirm  getConfirmExitDialog() {
+		return null;
+	}
 
 	public VilleUI getVilleUI() {
 		return ui;
