@@ -365,6 +365,14 @@ class EditorHelperStubImpl<E extends ExerciseData> implements EditorHelper<E> {
 		public String getExerDescription() {
 			return description.getValue();
 		}
+		
+		public void setName(String name) {
+			exerciseName.setValue(name);
+		}
+		
+		public void setExerciseDescription(String description) {
+			this.description.setValue(description);
+		}
 
 		@Override
 		public void buttonClick(ClickEvent event) {
@@ -393,6 +401,16 @@ class EditorHelperStubImpl<E extends ExerciseData> implements EditorHelper<E> {
 
 		}
 
+	}
+
+	@Override
+	public void setExerciseName(String name) {
+		editorView.setName(name);		
+	}
+
+	@Override
+	public void setExerciseDescription(String description) {
+		editorView.setExerciseDescription(description);		
 	}
 
 }

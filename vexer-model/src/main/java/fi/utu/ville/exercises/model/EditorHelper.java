@@ -42,6 +42,26 @@ import fi.utu.ville.standardutils.TempFilesManager;
 public interface EditorHelper<E extends ExerciseData> extends Serializable {
 
 	/**
+	 * <p>
+	 * Set exercise name for {@link GeneralExerciseInfo}
+	 * </p>
+	 * 
+	 * @param name
+	 *            New value for name
+	 */
+	void setExerciseName(String name);
+	
+	/**
+	 * <p>
+	 * Set exercise description for {@link GeneralExerciseInfo}
+	 * </p>
+	 * 
+	 * @param description
+	 *            New value for description
+	 */
+	void setExerciseDescription(String description);
+	
+	/**
 	 * @return {@link GeneralExerciseInfo} parsed from the current state of the
 	 *         general-info-editor
 	 */
