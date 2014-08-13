@@ -62,4 +62,18 @@ final class StubResourceGiverImpl implements Localizer {
 		return UILanguageStub.constructLine(getUIText(key), params);
 	}
 
+	@Override
+	public String getLocalizedNumber(double number) {
+		return (number+"").replace('.', getDecimalSeparator());
+	}
+
+	@Override
+	public char getDecimalSeparator() {
+		if(currLocale == Locale.ENGLISH ||
+				currLocale == Locale.US ||
+				currLocale == Locale.UK)
+			return '.';
+		return ',';
+	}
+
 }
