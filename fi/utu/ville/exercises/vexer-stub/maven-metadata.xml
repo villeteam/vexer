@@ -4,9 +4,8 @@
   <artifactId>vexer-stub</artifactId>
   <versioning>
     <versions>
-      <version>0.1.4-SNAPSHOT</version>
-      <version>0.1.5-SNAPSHOT</version>
+      <version>0.1.6-SNAPSHOT</version>
     </versions>
-    <lastUpdated>20140811091326</lastUpdated>
+    <lastUpdated>20140813093135</lastUpdated>
   </versioning>
 </metadata>
