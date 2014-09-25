@@ -45,7 +45,7 @@ public class ${VilleJavaClassPrefix}Editor extends VilleContent implements
 
 
 	public ${VilleJavaClassPrefix}Editor() {
-		super(null;)
+		super(null);
 	}
 
 	@Override
@@ -77,6 +77,10 @@ public class ${VilleJavaClassPrefix}Editor extends VilleContent implements
 	}
 	
 	@Override
+	public void doLayout() {
+		
+	}
+	
 	public void doLayout(${VilleJavaClassPrefix}ExerciseData oldData) {
 
 		this.setMargin(false);
@@ -151,5 +155,10 @@ public class ${VilleJavaClassPrefix}Editor extends VilleContent implements
 
 		layout.addToRight(editlayout);
 
+	}
+	
+	@Override
+	public String getViewName(){
+		return "StubExercise";
 	}
 }

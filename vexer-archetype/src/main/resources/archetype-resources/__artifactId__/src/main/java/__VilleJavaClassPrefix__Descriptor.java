@@ -8,6 +8,8 @@ import fi.utu.ville.exercises.model.PersistenceHandler;
 import fi.utu.ville.exercises.model.SubmissionStatisticsGiver;
 import fi.utu.ville.exercises.model.SubmissionVisualizer;
 import fi.utu.ville.standardutils.Localizer;
+import fi.utu.ville.standardutils.StandardIcon;
+import fi.utu.ville.standardutils.StandardIcon.IconVariant;
 
 public class ${VilleJavaClassPrefix}Descriptor implements
 		ExerciseTypeDescriptor<${VilleJavaClassPrefix}ExerciseData, ${VilleJavaClassPrefix}SubmissionInfo> {
@@ -83,6 +85,11 @@ public class ${VilleJavaClassPrefix}Descriptor implements
 	@Override
 	public Resource getLargeTypeIcon() {
 		return ${VilleJavaClassPrefix}Icon.SMALL_TYPE_ICON.getIcon();
+	}
+	
+	@Override
+	public String getHTMLIcon(){
+		return StandardIcon.RawIcon.dribbble.variant(IconVariant.ORANGE);
 	}
 	
 	@Override
