@@ -4,8 +4,9 @@
   <artifactId>vexer</artifactId>
   <versioning>
     <versions>
+      <version>0.1.6-SNAPSHOT</version>
       <version>0.1.7-SNAPSHOT</version>
     </versions>
-    <lastUpdated>20140929111855</lastUpdated>
+    <lastUpdated>20141002073544</lastUpdated>
   </versioning>
 </metadata>
