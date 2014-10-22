@@ -234,38 +234,6 @@ class TestingExerciseView<S extends SubmissionInfo> extends VerticalLayout {
 
 					getUI().addWindow(sp);
 				}
-
-				@Override
-				public void submitted(SubmissionResult<S> submission,
-						boolean submissionWindowIsModal) {
-					if (!Arrays.asList(StandardSubmissionType.values())
-							.contains(submission.getSubmissionType())) {
-						throw new IllegalArgumentException(
-								"For correct behavior the SubmissionType from "
-										+ "askSubmit must be passed as such to "
-										+ "the corresponding SubmissionFeedback");
-					}
-
-					if (!editorTest) {
-
-						StatisticalSubmissionInfo<S> toWrite
-
-						= new StatisticalSubmissionInfo<S>(submission
-								.getTimeOnTask(), submission.getCorrectness(),
-								System.currentTimeMillis(), submission
-										.getSubmissionInfo());
-
-						StubDataFilesHandler.writeSubmToDisk(stubUsed,
-								exerInfo.getName(), toWrite, tempMan);
-
-					}
-
-					SubmissionPopup sp = new SubmissionPopup(localizer,
-							submission,submissionWindowIsModal);
-
-					getUI().addWindow(sp);
-					
-				}
 			});
 		}
 

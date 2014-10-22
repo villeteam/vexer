@@ -92,19 +92,4 @@ public class SubmitListenerHelper<S extends SubmissionInfo> implements
 			sListener.submitted(fb);
 		}
 	}
-	
-	public void informOnlySubmit(double correctness, int timeOnTask, S data,
-			SubmissionType submType, boolean submissionWindowIsModal) {
-		for (SubmissionListener<S> sListener : submitListeners) {
-			sListener.submitted(new SubmissionResult<S>(correctness,
-					timeOnTask, data, null, submType),submissionWindowIsModal);
-		}
-	}
-
-
-	public void informOnlySubmit(SubmissionResult<S> fb, boolean submissionWindowIsModal) {
-		for (SubmissionListener<S> sListener : submitListeners) {
-			sListener.submitted(fb,submissionWindowIsModal);
-		}
-	}
 }
