@@ -176,7 +176,7 @@
             <plugin>
               <groupId>com.github.github</groupId>
               <artifactId>site-maven-plugin</artifactId>
-              <version>0.10-SNAPSHOT</version>
+              <version>0.10</version>
               <configuration>
                   <message>Maven artifacts for ${project.version}</message>
                   <noJekyll>true</noJekyll>
