@@ -10,7 +10,6 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Layout;
 import com.vaadin.ui.Panel;
-import com.vaadin.ui.RichTextArea;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
@@ -29,6 +28,7 @@ import fi.utu.ville.exercises.model.GeneralExerciseInfo;
 import fi.utu.ville.standardutils.Localizer;
 import fi.utu.ville.standardutils.StandardUIFactory;
 import fi.utu.ville.standardutils.TempFilesManager;
+import fi.utu.ville.standardutils.ui.CleanRichTextArea;
 
 /**
  * Stub-implementor for {@link EditorHelper} that provides {@link Editor}s with
@@ -274,7 +274,7 @@ class EditorHelperStubImpl<E extends ExerciseData> implements EditorHelper<E> {
 
 		private Label descriptionLabel;
 
-		private RichTextArea description;
+		private CleanRichTextArea description;
 
 		private Label notesLabel;
 
@@ -326,7 +326,7 @@ class EditorHelperStubImpl<E extends ExerciseData> implements EditorHelper<E> {
 					.getUIText(StubUiConstants.EXERCISE_NAME)));
 			pLayout.addComponent(exerciseName);
 
-			description = new RichTextArea();
+			description = new CleanRichTextArea();
 
 			description.setWidth("100%");
 			description.setHeight("200px");
