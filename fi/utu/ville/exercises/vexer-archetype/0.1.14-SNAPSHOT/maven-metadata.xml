@@ -5,26 +5,26 @@
   <version>0.1.14-SNAPSHOT</version>
   <versioning>
     <snapshot>
-      <timestamp>20141203.124116</timestamp>
+      <timestamp>20150216.081521</timestamp>
       <buildNumber>1</buildNumber>
     </snapshot>
-    <lastUpdated>20141203124116</lastUpdated>
+    <lastUpdated>20150216081521</lastUpdated>
     <snapshotVersions>
       <snapshotVersion>
         <extension>jar</extension>
-        <value>0.1.14-20141203.124116-1</value>
-        <updated>20141203124116</updated>
+        <value>0.1.14-20150216.081521-1</value>
+        <updated>20150216081521</updated>
       </snapshotVersion>
       <snapshotVersion>
         <extension>pom</extension>
-        <value>0.1.14-20141203.124116-1</value>
-        <updated>20141203124116</updated>
+        <value>0.1.14-20150216.081521-1</value>
+        <updated>20150216081521</updated>
       </snapshotVersion>
       <snapshotVersion>
         <classifier>sources</classifier>
         <extension>jar</extension>
-        <value>0.1.14-20141203.124116-1</value>
-        <updated>20141203124116</updated>
+        <value>0.1.14-20150216.081521-1</value>
+        <updated>20150216081521</updated>
       </snapshotVersion>
     </snapshotVersions>
   </versioning>
