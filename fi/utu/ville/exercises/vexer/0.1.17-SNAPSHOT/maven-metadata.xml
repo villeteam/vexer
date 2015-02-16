@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata modelVersion="1.1.0">
+  <groupId>fi.utu.ville.exercises</groupId>
+  <artifactId>vexer</artifactId>
+  <version>0.1.17-SNAPSHOT</version>
+  <versioning>
+    <snapshot>
+      <timestamp>20150216.082718</timestamp>
+      <buildNumber>1</buildNumber>
+    </snapshot>
+    <lastUpdated>20150216082718</lastUpdated>
+    <snapshotVersions>
+      <snapshotVersion>
+        <extension>pom</extension>
+        <value>0.1.17-20150216.082718-1</value>
+        <updated>20150216082718</updated>
+      </snapshotVersion>
+    </snapshotVersions>
+  </versioning>
+</metadata>
