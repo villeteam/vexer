@@ -55,5 +55,7 @@ public interface ExecutionState extends Serializable {
 	 *         submit or the loading of the exercise
 	 */
 	boolean hasUnsubmittedChanges();
+	
+	boolean hasUnsubmittedGeogebraChanges();
 
 }

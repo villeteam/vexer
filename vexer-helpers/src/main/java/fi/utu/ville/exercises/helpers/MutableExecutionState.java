@@ -36,6 +36,7 @@ public class MutableExecutionState implements ExecutionState {
 	private boolean resetShown;
 	private boolean submitShown;
 	private boolean hasUnsubmittedChanges;
+	private boolean hasUnsubmittedGeogebraChanges;
 
 	/**
 	 * Constructs a new {@link MutableExecutionState} with default values.
@@ -47,6 +48,7 @@ public class MutableExecutionState implements ExecutionState {
 		this.submitShown = true;
 		this.resetShown = true;
 		this.hasUnsubmittedChanges = false;
+		this.hasUnsubmittedGeogebraChanges = false;
 	}
 
 	/**
@@ -173,6 +175,19 @@ public class MutableExecutionState implements ExecutionState {
 	 * </p>
 	 */
 	public void setUnSubmChangesFlag() {
+		hasUnsubmittedChanges = true;
+	}
+
+	@Override
+	public boolean hasUnsubmittedGeogebraChanges() {
+		return hasUnsubmittedGeogebraChanges;
+	}
+	
+	public void clearUnSubmGeogebraChangesFlag() {
+		hasUnsubmittedChanges = false;
+	}
+
+	public void setUnSubmGeogebraChangesFlag() {
 		hasUnsubmittedChanges = true;
 	}
 
