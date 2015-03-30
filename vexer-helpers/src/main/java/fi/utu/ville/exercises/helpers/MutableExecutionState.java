@@ -184,7 +184,7 @@ public class MutableExecutionState implements ExecutionState {
 	}
 	
 	public void clearUnSubmGeogebraChangesFlag() {
-		hasUnsubmittedChanges = false;
+		hasUnsubmittedGeogebraChanges = false;
 	}
 
 	public void setUnSubmGeogebraChangesFlag() {
