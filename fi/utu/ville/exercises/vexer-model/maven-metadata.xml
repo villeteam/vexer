@@ -4,9 +4,9 @@
   <artifactId>vexer-model</artifactId>
   <versioning>
     <versions>
+      <version>0.1.12-SNAPSHOT</version>
       <version>0.1.18-SNAPSHOT</version>
-      <version>0.1.19-SNAPSHOT</version>
     </versions>
-    <lastUpdated>20150330072932</lastUpdated>
+    <lastUpdated>20150331133511</lastUpdated>
   </versioning>
 </metadata>
