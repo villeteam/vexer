@@ -14,4 +14,5 @@ public interface VilleUI {
 
 	public void clearPageStack();
 
+	public void setHelpPage(String page);
 }

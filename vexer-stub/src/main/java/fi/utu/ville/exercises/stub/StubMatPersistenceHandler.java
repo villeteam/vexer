@@ -119,6 +119,11 @@ public class StubMatPersistenceHandler implements ByRefSaver, ByRefLoader {
 	// saved to disk
 	private static final class ExistingAFFile extends AFFile {
 
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 5235576214041087662L;
+
 		public ExistingAFFile(File file) {
 			super(file);
 		}
