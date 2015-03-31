@@ -4,9 +4,9 @@
   <artifactId>vexer-archetype</artifactId>
   <versioning>
     <versions>
+      <version>0.1.12-SNAPSHOT</version>
       <version>0.1.18-SNAPSHOT</version>
-      <version>0.1.19-SNAPSHOT</version>
     </versions>
-    <lastUpdated>20150330073024</lastUpdated>
+    <lastUpdated>20150331133603</lastUpdated>
   </versioning>
 </metadata>
