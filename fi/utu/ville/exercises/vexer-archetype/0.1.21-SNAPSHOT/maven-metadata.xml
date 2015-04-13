@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata modelVersion="1.1.0">
+  <groupId>fi.utu.ville.exercises</groupId>
+  <artifactId>vexer-archetype</artifactId>
+  <version>0.1.21-SNAPSHOT</version>
+  <versioning>
+    <snapshot>
+      <timestamp>20150413.105819</timestamp>
+      <buildNumber>1</buildNumber>
+    </snapshot>
+    <lastUpdated>20150413105819</lastUpdated>
+    <snapshotVersions>
+      <snapshotVersion>
+        <extension>jar</extension>
+        <value>0.1.21-20150413.105819-1</value>
+        <updated>20150413105819</updated>
+      </snapshotVersion>
+      <snapshotVersion>
+        <extension>pom</extension>
+        <value>0.1.21-20150413.105819-1</value>
+        <updated>20150413105819</updated>
+      </snapshotVersion>
+      <snapshotVersion>
+        <classifier>sources</classifier>
+        <extension>jar</extension>
+        <value>0.1.21-20150413.105819-1</value>
+        <updated>20150413105819</updated>
+      </snapshotVersion>
+    </snapshotVersions>
+  </versioning>
+</metadata>
