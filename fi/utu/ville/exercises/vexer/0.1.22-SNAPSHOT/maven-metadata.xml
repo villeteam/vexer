@@ -2,18 +2,18 @@
 <metadata modelVersion="1.1.0">
   <groupId>fi.utu.ville.exercises</groupId>
   <artifactId>vexer</artifactId>
-  <version>0.1.18-SNAPSHOT</version>
+  <version>0.1.22-SNAPSHOT</version>
   <versioning>
     <snapshot>
-      <timestamp>20150330.065321</timestamp>
-      <buildNumber>5</buildNumber>
+      <timestamp>20150428.101131</timestamp>
+      <buildNumber>2</buildNumber>
     </snapshot>
-    <lastUpdated>20150330065321</lastUpdated>
+    <lastUpdated>20150428101131</lastUpdated>
     <snapshotVersions>
       <snapshotVersion>
         <extension>pom</extension>
-        <value>0.1.18-20150330.065321-5</value>
-        <updated>20150330065321</updated>
+        <value>0.1.22-20150428.101131-2</value>
+        <updated>20150428101131</updated>
       </snapshotVersion>
     </snapshotVersions>
   </versioning>
