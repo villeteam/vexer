@@ -4,9 +4,10 @@
   <artifactId>vexer-helpers</artifactId>
   <versioning>
     <versions>
-      <version>0.1.16-SNAPSHOT</version>
-      <version>0.1.21-SNAPSHOT</version>
+      <version>0.1.18-SNAPSHOT</version>
+      <version>0.1.19-SNAPSHOT</version>
+      <version>0.1.22-SNAPSHOT</version>
     </versions>
-    <lastUpdated>20150413105737</lastUpdated>
+    <lastUpdated>20150428101156</lastUpdated>
   </versioning>
 </metadata>
