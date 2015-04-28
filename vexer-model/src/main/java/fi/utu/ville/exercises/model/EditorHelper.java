@@ -172,6 +172,22 @@ public interface EditorHelper<E extends ExerciseData> extends Serializable {
 	 * @return current {@link TempFilesManager}
 	 */
 	TempFilesManager getTempManager();
+	
+	/**
+	 * The return value of this method is used in showing a warning to a teacher
+	 * who is trying to leave an editor without saving changes made to it.
+	 * Usually it is enough to err on the side of caution, ie. to return true
+	 * from this method after the user has used for example some text-field
+	 * regardless whether the value of the field was actually changed or not.
+	 * 
+	 * @return true if the user made changes to the editor's state since last
+	 *         save or the loading of the exercise
+	 */
+	boolean hasUnsubmittedChanges();
+
+	void clearUnSubmChangesFlag();
+	
+	void setUnSubmChangesFlag();
 
 	/**
 	 * Implementor of this exercise knows how to return {@link ExerciseData}

@@ -62,6 +62,8 @@ class EditorHelperStubImpl<E extends ExerciseData> implements EditorHelper<E> {
 	private final EditorView editorView;
 
 	private final HashSet<ExerciseSaveListener<E>> listeners = new HashSet<ExerciseSaveListener<E>>();
+	
+	private boolean hasUnsavedChanges = false;
 
 	public EditorHelperStubImpl(GeneralExerciseInfo exerInfo,
 			Localizer localizer, ExerciseTypeDescriptor<E, ?> typeDesc,
@@ -196,6 +198,7 @@ class EditorHelperStubImpl<E extends ExerciseData> implements EditorHelper<E> {
 
 							informSaveListeners(data);
 						}
+						clearUnSubmChangesFlag();
 					}
 				}
 			});
@@ -411,6 +414,21 @@ class EditorHelperStubImpl<E extends ExerciseData> implements EditorHelper<E> {
 	@Override
 	public void setExerciseDescription(String description) {
 		editorView.setExerciseDescription(description);		
+	}
+
+	@Override
+	public boolean hasUnsubmittedChanges() {
+		return hasUnsavedChanges;
+	}
+
+	@Override
+	public void clearUnSubmChangesFlag() {
+		hasUnsavedChanges = false;		
+	}
+
+	@Override
+	public void setUnSubmChangesFlag() {
+		hasUnsavedChanges = true;		
 	}
 
 }

@@ -76,4 +76,9 @@ final class StubResourceGiverImpl implements Localizer {
 		return ',';
 	}
 
+	@Override
+	public String getDateFormat() {
+		return "mm-dd-yyyy";
+	}
+
 }
