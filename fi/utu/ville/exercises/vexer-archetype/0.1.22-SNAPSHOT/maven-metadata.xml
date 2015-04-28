@@ -2,29 +2,29 @@
 <metadata modelVersion="1.1.0">
   <groupId>fi.utu.ville.exercises</groupId>
   <artifactId>vexer-archetype</artifactId>
-  <version>0.1.18-SNAPSHOT</version>
+  <version>0.1.22-SNAPSHOT</version>
   <versioning>
     <snapshot>
-      <timestamp>20150330.065417</timestamp>
-      <buildNumber>2</buildNumber>
+      <timestamp>20150428.101241</timestamp>
+      <buildNumber>1</buildNumber>
     </snapshot>
-    <lastUpdated>20150330065417</lastUpdated>
+    <lastUpdated>20150428101241</lastUpdated>
     <snapshotVersions>
       <snapshotVersion>
         <extension>jar</extension>
-        <value>0.1.18-20150330.065417-2</value>
-        <updated>20150330065417</updated>
+        <value>0.1.22-20150428.101241-1</value>
+        <updated>20150428101241</updated>
       </snapshotVersion>
       <snapshotVersion>
         <extension>pom</extension>
-        <value>0.1.18-20150330.065417-2</value>
-        <updated>20150330065417</updated>
+        <value>0.1.22-20150428.101241-1</value>
+        <updated>20150428101241</updated>
       </snapshotVersion>
       <snapshotVersion>
         <classifier>sources</classifier>
         <extension>jar</extension>
-        <value>0.1.18-20150330.065417-2</value>
-        <updated>20150330065417</updated>
+        <value>0.1.22-20150428.101241-1</value>
+        <updated>20150428101241</updated>
       </snapshotVersion>
     </snapshotVersions>
   </versioning>
