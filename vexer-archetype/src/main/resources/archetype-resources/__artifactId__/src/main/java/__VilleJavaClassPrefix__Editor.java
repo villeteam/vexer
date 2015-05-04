@@ -49,7 +49,7 @@ public class ${VilleJavaClassPrefix}Editor extends VilleContent implements
 	}
 
 	@Override
-	public Layout getView() {
+	public VilleContent getView() {
 		return this;
 	}
 
