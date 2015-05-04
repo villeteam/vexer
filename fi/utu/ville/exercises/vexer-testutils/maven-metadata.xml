@@ -3,12 +3,14 @@
   <groupId>fi.utu.ville.exercises</groupId>
   <artifactId>vexer-testutils</artifactId>
   <versioning>
+    <release>0.2.0-RELEASE</release>
     <versions>
       <version>0.1.18-SNAPSHOT</version>
       <version>0.1.19-SNAPSHOT</version>
       <version>0.1.22-SNAPSHOT</version>
       <version>0.1.23-SNAPSHOT</version>
+      <version>0.2.0-RELEASE</version>
     </versions>
-    <lastUpdated>20150428105339</lastUpdated>
+    <lastUpdated>20150504111354</lastUpdated>
   </versioning>
 </metadata>
