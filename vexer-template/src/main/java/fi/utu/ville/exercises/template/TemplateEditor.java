@@ -4,7 +4,6 @@ import java.io.File;
 
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.Layout;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
@@ -49,7 +48,7 @@ public class TemplateEditor extends VilleContent implements
 	}
 
 	@Override
-	public Layout getView() {
+	public VilleContent getView() {
 		return this;
 	}
 
@@ -63,6 +62,8 @@ public class TemplateEditor extends VilleContent implements
 		this.editorHelper = editorHelper;
 
 		editorHelper.getTempManager().initialize();
+		
+		init(ui);
 
 		doLayout(oldData);
 	}

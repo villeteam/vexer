@@ -34,6 +34,7 @@ import fi.utu.ville.exercises.model.SubmissionListener;
 import fi.utu.ville.exercises.model.SubmissionStatisticsGiver;
 import fi.utu.ville.exercises.model.SubmissionType;
 import fi.utu.ville.exercises.model.SubmissionVisualizer;
+import fi.utu.ville.exercises.model.VilleContent;
 import fi.utu.ville.exercises.model.VilleUI;
 import fi.utu.ville.standardutils.Localizer;
 import fi.utu.ville.standardutils.StandardUIConstants;
@@ -108,21 +109,6 @@ public final class ExerTypeVoidImplCollection {
 		public String getTypeDescription(Localizer localizer) {
 			return "Void-description";
 		}
-
-		// @Override
-		// public Resource getSmallTypeIcon() {
-		// return StandardIcon.EDIT_ICON_SMALL.getIcon();
-		// }
-		//
-		// @Override
-		// public Resource getMediumTypeIcon() {
-		// return StandardIcon.EDIT_ICON_SMALL.getIcon();
-		// }
-		//
-		// @Override
-		// public Resource getLargeTypeIcon() {
-		// return StandardIcon.EDIT_ICON_SMALL.getIcon();
-		// }
 
 	}
 
@@ -232,16 +218,21 @@ public final class ExerTypeVoidImplCollection {
 	 * 
 	 * @author Riku Haavisto
 	 */
-	public static final class VoidExerciseEditor extends VerticalLayout
+	public static final class VoidExerciseEditor extends VilleContent
 			implements Editor<VoidExerciseData> {
+
+		public VoidExerciseEditor() {
+			super(null);
+		}
 
 		/**
 		 * 
 		 */
 		private static final long serialVersionUID = 3825284271956719565L;
+		
+		private EditorHelper<VoidExerciseData> genExerInfoEditor;
 
-		private void doLayout(
-				final EditorHelper<VoidExerciseData> genExerInfoEditor) {
+		public void doLayout() {
 			Button saveButton = new Button("save");
 
 			saveButton.addClickListener(new ClickListener() {
@@ -263,7 +254,7 @@ public final class ExerTypeVoidImplCollection {
 		}
 
 		@Override
-		public Component getView() {
+		public VilleContent getView() {
 			return this;
 		}
 
@@ -272,7 +263,18 @@ public final class ExerTypeVoidImplCollection {
 				VoidExerciseData oldData,
 				EditorHelper<VoidExerciseData> genExerInfoEditor)
 				throws ExerciseException {
-			doLayout(genExerInfoEditor);
+			this.genExerInfoEditor = genExerInfoEditor;
+			doLayout();
+		}
+
+		@Override
+		public boolean isOkToExit() {
+			return true;
+		}
+
+		@Override
+		public String getViewName() {
+			return "testeditor";
 		}
 
 	}

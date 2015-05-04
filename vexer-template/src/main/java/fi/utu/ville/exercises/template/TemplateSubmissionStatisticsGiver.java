@@ -33,7 +33,6 @@ import fi.utu.ville.exercises.model.StatisticalSubmissionInfo;
 import fi.utu.ville.exercises.model.StatisticsInfoColumn;
 import fi.utu.ville.exercises.model.SubmissionStatisticsGiver;
 import fi.utu.ville.standardutils.Localizer;
-import fi.utu.ville.standardutils.StandardIcon;
 import fi.utu.ville.standardutils.StandardUIConstants;
 import fi.utu.ville.standardutils.StandardUIFactory;
 import fi.utu.ville.standardutils.TempFilesManager;

@@ -2,8 +2,6 @@ package fi.utu.ville.exercises.model;
 
 import java.io.Serializable;
 
-import com.vaadin.ui.Component;
-
 import fi.utu.ville.standardutils.Localizer;
 import fi.utu.ville.standardutils.TempFilesManager;
 
@@ -34,7 +32,7 @@ public interface Editor<E extends ExerciseData> extends Serializable {
 	 * 
 	 * @return The GUI through which the user can edit an exercise instance
 	 */
-	Component getView();
+	VilleContent getView();
 
 	/**
 	 * Iniates the editor. If called with null as oldData, the implementor
