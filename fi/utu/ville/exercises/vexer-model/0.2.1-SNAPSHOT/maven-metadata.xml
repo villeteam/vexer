@@ -2,35 +2,35 @@
 <metadata modelVersion="1.1.0">
   <groupId>fi.utu.ville.exercises</groupId>
   <artifactId>vexer-model</artifactId>
-  <version>0.1.18-SNAPSHOT</version>
+  <version>0.2.1-SNAPSHOT</version>
   <versioning>
     <snapshot>
-      <timestamp>20150331.133511</timestamp>
+      <timestamp>20150507.123031</timestamp>
       <buildNumber>1</buildNumber>
     </snapshot>
-    <lastUpdated>20150331133511</lastUpdated>
+    <lastUpdated>20150507123031</lastUpdated>
     <snapshotVersions>
       <snapshotVersion>
         <extension>jar</extension>
-        <value>0.1.18-20150331.133511-1</value>
-        <updated>20150331133511</updated>
+        <value>0.2.1-20150507.123031-1</value>
+        <updated>20150507123031</updated>
       </snapshotVersion>
       <snapshotVersion>
         <extension>pom</extension>
-        <value>0.1.18-20150331.133511-1</value>
-        <updated>20150331133511</updated>
+        <value>0.2.1-20150507.123031-1</value>
+        <updated>20150507123031</updated>
       </snapshotVersion>
       <snapshotVersion>
         <classifier>javadoc</classifier>
         <extension>jar</extension>
-        <value>0.1.18-20150331.133511-1</value>
-        <updated>20150331133511</updated>
+        <value>0.2.1-20150507.123031-1</value>
+        <updated>20150507123031</updated>
       </snapshotVersion>
       <snapshotVersion>
         <classifier>sources</classifier>
         <extension>jar</extension>
-        <value>0.1.18-20150331.133511-1</value>
-        <updated>20150331133511</updated>
+        <value>0.2.1-20150507.123031-1</value>
+        <updated>20150507123031</updated>
       </snapshotVersion>
     </snapshotVersions>
   </versioning>
