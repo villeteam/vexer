@@ -10,15 +10,14 @@ import fi.utu.ville.exercises.helpers.ExerciseExecutionHelper;
 import fi.utu.ville.exercises.model.ExecutionSettings;
 import fi.utu.ville.exercises.model.ExecutionState;
 import fi.utu.ville.exercises.model.ExecutionStateChangeListener;
-import fi.utu.ville.exercises.model.Executor;
 import fi.utu.ville.exercises.model.ExerciseException;
+import fi.utu.ville.exercises.model.NoMisconceptionExecutor;
 import fi.utu.ville.exercises.model.SubmissionListener;
 import fi.utu.ville.exercises.model.SubmissionType;
 import fi.utu.ville.standardutils.Localizer;
 import fi.utu.ville.standardutils.TempFilesManager;
 
-public class ${VilleJavaClassPrefix}Executor extends VerticalLayout implements
-		Executor<${VilleJavaClassPrefix}ExerciseData, ${VilleJavaClassPrefix}SubmissionInfo> {
+public class ${VilleJavaClassPrefix}Executor extends NoMisconceptionExecutor<${VilleJavaClassPrefix}ExerciseData, ${VilleJavaClassPrefix}SubmissionInfo> {
 
 	/**
 	 * 
@@ -31,6 +30,8 @@ public class ${VilleJavaClassPrefix}Executor extends VerticalLayout implements
 
 	private final TextField answerField = new TextField();
 
+	private VerticalLayout layout = new VerticalLayout();
+	
 	public ${VilleJavaClassPrefix}Executor() {
 
 	}
@@ -46,12 +47,12 @@ public class ${VilleJavaClassPrefix}Executor extends VerticalLayout implements
 
 	private void doLayout(${VilleJavaClassPrefix}ExerciseData exerciseData, String oldAnswer) {
 		if (exerciseData.getImgFile() != null) {
-			this.addComponent(new Image(null, exerciseData.getImgFile()
+			layout.addComponent(new Image(null, exerciseData.getImgFile()
 					.getAsResource()));
 		}
-		this.addComponent(new Label(exerciseData.getQuestion()));
+		layout.addComponent(new Label(exerciseData.getQuestion()));
 		answerField.setValue(oldAnswer);
-		this.addComponent(answerField);
+		layout.addComponent(answerField);
 	}
 
 	@Override
@@ -62,7 +63,7 @@ public class ${VilleJavaClassPrefix}Executor extends VerticalLayout implements
 
 	@Override
 	public Layout getView() {
-		return this;
+		return layout;
 	}
 
 	@Override

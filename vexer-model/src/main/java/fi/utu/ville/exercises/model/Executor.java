@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import com.vaadin.ui.Component;
 
+import edu.vserver.misconception.MisconceptionPerformanceSubject;
 import fi.utu.ville.standardutils.Localizer;
 import fi.utu.ville.standardutils.TempFilesManager;
 
@@ -125,4 +126,18 @@ public interface Executor<E extends ExerciseData, S extends SubmissionInfo>
 	 */
 	ExecutionState getCurrentExecutionState();
 
+	/**
+	 * Sets the subject for which misconceptions are collected. (e.g. Math)
+	 * 
+	 * @param misconceptionSubject the school subject for misconceptions. 
+	 * Null or NONE for no collection. 
+	 */
+	void setMisconceptionSubject(
+			MisconceptionPerformanceSubject misconceptionSubject);
+
+	/**
+	 * The subject for which misconceptions are collected for this exercise.
+	 * @return This exercise's MisconceptionPerformanceSubject.
+	 */
+	MisconceptionPerformanceSubject getMisconceptionSubject();
 }

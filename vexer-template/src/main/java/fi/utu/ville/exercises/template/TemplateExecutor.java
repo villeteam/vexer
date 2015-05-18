@@ -10,15 +10,14 @@ import fi.utu.ville.exercises.helpers.ExerciseExecutionHelper;
 import fi.utu.ville.exercises.model.ExecutionSettings;
 import fi.utu.ville.exercises.model.ExecutionState;
 import fi.utu.ville.exercises.model.ExecutionStateChangeListener;
-import fi.utu.ville.exercises.model.Executor;
 import fi.utu.ville.exercises.model.ExerciseException;
+import fi.utu.ville.exercises.model.NoMisconceptionExecutor;
 import fi.utu.ville.exercises.model.SubmissionListener;
 import fi.utu.ville.exercises.model.SubmissionType;
 import fi.utu.ville.standardutils.Localizer;
 import fi.utu.ville.standardutils.TempFilesManager;
 
-public class TemplateExecutor extends VerticalLayout implements
-		Executor<TemplateExerciseData, TemplateSubmissionInfo> {
+public class TemplateExecutor extends NoMisconceptionExecutor<TemplateExerciseData, TemplateSubmissionInfo> {
 
 	/**
 	 * 
@@ -31,6 +30,8 @@ public class TemplateExecutor extends VerticalLayout implements
 
 	private final TextField answerField = new TextField("answer:");
 
+	private VerticalLayout exerLayout = new VerticalLayout();
+	
 	public TemplateExecutor() {
 
 	}
@@ -45,12 +46,12 @@ public class TemplateExecutor extends VerticalLayout implements
 
 	private void doLayout(TemplateExerciseData exerciseData, String oldAnswer) {
 		if (exerciseData.getImgFile() != null) {
-			this.addComponent(new Image(null, exerciseData.getImgFile()
+			exerLayout.addComponent(new Image(null, exerciseData.getImgFile()
 					.getAsResource()));
 		}
-		this.addComponent(new Label(exerciseData.getQuestion()));
+		exerLayout.addComponent(new Label(exerciseData.getQuestion()));
 		answerField.setValue(oldAnswer);
-		this.addComponent(answerField);
+		exerLayout.addComponent(answerField);
 	}
 
 	@Override
@@ -61,7 +62,7 @@ public class TemplateExecutor extends VerticalLayout implements
 
 	@Override
 	public Layout getView() {
-		return this;
+		return exerLayout;
 	}
 
 	@Override

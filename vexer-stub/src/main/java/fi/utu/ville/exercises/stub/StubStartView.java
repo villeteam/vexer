@@ -93,6 +93,8 @@ class StubStartView extends VerticalLayout {
 		// TODO : maybe move to stubsessiondata's init..?
 		StubSessionData.getInstance().clearTemp();
 
+		ui = new StubUI();
+		
 		setId("stubstartview");
 
 		setSizeFull();
