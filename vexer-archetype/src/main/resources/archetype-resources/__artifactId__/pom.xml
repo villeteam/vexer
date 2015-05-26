@@ -32,18 +32,11 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>
-		<repository>
-            <id>Ville-Standardutils-mvn-repo</id>
-            <url>https://raw.github.com/villeteam/ville-standardutils/mvn-repo/</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
         <repository>
             <id>Ville-Exer-mvn-repo</id>
-            <url>https://raw.github.com/villeteam/vexer/mvn-repo/</url>
+            <url>http://www.testi.villeteam.fi/Ville/mvn-repo</url>
             <snapshots>
-                <enabled>true</enabled>
+                <enabled>false</enabled>
             </snapshots>
         </repository>
 	</repositories>
