@@ -20,6 +20,7 @@ import com.vaadin.ui.Window;
 import com.vaadin.ui.themes.BaseTheme;
 import com.vaadin.ui.themes.ChameleonTheme;
 
+import edu.vserver.exercises.math.MathSubmissionUIFactory;
 import edu.vserver.exercises.math.essentials.layout.MathExerciseView;
 import edu.vserver.exercises.math.essentials.layout.Problem;
 import edu.vserver.exercises.math.essentials.layout.TimeStamp;
@@ -144,13 +145,24 @@ public abstract class AbstractMathTableSubmissionViewer<E extends ExerciseData, 
 				.getTimeStamps());
 
 		int i = 0;
+		Double[] timesPerTask = new Double[submInfo.getProblems().size()];
 		for (final G problem : submInfo.getProblems()) {
 			final int current = i;
 			String time = "0";
 			if (i < handlers.size()) {
 				time = timePerTask(handlers, i);
 			}
-
+			
+			double t = 0;
+			try {
+				t = Double.parseDouble(time);
+			} catch (Exception e) {
+				System.out.println("Number format exception " + e.getMessage());
+			}
+			timesPerTask[i] = t;
+			
+			Button timeline = MathSubmissionUIFactory.getTimelineButton(handlers.get(current));
+			
 			Button showExercise = new Button("Show exercise");
 			showExercise.addStyleName(BaseTheme.BUTTON_LINK);
 			showExercise.addClickListener(new Button.ClickListener() {
@@ -195,16 +207,9 @@ public abstract class AbstractMathTableSubmissionViewer<E extends ExerciseData, 
 
 			}
 
-			double t = 0;
-			try {
-				t = Double.parseDouble(time);
-			} catch (Exception e) {
-				System.out.println("Number format exception " + e.getMessage());
-			}
-
 			table.addItem(new Object[] { problem.getQuestion(localizer),
 					problem.getCorrectAnswer(), problem.getUserAnswer(),
-					correctness, format.format(t), showExercise },
+					correctness, format.format(t), timeline, showExercise },
 					new Integer(i));
 
 			// Average time answering exercises
@@ -242,9 +247,7 @@ public abstract class AbstractMathTableSubmissionViewer<E extends ExerciseData, 
 		doneExers.addStyleName("lastSubmissionInfo");
 		horStats.addComponent(doneExers);
 
-		HorizontalLayout chartContainer = new HorizontalLayout();
-		chartContainer.setSizeUndefined();
-		chartContainer.setSpacing(true);
+		HorizontalLayout chartContainer = MathSubmissionUIFactory.getChartContainer(handlers, timesPerTask, correctAnswers,(submInfo.getProblems().size() - correctAnswers));//new HorizontalLayout();
 
 		Embedded diffLevel = getDiffLevel();
 
@@ -264,14 +267,6 @@ public abstract class AbstractMathTableSubmissionViewer<E extends ExerciseData, 
 
 		setComponentAlignment(tableContainer, Alignment.MIDDLE_CENTER);
 
-	}
-
-	protected Layout doAdditionalSubProbLayout(final G subProblem) {
-		return null;
-	}
-
-	protected Localizer getLocalizer() {
-		return localizer;
 	}
 
 	/*
@@ -298,7 +293,7 @@ public abstract class AbstractMathTableSubmissionViewer<E extends ExerciseData, 
 
 		return handlers;
 	}
-
+	
 	protected String timePerTask(ArrayList<TimeStampHandler> stamp, int i) {
 
 		TimeStampHandler subProblem = stamp.get(i);
@@ -321,4 +316,13 @@ public abstract class AbstractMathTableSubmissionViewer<E extends ExerciseData, 
 			return "N/A";
 		}
 	}
+	
+	protected Layout doAdditionalSubProbLayout(final G subProblem) {
+		return null;
+	}
+
+	protected Localizer getLocalizer() {
+		return localizer;
+	}
+
 }
