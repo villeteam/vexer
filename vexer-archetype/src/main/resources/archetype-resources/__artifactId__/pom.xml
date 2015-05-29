@@ -34,7 +34,7 @@
 		</repository>
         <repository>
             <id>Ville-Exer-mvn-repo</id>
-            <url>http://www.testi.villeteam.fi/Ville/mvn-repo</url>
+            <url>http://www.mvn.villeteam.net/</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
