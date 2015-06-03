@@ -32,21 +32,27 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>
-		<repository>
-            <id>Ville-Standardutils-mvn-repo</id>
-            <url>https://raw.github.com/villeteam/ville-standardutils/mvn-repo/</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
         <repository>
             <id>Ville-Exer-mvn-repo</id>
-            <url>https://raw.github.com/villeteam/vexer/mvn-repo/</url>
+            <url>http://www.mvn.villeteam.net/</url>
             <snapshots>
-                <enabled>true</enabled>
+                <enabled>false</enabled>
             </snapshots>
         </repository>
 	</repositories>
+
+	<distributionManagement>
+		<repository>
+			<id>ville-local-releases</id>
+			<name>ville-local-releases</name>
+			<url>${ville-local-rel.url}</url>
+		</repository>
+		<snapshotRepository>
+			<id>ville-local-snapshots</id>
+			<name>ville-local-snapshots</name>
+			<url>${ville-local-snap.url}</url>
+		</snapshotRepository>
+	</distributionManagement>
 
 	<pluginRepositories>
 		<pluginRepository>

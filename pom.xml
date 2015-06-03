@@ -31,11 +31,9 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<vaadin.version>7.2.7</vaadin.version>
 		<vaadin.plugin.version>${vaadin.version}</vaadin.plugin.version>
-        <standardutils.version>0.0.46-SNAPSHOT</standardutils.version>
-        <!-- github server corresponds to entry in ~/.m2/settings.xml
-            containing data that should be kept private        
-         -->
-        <github.global.server>github</github.global.server>
+
+        <standardutils.version>0.1.0-RELEASE</standardutils.version>
+
 	</properties>
 
 	<modules>
@@ -72,8 +70,8 @@
 			</snapshots>
 		</repository>
         <repository>
-            <id>Ville-Standardutils-mvn-repo</id>
-            <url>https://raw.github.com/villeteam/ville-standardutils/mvn-repo/</url>
+            <id>Ville-mvn-repo</id>
+            <url>${ville-mvn-repo.url}</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
@@ -89,10 +87,15 @@
 	</dependencies>
 
     <distributionManagement>
-        <repository>
-            <id>internal.repo</id>
-            <name>Temporary Staging Repository</name>
-            <url>file://${project.build.directory}/mvn-repo</url>
+		<snapshotRepository>
+            <id>ville-local-snapshots</id>
+            <name>vexer-snapshot-repository</name>
+            <url>${ville-local-snap.url}</url>
+        </snapshotRepository>
+		<repository>
+            <id>ville-public-releases</id>
+            <name>ville-release-repository</name>
+            <url>${ville-public-release.url}</url>
         </repository>
     </distributionManagement>
 
@@ -110,8 +113,15 @@
 	</pluginRepositories>
 
     <build>
+		<extensions>
+			<!-- Enabling the use of FTP -->
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-ftp</artifactId>
+				<version>2.8</version>
+			</extension>
+		</extensions>
 		<plugins>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -171,33 +181,6 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.14.1</version>
 			</plugin>
-
-            <!-- deploy artifact to github -->
-            <plugin>
-              <groupId>com.github.github</groupId>
-              <artifactId>site-maven-plugin</artifactId>
-              <version>0.10</version>
-              <configuration>
-                  <message>Maven artifacts for ${project.version}</message>
-                  <noJekyll>true</noJekyll>
-                  <outputDirectory>${project.build.directory}/mvn-repo</outputDirectory>
-                  <branch>refs/heads/mvn-repo</branch>
-                  <includes><include>**/*</include></includes>
-                  <repositoryName>vexer</repositoryName>
-                  <repositoryOwner>villeteam</repositoryOwner>
-                  <merge>true</merge>
-              </configuration>
-              <executions>
-                    <!-- run site-maven-plugin's 'site' target as part of the build's normal 'deploy' phase -->
-                  <execution>
-                      <goals>
-                          <goal>site</goal>
-                      </goals>
-                      <phase>deploy</phase>
-                  </execution>
-              </executions>
-            </plugin>
-
 		</plugins>
 		
 	</build>
