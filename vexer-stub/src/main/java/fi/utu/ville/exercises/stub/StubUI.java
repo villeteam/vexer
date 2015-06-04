@@ -52,5 +52,10 @@ public class StubUI implements VilleUI {
 			}
 		};
 	}
-	
+
+	@Override
+	public boolean changeContent(VilleContent content, boolean forceChange) {
+	    return false;
+	}
+
 }

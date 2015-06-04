@@ -1,0 +1,65 @@
+#set( $nameSpace = $artifactId.toUpperCase() )
+// Translations for Ville-exercise ${artifactId}
+
+// this file (named after <ville-exer-id>) is only 
+// translation-namespace allocated 
+// to this ville-exercise; do not add other .trl-files
+
+// Ville-translation file format:
+//     - lines starting with // are comments and ignored 
+//         when parsing
+//     - empty lines are ignored when parsing
+//     - lines starting with @key: denote keys that can be 
+//         accessed from Ville-code using 
+//         Localizer.getUIText(NameSpace.Key)
+//         - the Key is what's between @key: and next \n
+//             - eg. @key:NAME\n denotes Key=NAME
+//         - the NameSpace is the name of the translation 
+//             file containing the key in upper-case
+//             - eg. to reference keys in this file name-space 
+//                 is ${nameSpace}
+//     - lines starting with @en: denote translation to given key
+//         in that will be used when given user's locale's 
+//         two-letter language code is 'en'
+//         - you can add translations to any language code (eg. @fi:)
+//         - the translation in given language spans everything from
+//             end of @lang-code: to start of next line that starts
+//             with @lang-code: or @key:
+//         - all line breaks are stripped from the translations
+//             - if you want to specify explicit line-breaks (ie. \n)
+//                 you must do that by token substitution in your 
+//                 Java-code (you can leverage the built-in feature);
+//                 html line breaks (<br/>) will naturally work as
+//                 such if value is viewed as html
+//     - Ville-Localizer contains method for substituting tokens to parameters
+//         - syntax is @{parameter-index} eg. @0 or @1 etc.
+//         - alternative syntax is @{param-name} eg. @{user-answer}
+//         - in either case the substitution parameters can appear 
+//             in any order in and as many times as needed in the 
+//             text (ie. "this @1 translation named @0 has some @1 tokens @2"
+// 
+// You can of course also use other methods of providing localization of UI-text if that 
+// seems to be easier; the Ville-method should be effective and powerful enough for most situations
+
+@key:NAME
+@en:${artifactId}-name
+
+@key:DESC
+@en:Example description of ${artifactId}
+
+// These constants are here just for the dummy-template-exercise 
+// and you can remove then when starting to implement your own 
+// exercise on top of the template
+@key:QUESTION
+@en:Question
+
+@key:ANSWER
+@en:Answer
+
+// use @0 as line break marker, @1 for question, @2 for answer
+@key:SUBM_EXPORT
+@en:Question: @1@0Answer: @2@0
+
+@key:ANSWER_COL_DESC
+@en:User's answer for
+

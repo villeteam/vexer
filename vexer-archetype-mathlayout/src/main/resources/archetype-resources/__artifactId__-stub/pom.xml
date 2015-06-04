@@ -1,51 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<parent>
-        <groupId>fi.utu.ville.exercises</groupId>
-        <artifactId>vexer</artifactId>
-        <version>0.2.2-SNAPSHOT</version>
-    </parent>
-    <modelVersion>4.0.0</modelVersion>
-	<artifactId>vexer-stub-demo</artifactId>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>\${groupId}</groupId>
+	<artifactId>\${artifactId}-stub</artifactId>
 	<packaging>war</packaging>
-	<name>Ville-plugin-exercise Stub Demo</name>
+	<version>\${version}</version>
+	<name>\${artifactId} Ville-Exercise Stub-Demo</name>
+	
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<vaadin.version>${vaadin.version}</vaadin.version>
+		<vaadin.plugin.version>\${vaadin.version}</vaadin.plugin.version>
+		<vexer.version>${project.version}</vexer.version>
+	</properties>
+
+	<repositories>
+		<repository>
+			<id>vaadin-addons</id>
+			<url>http://maven.vaadin.com/vaadin-addons</url>
+		</repository>
+		<repository>
+			<id>vaadin-snapshots</id>
+			<url>http://oss.sonatype.org/content/repositories/vaadin-snapshots/</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+        <repository>
+            <id>Ville-Exer-mvn-repo</id>
+            <url>http://www.mvn.villeteam.net/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>vaadin-snapshots</id>
+			<url>http://oss.sonatype.org/content/repositories/vaadin-snapshots/</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
 
 	<dependencies>
 		<dependency>
-			<groupId>fi.utu.ville</groupId>
-			<artifactId>ville-standardutils</artifactId> 
-			<version>${standardutils.version}</version>
+			<groupId>\${groupId}</groupId>
+			<artifactId>\${artifactId}</artifactId>
+			<version>\${project.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>fi.utu.ville.exercises</groupId>
-			<artifactId>vexer-template</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>fi.utu.ville.exercises</groupId>
-			<artifactId>vexer-model</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>fi.utu.ville.exercises</groupId>
-			<artifactId>vexer-stub</artifactId>
-			<version>${project.version}</version>
+        <dependency>
+            <groupId>fi.utu.ville.exercises</groupId>
+            <artifactId>vexer-stub</artifactId>
+            <version>\${vexer.version}</version>
+        </dependency>
+        <!-- This version is required by ville-standardutils, 
+        	ensure that vaadin-client-compiler's 1.3 is overridden
+         -->
+        <dependency>
+		        <groupId>commons-codec</groupId>
+            	<artifactId>commons-codec</artifactId>
+            	<version>1.8</version>
 		</dependency>
 		<dependency>
 			<groupId>com.vaadin</groupId>
 			<artifactId>vaadin-push</artifactId>
-			<version>${vaadin.version}</version>
+			<version>\${vaadin.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.vaadin</groupId>
 			<artifactId>vaadin-client-compiler</artifactId>
-			<version>${vaadin.version}</version>
+			<version>\${vaadin.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.vaadin</groupId>
 			<artifactId>vaadin-themes</artifactId>
-			<version>${vaadin.version}</version>
+			<version>\${vaadin.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -53,12 +92,20 @@
 			<version>3.0.1</version>
 			<scope>provided</scope>
 		</dependency>
-
-		
 	</dependencies>
 
 	<build>
 		<plugins>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.0</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
 
 			<plugin>
 				<artifactId>maven-clean-plugin</artifactId>
@@ -67,11 +114,11 @@
 					<filesets>
 						<fileset>
 							<!-- Clean-up widgetset required for "inplace" compilation -->
-							<directory>${basedir}/src/main/webapp/VAADIN/widgetsets</directory>
+							<directory>\${basedir}/src/main/webapp/VAADIN/widgetsets</directory>
 						</fileset>
 						<fileset>
 							<!-- Clean-up gwt cache -->
-							<directory>${basedir}/src/main/webapp/VAADIN/gwt-unitCache</directory>
+							<directory>\${basedir}/src/main/webapp/VAADIN/gwt-unitCache</directory>
 						</fileset>
 					</filesets>
 				</configuration>
@@ -99,13 +146,13 @@
 			<plugin>
 				<groupId>com.vaadin</groupId>
 				<artifactId>vaadin-maven-plugin</artifactId>
-				<version>${vaadin.plugin.version}</version>
+				<version>\${vaadin.plugin.version}</version>
 				<configuration>
 					<extraJvmArgs>-Xmx512M -Xss1024k</extraJvmArgs>
-					<webappDirectory>${basedir}/src/main/webapp/VAADIN/widgetsets</webappDirectory>
-					<hostedWebapp>${basedir}/src/main/webapp/VAADIN/widgetsets</hostedWebapp>
+					<webappDirectory>\${basedir}/src/main/webapp/VAADIN/widgetsets</webappDirectory>
+					<hostedWebapp>\${basedir}/src/main/webapp/VAADIN/widgetsets</hostedWebapp>
 					<noServer>true</noServer>
-					<persistentunitcachedir>${basedir}/target/tmp/gwt-unitCache</persistentunitcachedir>
+					<persistentunitcachedir>\${basedir}/target/tmp/gwt-unitCache</persistentunitcachedir>
 					<compileReport>true</compileReport>
 					<strict>true</strict>
 					<runTarget>http://localhost:8080/</runTarget>
@@ -128,23 +175,18 @@
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
-				<version>8.1.14.v20131031</version>
+				<version>8.1.10.v20130312</version>
 				<configuration>
 					<webApp>
 						<contextPath>/</contextPath>
+						<extraClasspath>target/classes;../\${artifactId}/target/classes</extraClasspath>
 					</webApp>
+    				<scanTargets>
+      					<scanTarget>../\${artifactId}/target/classes</scanTarget>
+    				</scanTargets>
+					<scanIntervalSeconds>5</scanIntervalSeconds>
 				</configuration>
 			</plugin>
-
-            <!-- no need to deploy, only for local testing  -->
-            <plugin>
-                <groupId>com.github.github</groupId>
-                <artifactId>site-maven-plugin</artifactId>
-                <version>0.9</version>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
-            </plugin>
 
 		</plugins>
 	

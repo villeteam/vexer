@@ -1,59 +1,21 @@
+## see comment at ../pom.xml the conventions used in when to escape $ and when not 
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>fi.utu.ville.exercises</groupId>
-	<artifactId>vexer</artifactId>
-	<packaging>pom</packaging>
-	<version>0.2.2-SNAPSHOT</version>
-	<name>Ville-plugin-exercise Project</name>
+	<groupId>\${groupId}</groupId>
+	<artifactId>\${artifactId}</artifactId>
+	<packaging>jar</packaging>
+	<version>\${version}</version>
+	<name>\${artifactId} Ville-exercise</name>
 
-    <!--     
-	<organization>
-		<name>My Name</name>
-		<url>https://github.com/mygithubaccount/test/</url>
-	</organization>
-    
-	<scm>
-		<url>git://github.com/mygithubaccount/test.git</url>
-		<connection>scm:git:git://github.com/mygithubaccount/test.git</connection>
-		<developerConnection>scm:git:ssh://git@github.com:/mygithubaccount/${ComponentClassName}.git</developerConnection>
-		<tag>test add-on for Vaadin</tag>
-	</scm>
-
-	<issueManagement>
-		<system>GitHub</system>
-		<url>https://github.com/mygithubaccount/test/issues</url>
-	</issueManagement>
-    -->
-
-    <properties>
+	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<vaadin.version>7.2.7</vaadin.version>
-		<vaadin.plugin.version>${vaadin.version}</vaadin.plugin.version>
-
-        <standardutils.version>0.1.0-RELEASE</standardutils.version>
+		<vaadin.version>${vaadin.version}</vaadin.version>
+		<vaadin.plugin.version>\${vaadin.version}</vaadin.plugin.version>
+		<vexer.version>${project.version}</vexer.version>
 
 	</properties>
-
-	<modules>
-		<module>vexer-model</module>
-		<module>vexer-helpers</module>
-		<module>vexer-stub</module>
-		<module>vexer-testutils</module>
-		<module>vexer-template</module>
-		<module>vexer-stub-demo</module>
-        <module>vexer-archetype</module>
-        <module>vexer-archetype-mathlayout</module>
-	</modules>
-
-    <licenses>
-		<license>
-			<name>MIT</name>
-			<url>opensource.org/licenses/MIT</url>
-			<distribution>repo</distribution>
-		</license>
-	</licenses>
 
 	<repositories>
 		<repository>
@@ -71,34 +33,26 @@
 			</snapshots>
 		</repository>
         <repository>
-            <id>Ville-mvn-repo</id>
-            <url>${ville-mvn-repo.url}</url>
+            <id>Ville-Exer-mvn-repo</id>
+            <url>http://www.mvn.villeteam.net/</url>
             <snapshots>
-                <enabled>true</enabled>
+                <enabled>false</enabled>
             </snapshots>
         </repository>
 	</repositories>
-	
-	<dependencies>
-		<dependency>
-		   <groupId>org.vaadin.addons</groupId>
-		   <artifactId>fonticon</artifactId>
-		   <version>7.1.1</version>
-		</dependency>
-	</dependencies>
 
-    <distributionManagement>
-		<snapshotRepository>
-            <id>ville-local-snapshots</id>
-            <name>vexer-snapshot-repository</name>
-            <url>${ville-local-snap.url}</url>
-        </snapshotRepository>
+	<distributionManagement>
 		<repository>
-            <id>ville-public-releases</id>
-            <name>ville-release-repository</name>
-            <url>${ville-public-release.url}</url>
-        </repository>
-    </distributionManagement>
+			<id>ville-local-releases</id>
+			<name>ville-local-releases</name>
+			<url>${ville-local-rel.url}</url>
+		</repository>
+		<snapshotRepository>
+			<id>ville-local-snapshots</id>
+			<name>ville-local-snapshots</name>
+			<url>${ville-local-snap.url}</url>
+		</snapshotRepository>
+	</distributionManagement>
 
 	<pluginRepositories>
 		<pluginRepository>
@@ -113,16 +67,41 @@
 		</pluginRepository>
 	</pluginRepositories>
 
-    <build>
-		<extensions>
-			<!-- Enabling the use of FTP -->
-			<extension>
-				<groupId>org.apache.maven.wagon</groupId>
-				<artifactId>wagon-ftp</artifactId>
-				<version>2.8</version>
-			</extension>
-		</extensions>
+	<dependencies>
+        <dependency>
+            <groupId>fi.utu.ville.exercises</groupId>
+            <artifactId>vexer-model</artifactId>
+            <version>\${vexer.version}</version>
+        </dependency>	
+        <dependency>
+            <groupId>fi.utu.ville.exercises</groupId>
+            <artifactId>vexer-helpers</artifactId>
+            <version>\${vexer.version}</version>
+        </dependency>	
+        <dependency>
+			<groupId>com.vaadin</groupId>
+			<artifactId>vaadin-server</artifactId>
+			<version>\${vaadin.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.vaadin</groupId>
+			<artifactId>vaadin-client</artifactId>
+			<version>\${vaadin.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		
+		<!-- This can be replaced with TestNG or some other test framework supported by the surefire plugin -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.1</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
 		<plugins>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -144,6 +123,12 @@
 							<addClasspath>true</addClasspath>
 							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
 						</manifest>
+						<manifestEntries>
+							<!-- Package format version - do not change -->
+							<Vaadin-Package-Version>1</Vaadin-Package-Version>
+							<Vaadin-License-Title>MIT</Vaadin-License-Title>
+							<Vaadin-Stylesheets>VAADIN/themes/vexer-\${artifactId}/vexer-\${artifactId}.scss</Vaadin-Stylesheets>
+						</manifestEntries>
 					</archive>
 				</configuration>
 			</plugin>
@@ -183,6 +168,20 @@
 				<version>2.14.1</version>
 			</plugin>
 		</plugins>
+
+		<!-- This is needed for the sources required by the client-side compiler to be 
+			included in the produced JARs -->
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<excludes>
+                    <exclude>rebel.xml</exclude>
+                </excludes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
 		
 	</build>
 

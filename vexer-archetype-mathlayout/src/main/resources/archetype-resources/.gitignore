@@ -1,0 +1,11 @@
+# ignore eclipse files at least for now 
+.classpath
+.project
+.settings/
+# ignore maven generated target-files
+target/
+# ignore all ~-temp-files
+*~
+# ignore VAADIN-widgetsets (auto-generated but placed 
+#  in src-side of maven)
+**/VAADIN/widgetsets

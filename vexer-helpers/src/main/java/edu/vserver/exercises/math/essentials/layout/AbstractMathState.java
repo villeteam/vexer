@@ -15,7 +15,7 @@ public abstract class AbstractMathState<E extends ExerciseData, P extends Proble
 	private final int rounds;
 	private int currentProblem = -1;
 	private final ArrayList<P> problems = new ArrayList<P>();
-	private final Localizer localizer;
+	protected final Localizer localizer;
 
 	public AbstractMathState(E data, Localizer localizer) {
 		this.localizer = localizer;
