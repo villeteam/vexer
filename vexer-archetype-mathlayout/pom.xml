@@ -10,7 +10,7 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>vexer-archetype-mathlayout</artifactId>
   <packaging>maven-archetype</packaging>
-  <name>Ville Exercise-plugin archetype</name>
+  <name>Ville Exercise-plugin mathlayout archetype</name>
   <description>
       This archetype generates a Vaadin 7 -project and test project for developing a Ville-exercise plugin.
   </description>

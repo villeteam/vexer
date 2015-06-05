@@ -43,14 +43,14 @@
 
 	<distributionManagement>
 		<repository>
-			<id>ville-local-releases</id>
-			<name>ville-local-releases</name>
-			<url>${ville-local-rel.url}</url>
+			<id>ville-int-releases</id>
+			<name>ville-int-releases</name>
+			<url>${ville-int-rel.url}</url>
 		</repository>
 		<snapshotRepository>
-			<id>ville-local-snapshots</id>
-			<name>ville-local-snapshots</name>
-			<url>${ville-local-snap.url}</url>
+			<id>ville-int-snapshots</id>
+			<name>ville-int-snapshots</name>
+			<url>${ville-int-snap.url}</url>
 		</snapshotRepository>
 	</distributionManagement>
 
