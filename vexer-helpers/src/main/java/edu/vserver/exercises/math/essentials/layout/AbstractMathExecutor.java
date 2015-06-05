@@ -205,13 +205,11 @@ public abstract class AbstractMathExecutor<E extends ExerciseData, F extends Mat
 	 * @return MathPerformanceData object for handling misconception information
 	 */
 	private MisconceptionPerformanceData getMathPerformanceData() {
-		System.out.print("getting math perf data : ");
 		if (mpdInternal == null) {
 			mpdInternal = misconceptionSubject.getPerformanceData();
 			if(mpdInternal == null)
 				mpdInternal = new NullMisconceptionPerformanceData();
 		}
-		System.out.println(mpdInternal.toString());
 		return mpdInternal;
 	}
 
