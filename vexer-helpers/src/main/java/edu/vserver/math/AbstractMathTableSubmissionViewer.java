@@ -144,14 +144,14 @@ public abstract class AbstractMathTableSubmissionViewer<E extends ExerciseData, 
 		final ArrayList<TimeStampHandler> handlers = divideTimeStamps(submInfo
 				.getTimeStamps());
 
-		int i = 0;
-		Double[] timesPerTask = new Double[submInfo.getProblems().size()];
-		for (final G problem : submInfo.getProblems()) {
-			final int current = i;
+		//int i = 0;
+		Double[] timesPerTask = new Double[handlers.size()];
+		for (int i = 0; i< handlers.size(); i++){
+			final G problem = submInfo.getProblems().get(i);
 			String time = "0";
-			if (i < handlers.size()) {
-				time = timePerTask(handlers, i);
-			}
+			
+			time = timePerTask(handlers, i);
+			
 			
 			double t = 0;
 			try {
@@ -161,7 +161,7 @@ public abstract class AbstractMathTableSubmissionViewer<E extends ExerciseData, 
 			}
 			timesPerTask[i] = t;
 			
-			Button timeline = MathSubmissionUIFactory.getTimelineButton(handlers.get(current));
+			Button timeline = MathSubmissionUIFactory.getTimelineButton(handlers.get(i));
 			
 			Button showExercise = new Button("Show exercise");
 			showExercise.addStyleName(BaseTheme.BUTTON_LINK);
@@ -247,7 +247,7 @@ public abstract class AbstractMathTableSubmissionViewer<E extends ExerciseData, 
 		doneExers.addStyleName("lastSubmissionInfo");
 		horStats.addComponent(doneExers);
 
-		HorizontalLayout chartContainer = MathSubmissionUIFactory.getChartContainer(handlers, timesPerTask, correctAnswers,(submInfo.getProblems().size() - correctAnswers));//new HorizontalLayout();
+		HorizontalLayout chartContainer = MathSubmissionUIFactory.getChartContainer(handlers, timesPerTask, correctAnswers,(handlers.size() - correctAnswers));//new HorizontalLayout();
 
 		Embedded diffLevel = getDiffLevel();
 
