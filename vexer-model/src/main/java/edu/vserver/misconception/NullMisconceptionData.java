@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public class NullMisconceptionData implements MisconceptionData{
 
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	public void save() {}
 
