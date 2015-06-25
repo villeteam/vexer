@@ -13,11 +13,15 @@ Project is licensed under MIT-license (see LICENSE.txt).
 ## To give it a test run
 1. Install maven to your system ( http://maven.apache.org/users/index.html )
 2. On command line, navigate to the directory you want the ville-exercise-type project to be created in
-3. Run:
+3. Decide which stub you begin developing on.
+3.1. For the normal stub run:
 
-    mvn archetype:generate -DarchetypeGroupId=fi.utu.ville.exercises -DarchetypeArtifactId=vexer-archetype 
-    -DarchetypeVersion=0.2.1-RELEASE -DarchetypeRepository=http://www.mvn.villeteam.net
+mvn archetype:generate -DarchetypeGroupId=fi.utu.ville.exercises -DarchetypeArtifactId=vexer-archetype -DarchetypeVersion=0.2.2-RELEASE -DarchetypeRepository=http://www.mvn.villeteam.net
 
+3.2. For the Leveled stub run:
+
+mvn archetype:generate -DarchetypeGroupId=fi.utu.ville.exercises -DarchetypeArtifactId=vexer-archetype-mathlayout -DarchetypeVersion=0.2.2-RELEASE -DarchetypeRepository=http://www.mvn.villeteam.net
+    
 4. After a while you will be asked to provide some information, namely:
     - groupId: you can use "fi.utu.ville.exercises"
     - artifactId: you can use anything here when testing (eg. "testexer");
@@ -68,5 +72,3 @@ A few points you should notice:
 - Exercise types are at the moment looked automatically only from packages starting with fi.utu.ville, 
     if you use some other package for your exercise-type, you must override VilleExerStubUI's method
     getTypesToLoad() in generated {package}.stub.StubUI in {artifactId}-stub module
-- As we hit a more stable state with the project we will hopefully be migrating the artifacts
-    to some other place than github...
