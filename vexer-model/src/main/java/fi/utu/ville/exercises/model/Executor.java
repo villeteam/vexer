@@ -127,7 +127,8 @@ public interface Executor<E extends ExerciseData, S extends SubmissionInfo>
 	ExecutionState getCurrentExecutionState();
 
 	/**
-	 * Sets the subject for which misconceptions are collected. (e.g. Math)
+	 * Sets the subject for which misconceptions are collected. (e.g. Math)<br>
+	 * Does not need an implementation if the exercise returns only one type of misconception.
 	 * 
 	 * @param misconceptionSubject the school subject for misconceptions. 
 	 * Null or NONE for no collection. 
@@ -136,7 +137,7 @@ public interface Executor<E extends ExerciseData, S extends SubmissionInfo>
 			MisconceptionPerformanceSubject misconceptionSubject);
 
 	/**
-	 * The subject for which misconceptions are collected for this exercise.
+	 * The subject for which misconceptions are collected for this exercise. 
 	 * @return This exercise's MisconceptionPerformanceSubject.
 	 */
 	MisconceptionPerformanceSubject getMisconceptionSubject();

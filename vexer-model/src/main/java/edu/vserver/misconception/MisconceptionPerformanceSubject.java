@@ -18,6 +18,14 @@ public enum MisconceptionPerformanceSubject {
 		return dataGenerator.getPerformanceData(this);
 	}
 	
+	public MisconceptionData getMisconceptionData(){
+		return dataGenerator.getMisconceptionData(this);
+	}
+	
+	public MisconceptionTypeData getMisconceptionTypeData(){
+		return dataGenerator.getMisconceptionTypeData(this);
+	}
+	
 	public int getDbId(){
 		return id;
 	}

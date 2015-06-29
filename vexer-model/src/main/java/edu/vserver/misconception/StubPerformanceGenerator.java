@@ -8,4 +8,18 @@ public class StubPerformanceGenerator implements PerformanceDataGenerator{
 		return new NullMisconceptionPerformanceData();
 	}
 
+	@Override
+	public MisconceptionData getMisconceptionData(
+			MisconceptionPerformanceSubject misconceptionPerformanceSubject) {
+		// TODO Auto-generated method stub
+		return new NullMisconceptionPerformanceData();
+	}
+
+	@Override
+	public MisconceptionTypeData getMisconceptionTypeData(
+			MisconceptionPerformanceSubject misconceptionPerformanceSubject) {
+		// TODO Auto-generated method stub
+		return new NullMisconceptionPerformanceData();
+	}
+
 }

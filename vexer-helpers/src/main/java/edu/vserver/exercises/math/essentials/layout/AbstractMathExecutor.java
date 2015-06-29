@@ -226,7 +226,8 @@ public abstract class AbstractMathExecutor<E extends ExerciseData, F extends Mat
 	/**
 	 * This method may be overridden if derived class wants to specify its own
 	 * misconception performance-data. If this returns null, this exercise can 
-	 * not be used to collect misconception performance data
+	 * not be used to collect misconception performance data<br><br>
+	 * MisconceptionPerformanceData is a collection of MisconceptionData for a single assignment 
 	 * 
 	 * @return the performance data-object used to calculate misconceptions 
 	 * or null if no data collection is available.
@@ -237,10 +238,11 @@ public abstract class AbstractMathExecutor<E extends ExerciseData, F extends Mat
 	
 	/**
 	 * This method may be overridden if derived class wants to specify its own
-	 * misconception-data.
+	 * misconception-data.<br><br>
+	 * MisconceptionData contains data from a user for a single attempt at solving a problem
 	 * 
-	 * @param problem
-	 * @return
+	 * @param problem the problem to collect data from
+	 * @return The misconceptionData for that problem instance
 	 */
 	protected MisconceptionData getMisconceptionData(P problem){
 		return null;
@@ -248,10 +250,11 @@ public abstract class AbstractMathExecutor<E extends ExerciseData, F extends Mat
 
 	/**
 	 * This method may be overridden if derived class wants to specify any
-	 * MathMisconceptionTypeData.
+	 * MathMisconceptionTypeData. MisconceptionTypeData is the type of 
+	 * misconception involved in this exercise. The possibilities are found in the Misconception-enum
 	 * 
-	 * @param problem
-	 * @return
+	 * @param problem the problem to collect data from
+	 * @return The different misconceptions collected for this problem instance
 	 */
 	protected ArrayList<MisconceptionTypeData> getMisconceptionTypeData(
 			P problem) {
@@ -277,13 +280,13 @@ public abstract class AbstractMathExecutor<E extends ExerciseData, F extends Mat
 	}
 
 	@Override
-	public void setMisconceptionSubject(
+	public final void setMisconceptionSubject(
 			MisconceptionPerformanceSubject misconceptionSubject) {
 		this.misconceptionSubject = misconceptionSubject;
 	}
 
 	@Override
-	public MisconceptionPerformanceSubject getMisconceptionSubject() {
+	public final MisconceptionPerformanceSubject getMisconceptionSubject() {
 		return misconceptionSubject;
 	}
 
