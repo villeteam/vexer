@@ -17,6 +17,9 @@ public abstract class AbstractMisconceptionExecutor<E extends ExerciseData, S ex
 
 	@Override
 	public MisconceptionPerformanceSubject getMisconceptionSubject() {
+		if(performanceSubject == null)
+			return MisconceptionPerformanceSubject.NONE;
+		
 		return performanceSubject;
 	}
 }
