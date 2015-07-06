@@ -12,9 +12,6 @@ import fi.utu.ville.standardutils.TempFilesManager;
 public class ${VilleJavaClassPrefix}SubmissionViewer extends VerticalLayout implements
 		SubmissionVisualizer<${VilleJavaClassPrefix}ExerciseData, ${VilleJavaClassPrefix}SubmissionInfo> {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -6260031633710031462L;
 	private ${VilleJavaClassPrefix}ExerciseData exer;
 	private ${VilleJavaClassPrefix}SubmissionInfo submInfo;

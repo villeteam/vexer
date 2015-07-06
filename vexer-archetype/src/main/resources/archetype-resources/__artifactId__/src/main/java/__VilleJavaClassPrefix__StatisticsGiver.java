@@ -16,9 +16,6 @@ import fi.utu.ville.standardutils.TempFilesManager;
 public class ${VilleJavaClassPrefix}StatisticsGiver implements
 	SubmissionStatisticsGiver<${VilleJavaClassPrefix}ExerciseData, ${VilleJavaClassPrefix}SubmissionInfo> {
 
-	/**
-	* 
-	*/
 	private static final long serialVersionUID = -1410253605264134011L;
 	
 	private Localizer localizer;

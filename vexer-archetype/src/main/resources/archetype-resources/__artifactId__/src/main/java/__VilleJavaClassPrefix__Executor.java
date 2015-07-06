@@ -19,9 +19,6 @@ import fi.utu.ville.standardutils.TempFilesManager;
 
 public class ${VilleJavaClassPrefix}Executor extends NoMisconceptionExecutor<${VilleJavaClassPrefix}ExerciseData, ${VilleJavaClassPrefix}SubmissionInfo> {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 2682119786422750060L;
 
 	private final ExerciseExecutionHelper<${VilleJavaClassPrefix}SubmissionInfo> execHelper =

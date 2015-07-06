@@ -90,7 +90,7 @@ public class ${VilleJavaClassPrefix}Editor extends VilleContent implements
 		layout = StandardUIFactory.getTwoColumnView();
 		addComponent(layout);
 		
-		layout.setTitle("Editor");
+		layout.setTitle("${VilleJavaClassPrefix}");
 		
 		String oldQuestion;
 		if (oldData != null) {
@@ -159,6 +159,6 @@ public class ${VilleJavaClassPrefix}Editor extends VilleContent implements
 	
 	@Override
 	public String getViewName(){
-		return "StubExercise";
+		return "${VilleJavaClassPrefix}";
 	}
 }

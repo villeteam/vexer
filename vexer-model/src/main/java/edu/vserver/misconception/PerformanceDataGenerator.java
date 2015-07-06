@@ -9,4 +9,7 @@ public interface PerformanceDataGenerator {
 
 	MisconceptionTypeData getMisconceptionTypeData(
 			MisconceptionPerformanceSubject misconceptionPerformanceSubject);
+	
+	MisconceptionTypeData getMisconceptionTypeData(
+			MisconceptionPerformanceSubject misconceptionPerformanceSubject, Misconception misconception);
 }

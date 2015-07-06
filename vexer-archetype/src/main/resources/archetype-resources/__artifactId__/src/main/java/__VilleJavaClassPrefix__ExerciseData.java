@@ -5,9 +5,6 @@ import fi.utu.ville.standardutils.AbstractFile;
 
 public class ${VilleJavaClassPrefix}ExerciseData implements ExerciseData {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -716445297446246493L;
 
 	private final String question;

@@ -62,7 +62,7 @@ public class ${VilleJavaClassPrefix}Editor implements
 
     @Override
     public String setTitleText() {
-        return localizer.getUIText("Mathlayout Stub Exercise");
+        return localizer.getUIText("${VilleJavaClassPrefix}");
     }
 
 }

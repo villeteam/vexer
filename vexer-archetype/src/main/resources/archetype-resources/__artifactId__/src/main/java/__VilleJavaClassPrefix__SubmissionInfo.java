@@ -4,9 +4,6 @@ import fi.utu.ville.exercises.model.SubmissionInfo;
 
 public class ${VilleJavaClassPrefix}SubmissionInfo implements SubmissionInfo {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 8702870727095225372L;
 
 	private final String answer;

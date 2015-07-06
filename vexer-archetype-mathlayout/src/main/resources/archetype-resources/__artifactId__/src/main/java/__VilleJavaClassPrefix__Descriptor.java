@@ -102,7 +102,7 @@ public class ${VilleJavaClassPrefix}Descriptor
 	 */
     @Override
     public String getHTMLIcon() {
-        return StandardIcon.RawIcon.bars.variant(IconVariant.ORANGE);
+        return StandardIcon.RawIcon.dribbble.variant(IconVariant.ORANGE);
     }
 
 }
