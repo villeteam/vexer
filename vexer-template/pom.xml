@@ -4,7 +4,7 @@
     <parent>
         <groupId>fi.utu.ville.exercises</groupId>
         <artifactId>vexer</artifactId>
-        <version>0.2.10-SNAPSHOT</version>
+        <version>0.2.11-SNAPSHOT</version>
     </parent>	
     <modelVersion>4.0.0</modelVersion>
 	<artifactId>vexer-template</artifactId>
