@@ -5,14 +5,14 @@
 	<groupId>fi.utu.ville.exercises</groupId>
 	<artifactId>vexer</artifactId>
 	<packaging>pom</packaging>
-	<version>0.2.11-SNAPSHOT</version>
+	<version>0.3.0-RELEASE</version>
 	<name>Ville-plugin-exercise Project</name>
 
     <properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<vaadin.version>7.2.7</vaadin.version>
 		<vaadin.plugin.version>${vaadin.version}</vaadin.plugin.version>
-        <standardutils.version>0.1.11-RELEASE</standardutils.version>
+        <standardutils.version>0.2.0-RELEASE</standardutils.version>
 	</properties>
 
 	<modules>
@@ -107,8 +107,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.0</version>
 				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
+					<source>1.8</source>
+					<target>1.8</target>
 				</configuration>
 			</plugin>
 
@@ -137,6 +137,10 @@
 						<goals>
 							<goal>jar</goal>
 						</goals>
+						
+						<configuration>
+							<additionalparam>-Xdoclint:none</additionalparam>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
