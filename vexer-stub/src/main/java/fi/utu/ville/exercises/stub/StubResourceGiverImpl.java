@@ -2,6 +2,7 @@ package fi.utu.ville.exercises.stub;
 
 import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 
 import fi.utu.ville.standardutils.Localizer;
 
@@ -79,6 +80,11 @@ final class StubResourceGiverImpl implements Localizer {
 	@Override
 	public String getDateFormat() {
 		return "mm-dd-yyyy";
+	}
+
+	@Override
+	public TimeZone getCurrentTimeZone() {
+		return TimeZone.getDefault();
 	}
 
 }

@@ -5,14 +5,14 @@
 	<groupId>fi.utu.ville.exercises</groupId>
 	<artifactId>vexer</artifactId>
 	<packaging>pom</packaging>
-	<version>0.3.1-RELEASE</version>
+	<version>0.3.2-RELEASE</version>
 	<name>Ville-plugin-exercise Project</name>
 
     <properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<vaadin.version>7.2.7</vaadin.version>
 		<vaadin.plugin.version>${vaadin.version}</vaadin.plugin.version>
-        <standardutils.version>0.2.2-SNAPSHOT</standardutils.version>
+        <standardutils.version>0.2.4-RELEASE</standardutils.version>
 	</properties>
 
 	<modules>
