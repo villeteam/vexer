@@ -8,10 +8,12 @@ import org.vaadin.jouni.animator.shared.AnimType;
 
 import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.event.ShortcutAction.ModifierKey;
+import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.Layout;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
@@ -24,8 +26,8 @@ import fi.utu.ville.standardutils.StandardIcon.Icon;
 import fi.utu.ville.standardutils.StandardUIFactory;
 import fi.utu.ville.standardutils.UIConstants;
 
-public class MathLayout<P extends Problem> extends VerticalLayout implements
-		MathLayoutController {
+public class MathLayout<P extends Problem> extends VerticalLayout
+		implements MathLayoutController {
 
 	private static final long serialVersionUID = 2062189376088801532L;
 
@@ -52,8 +54,7 @@ public class MathLayout<P extends Problem> extends VerticalLayout implements
 		exView.setLayoutController(this);
 
 		checkBtn = StandardUIFactory.getButton(
-				localizer.getUIText(UIConstants.MATH_CHECK),
-				Icon.MATH_CHECK);
+				localizer.getUIText(UIConstants.MATH_CHECK), Icon.MATH_CHECK);
 
 		// Enter listener for checking answer
 		checkBtn.setClickShortcut(KeyCode.ENTER);
@@ -111,8 +112,8 @@ public class MathLayout<P extends Problem> extends VerticalLayout implements
 					checkBtn.setEnabled(true);
 					exView.drawProblem(exState.nextProblem());
 
-					exerExecutor.startMathPerformance(exState
-							.getCurrentProblem());
+					exerExecutor
+							.startMathPerformance(exState.getCurrentProblem());
 
 				} else if (event.getAnimation() == aPrev) {
 
@@ -144,13 +145,13 @@ public class MathLayout<P extends Problem> extends VerticalLayout implements
 					if (!execSettings.isNoCorrAnswers()) {
 						exView.showSolution(exState.getCurrentProblem());
 					}
-					exerExecutor.finishMathPerformance(exState
-							.getCurrentProblem());
+					exerExecutor
+							.finishMathPerformance(exState.getCurrentProblem());
 
-					MathLayout.this.timeStampHandler.add("Question"
-							+ TimeStampHandler.separator
-							+ exState.getCurrentProblem()
-									.getQuestion(localizer)
+					MathLayout.this.timeStampHandler
+							.add("Question" + TimeStampHandler.separator
+									+ exState.getCurrentProblem().getQuestion(
+											localizer)
 							+ TimeStampHandler.separator + "UserAnswer"
 							+ TimeStampHandler.separator
 							+ exState.getCurrentProblem().getUserAnswer()
@@ -169,46 +170,70 @@ public class MathLayout<P extends Problem> extends VerticalLayout implements
 						exView.lockControls();
 					}
 					if (!exState.hasNextProblem()) {
-						progress.nextStep(exState.getCurrentProblem()
-								.isCorrect());
+						progress.nextStep(
+								exState.getCurrentProblem().isCorrect());
 
 						final Window confirm = new Window(localizer
 								.getUIText(UIConstants.SUBMIT_QUESTION));
 						confirm.setModal(true);
-						confirm.setWidth("400px");
-						confirm.setHeight("220px");
+						confirm.setWidth("570px");
+						confirm.setHeight("330px");
+						confirm.setCaption("");
+						confirm.setStyleName("opaque");
+						confirm.addStyleName("unclosable-window");
+						confirm.setClosable(false);
+						confirm.addStyleName("submit-window");
 
 						VerticalLayout content = new VerticalLayout();
 						content.setSizeFull();
 						content.setMargin(true);
-						content.addComponent(StandardUIFactory.getInformationPanel(localizer
-								.getUIText(UIConstants.SUBMIT_QUESTION_DESCR)));
+						Label question = new Label(localizer
+								.getUIText(UIConstants.SUBMIT_QUESTION));
+						question.setContentMode(ContentMode.HTML);
+						question.addStyleName("big-text-white");
+						question.setSizeUndefined();
+						content.addComponent(question);
+						content.setComponentAlignment(question,
+								Alignment.TOP_CENTER);
+						// content.addComponent(StandardUIFactory
+						// .getInformationPanel(localizer.getUIText(
+						// UIConstants.SUBMIT_QUESTION_DESCR)));
 						confirm.setContent(content);
 
+						// Button holder (back to round, replay, next)
 						HorizontalLayout buttons = new HorizontalLayout();
+						buttons.addStyleName("submit-buttons-container");
+						buttons.setWidth("100%");
 						buttons.setSpacing(true);
+
 						content.addComponent(buttons);
 						content.setComponentAlignment(buttons,
-								Alignment.MIDDLE_CENTER);
+								Alignment.TOP_CENTER);
 
-						Button ok = StandardUIFactory.getOKButton(localizer);
-						Button cancel = StandardUIFactory.getCancelButton(localizer);
+						Button submit = StandardUIFactory
+								.getRoundButton(Icon.SUBMIT);
+						submit.setDescription(
+								localizer.getUIText(UIConstants.SUBMIT));
+						Button cancel = StandardUIFactory
+								.getRoundButton(Icon.CLOSE);
+						cancel.setDescription(
+								localizer.getUIText(UIConstants.CLOSE));
 
-						buttons.addComponents(ok, cancel);
-						buttons.setComponentAlignment(ok,
+						buttons.addComponents(submit, cancel);
+						buttons.setComponentAlignment(submit,
 								Alignment.MIDDLE_CENTER);
 						buttons.setComponentAlignment(cancel,
 								Alignment.MIDDLE_CENTER);
 
-						ok.addClickListener(new Button.ClickListener() {
+						submit.addClickListener(new Button.ClickListener() {
 
 							private static final long serialVersionUID = -1372389156569716860L;
 
 							@Override
 							public void buttonClick(ClickEvent event) {
 
-								exerExecutor
-										.askSubmit(StandardSubmissionType.NORMAL);
+								exerExecutor.askSubmit(
+										StandardSubmissionType.NORMAL);
 
 								// listenerHelper.informOnlySubmit(checkCorrectness(),
 								// parseSubmissionInfo(),
@@ -246,8 +271,8 @@ public class MathLayout<P extends Problem> extends VerticalLayout implements
 				!execSettings.isNoCorrAnswers());
 
 		hLayout = new HorizontalLayout();
-		buttonBar = StandardUIFactory.getButtonPanelForMathControls(checkBtn, nextBtn,
-				progress);
+		buttonBar = StandardUIFactory.getButtonPanelForMathControls(checkBtn,
+				nextBtn, progress);
 
 		prevBtn.setEnabled(false);
 		nextBtn.setEnabled(false);

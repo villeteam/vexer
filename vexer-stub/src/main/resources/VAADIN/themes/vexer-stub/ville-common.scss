@@ -359,6 +359,95 @@
         padding: 2px;
         border: 1px solid gray;
     }
+    
+     /* submit window */
+    .big-text-white {
+    	font-size: 42px; 
+    	text-align:center; 
+    	line-height: 42px;
+    	color: #fff !important; 
+    	text-shadow: 0px 2px 0px rgba(50,50,50, .2); 
+    }
+     
+    .submit-window {
+        border-radius: 10px !important;
+        background: url(img/lego_blurred.png);
+
+        .v-window-wrap {
+            border: 0px !important;
+        }
+
+        .v-window-contents {
+            background: rgb(182, 217, 231);
+            border-radius: 10px;
+            background: none !important;
+        }
+
+        .v-window-footer {
+            background: none;
+        }
+
+        .v-window-resizebox {
+            background: none;
+            background: rgba(50, 50, 50, 0.4);
+            border-radius: 5px 0px 10px 0px;
+        }
+
+        .v-window-outerheader {
+            border-radius: 10px 10px 0px 0px;
+            background: rgb(182, 217, 231) !important;
+            border-top: 5px solid rgba(107, 185, 240, 0.5);
+            background: none !important;
+        }
+
+        .v-window-maximizebox {
+            display: none;
+        }
+
+        .v-window-maximizebox:hover {
+            display: none;
+        }
+    }
+
+    .button-big-round {
+        height: 120px !important;
+        width: 120px !important;
+        border-radius: 50% !important;
+        padding: 0px !important;
+        margin: 0px !important;
+
+        .v-button-caption {
+            display: block !important;
+            height: 100% !important;
+            width: 100% !important;
+            line-height: 120px !important;
+            text-align: center !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        .v-button-wrap {
+            display: block !important;
+            height: 100% !important;
+            width: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+
+            .fa {
+                font-size: 60px !important;
+                line-height: 110px !important;
+            }
+        }
+    }
+
+    /* Feedback component in submit window */
+    .submit-window-component {
+        margin: 10px !important;
+        padding: 10px !important;
+        border: 2px solid rgba(50, 50, 50, 0.1) !important;
+        border-radius: 10px !important;
+        background: rgba(255, 255, 255, 0.8) !important;
+    }
 
     .profile-image-small img {
         height: 40px;
