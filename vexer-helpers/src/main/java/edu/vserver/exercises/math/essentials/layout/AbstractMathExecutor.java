@@ -136,7 +136,6 @@ public abstract class AbstractMathExecutor<E extends ExerciseData, F extends Mat
 	public final void askReset() {
 
 		MisconceptionPerformanceData mpd = getMathPerformanceData();
-		mpd.delete();
 		mpd.setSubmitted(false);
 		// if you try this as a student first and then test it in teacher view,
 		// mpd will get saved
@@ -205,11 +204,9 @@ public abstract class AbstractMathExecutor<E extends ExerciseData, F extends Mat
 	 * @return MathPerformanceData object for handling misconception information
 	 */
 	private MisconceptionPerformanceData getMathPerformanceData() {
-		if (mpdInternal == null) {
-			mpdInternal = misconceptionSubject.getPerformanceData();
-			if(mpdInternal == null)
-				mpdInternal = new NullMisconceptionPerformanceData();
-		}
+		mpdInternal = misconceptionSubject.getPerformanceData();
+		if(mpdInternal == null)
+			mpdInternal = new NullMisconceptionPerformanceData();
 		return mpdInternal;
 	}
 
