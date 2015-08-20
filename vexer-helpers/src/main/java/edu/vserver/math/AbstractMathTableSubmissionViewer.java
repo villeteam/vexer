@@ -146,7 +146,7 @@ public abstract class AbstractMathTableSubmissionViewer<E extends ExerciseData, 
 
 		//int i = 0;
 		Double[] timesPerTask = new Double[handlers.size()];
-		for (int i = 0; i< handlers.size(); i++){
+		for (int i = 0; i< handlers.size() && i<submInfo.getProblems().size(); i++){
 			final G problem = submInfo.getProblems().get(i);
 			String time = "0";
 			
