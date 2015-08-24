@@ -21,4 +21,11 @@ public class StubUIConstants extends fi.utu.ville.standardutils.UIConstants{
 	public static final String MP_TABLE_SUBHEADER = "MP_TABLE_SUBHEADER";
 	public static final String MP_CALCULATION_IN_A_ROW = "CALCULATION_IN_A_ROW";
 	public static final String MP_TENPAIR = "Ten pair";
+
+	public static final String MP_CLOCK = "MP_CLOCK";
+	public static final String MP_CLOCK_ADVANCED = "MP_CLOCK_ADVANCED";
+
+	public static final String MP_PERCEIVE = "MP_PERCEIVE";
+	public static final String MP_ROUNDING = "MP_ROUNDING";
+
 }
