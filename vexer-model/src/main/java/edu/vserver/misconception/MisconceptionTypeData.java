@@ -1,17 +1,9 @@
 package edu.vserver.misconception;
 
 import java.io.Serializable;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public interface MisconceptionTypeData extends Serializable{
-	/**
-	 * Load data from ResultSet
-	 * 
-	 * @param rs
-	 *            Database ResultSet
-	 */
-	public void setData(ResultSet rs);
 
 	/**
 	 * Saves misconception type. This usually gets called by

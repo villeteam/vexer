@@ -1,7 +1,7 @@
 package edu.vserver.misconception;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 
 
 public interface MisconceptionData extends Serializable {
@@ -23,46 +23,24 @@ public interface MisconceptionData extends Serializable {
 	 * MisconceptionTypeData
 	 */
 	public void delete();
-
-	/**
-	 * Loads all related misconception types
-	 */
-	public void loadMisconceptionTypeData();
-
-	/**
-	 * Save the misconceptionId to MathMisconeptionTypeData
-	 * 
-	 * @param id
-	 *            The ID of this class in DB.
-	 */
-	public void setMisconceptionIdToMisconceptionTypeData(int id);
-
-	/**
-	 * Save misconception type data to database
-	 */
-	public void saveMisconceptionTypeData();
-
-	/**
-	 * Update misconception type data to database
-	 */
-	public void updateMisconceptionTypeData();
 	
 	/**
-	 * Delete misconception type data from database
+	 * Analyzes the problem and answer stored in this object for common misconceptions. 
+	 * If either the problem or answer is null, an empty list is returned
+	 * 
+	 *  @return a list of misconceptions found
 	 */
-	public void deleteMisconceptionTypeData();
-
+	public List<MisconceptionTypeData> analyzeForCommonMisconceptions();
+	
 	public void addMisconceptionTypes(
-			ArrayList<MisconceptionTypeData> newTypes);
+			List<MisconceptionTypeData> newTypes);
 
 	public void addMIsconceptionType(MisconceptionTypeData type);
 
 	/* Getters and setters */
 
-	public ArrayList<MisconceptionTypeData> getTypes();
-
-	public void setTypes(ArrayList<MisconceptionTypeData> types);
-
+	public List<MisconceptionTypeData> getTypes();
+	
 	public boolean isCorrect();
 
 	public void setCorrect(boolean isCorrect);
@@ -78,10 +56,7 @@ public interface MisconceptionData extends Serializable {
 	public int getPerformance_id();
 
 	public void setPerformance_id(int performance_id);
-
-	public int getId();
-
-	public void setId(int id);
+	
 	public String getCorrectAnswer();
 
 	public void setCorrectAnswer(String correctAnswer);
@@ -89,4 +64,5 @@ public interface MisconceptionData extends Serializable {
 	public long getTime();
 
 	public void setTime(long time);
+	
 }

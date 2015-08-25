@@ -1,16 +1,12 @@
 package edu.vserver.misconception;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 
 public class NullMisconceptionPerformanceData implements
 		MisconceptionPerformanceData, MisconceptionData, MisconceptionTypeData {
 
 	private static final long serialVersionUID = 1L;
-
-	@Override
-	public void setData(ResultSet rs) {
-	}
 
 	@Override
 	public void save() {
@@ -25,29 +21,7 @@ public class NullMisconceptionPerformanceData implements
 	}
 
 	@Override
-	public void loadMisconceptionData() {
-	}
-
-	@Override
 	public void addMisconceptionData(MisconceptionData data) {
-	}
-
-	@Override
-	public void saveMisconceptions() {
-	}
-
-	@Override
-	public void updateMisconception() {
-	}
-
-	@Override
-	public void deleteMisconception() {
-
-	}
-
-	@Override
-	public void setMathPerformanceIdToMisconception() {
-
 	}
 
 	@Override
@@ -57,16 +31,6 @@ public class NullMisconceptionPerformanceData implements
 
 	@Override
 	public void setAssigId(int assigId) {
-
-	}
-
-	@Override
-	public String getUserId() {
-		return "";
-	}
-
-	@Override
-	public void setUserId(String userId) {
 
 	}
 
@@ -86,7 +50,7 @@ public class NullMisconceptionPerformanceData implements
 	}
 
 	@Override
-	public void setMmd(ArrayList<MisconceptionData> mmd) {
+	public void setMmd(List<MisconceptionData> mmd) {
 
 	}
 
@@ -105,11 +69,6 @@ public class NullMisconceptionPerformanceData implements
 
 	@Override
 	public void setEndTime(){
-	}
-
-	@Override
-	public long getUsedTime() {
-		return 0;
 	}
 
 	@Override
@@ -147,30 +106,7 @@ public class NullMisconceptionPerformanceData implements
 	}
 
 	@Override
-	public void loadMisconceptionTypeData() {
-		
-	}
-
-	@Override
-	public void setMisconceptionIdToMisconceptionTypeData(int id) {
-		
-	}
-
-	@Override
-	public void saveMisconceptionTypeData() {
-		
-	}
-
-	@Override
-	public void updateMisconceptionTypeData() {		
-	}
-
-	@Override
-	public void deleteMisconceptionTypeData() {		
-	}
-
-	@Override
-	public void addMisconceptionTypes(ArrayList<MisconceptionTypeData> newTypes) {		
+	public void addMisconceptionTypes(List<MisconceptionTypeData> newTypes) {		
 	}
 
 	@Override
@@ -180,11 +116,6 @@ public class NullMisconceptionPerformanceData implements
 	@Override
 	public ArrayList<MisconceptionTypeData> getTypes() {
 		return new ArrayList<>();
-	}
-
-	@Override
-	public void setTypes(ArrayList<MisconceptionTypeData> types) {
-		
 	}
 
 	@Override
@@ -245,6 +176,11 @@ public class NullMisconceptionPerformanceData implements
 	@Override
 	public void setTime(long time) {
 		
+	}
+
+	@Override
+	public ArrayList<MisconceptionTypeData> analyzeForCommonMisconceptions() {
+		return new ArrayList<>();
 	}
 
 }
