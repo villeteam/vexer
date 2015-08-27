@@ -46,6 +46,11 @@ public interface VilleUI {
 	public void clearPageStack();
 
 	/**
+	 * @return A String representation of the current page stack + the current page.
+	 */
+	public String getPageStack();
+	
+	/**
 	 * Sets the help page to be shown in the help menu.
 	 * @param page A valid url for the help page.
 	 */
