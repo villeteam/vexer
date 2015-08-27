@@ -176,7 +176,7 @@ public class MathLayout<P extends Problem> extends VerticalLayout
 						final Window confirm = new Window(localizer
 								.getUIText(UIConstants.SUBMIT_QUESTION));
 						confirm.setModal(true);
-						confirm.setWidth("570px");
+						confirm.setWidth("600px");
 						confirm.setHeight("330px");
 						confirm.setCaption("");
 						confirm.setStyleName("opaque");
