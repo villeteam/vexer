@@ -24,7 +24,7 @@ public enum Misconception implements LocalizableEnum{
 	CALCULATION_IN_A_ROW(StubUIConstants.MP_CALCULATION_IN_A_ROW),
 	CLOCK(StubUIConstants.MP_CLOCK),
 	CLOCK_ADVANCED(StubUIConstants.MP_CLOCK_ADVANCED),
-	PERCEIVE(StubUIConstants.MP_PERCEIVE),
+	PERCEPTION(StubUIConstants.MP_PERCEIVE),
 	ROUNDING(StubUIConstants.MP_ROUNDING);
 	
 	private final String constant;

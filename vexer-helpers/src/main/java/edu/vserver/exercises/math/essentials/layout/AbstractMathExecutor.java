@@ -1,6 +1,7 @@
 package edu.vserver.exercises.math.essentials.layout;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.vaadin.ui.Layout;
 import com.vaadin.ui.UI;
@@ -253,7 +254,7 @@ public abstract class AbstractMathExecutor<E extends ExerciseData, F extends Mat
 	 * @param problem the problem to collect data from
 	 * @return The different misconceptions collected for this problem instance
 	 */
-	protected ArrayList<MisconceptionTypeData> getMisconceptionTypeData(
+	protected List<MisconceptionTypeData> getMisconceptionTypeData(
 			P problem) {
 		return null;
 	}
@@ -268,7 +269,7 @@ public abstract class AbstractMathExecutor<E extends ExerciseData, F extends Mat
 		if(mmd == null)
 			return;
 		
-		ArrayList<MisconceptionTypeData> misconceptions = getMisconceptionTypeData(problem);
+		List<MisconceptionTypeData> misconceptions = getMisconceptionTypeData(problem);
 		if (misconceptions != null) {
 			mmd.addMisconceptionTypes(misconceptions);
 		}
