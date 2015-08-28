@@ -275,6 +275,8 @@ public abstract class AbstractMathExecutor<E extends ExerciseData, F extends Mat
 		}
 		mmd.setTime(System.currentTimeMillis() - lastProblemStartTime);
 		mpd.addMisconceptionData(mmd);
+		
+		mpd.save();
 	}
 
 	@Override
