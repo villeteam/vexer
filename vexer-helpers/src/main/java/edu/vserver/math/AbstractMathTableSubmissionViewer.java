@@ -218,7 +218,6 @@ public abstract class AbstractMathTableSubmissionViewer<E extends ExerciseData, 
 				amount++;
 			}
 
-			i++;
 		}
 
 		HorizontalLayout horStats = new HorizontalLayout();

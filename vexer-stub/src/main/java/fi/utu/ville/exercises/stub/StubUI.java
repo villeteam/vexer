@@ -19,11 +19,6 @@ public class StubUI implements VilleUI {
 	@Override
 	public void pushCurrentViewToStack() {
 	}
-
-	@Override
-	public String getPageStack() {
-		return null;
-	}
 	
 	@Override
 	public VilleContent restorePreviousViewFromStack() {
@@ -62,6 +57,11 @@ public class StubUI implements VilleUI {
 	public boolean changeContent(VilleContent content, boolean forceChange) {
 	    return false;
 	}
+
+    @Override
+    public String getPageStack() {
+        return "";
+    }
 
 
 }
