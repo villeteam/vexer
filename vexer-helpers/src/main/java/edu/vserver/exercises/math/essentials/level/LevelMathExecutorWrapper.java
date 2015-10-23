@@ -22,17 +22,17 @@ import fi.utu.ville.exercises.model.SubmissionResult;
 import fi.utu.ville.exercises.model.SubmissionType;
 import fi.utu.ville.standardutils.Localizer;
 import fi.utu.ville.standardutils.MathIcons;
-import fi.utu.ville.standardutils.UIConstants;
 import fi.utu.ville.standardutils.MathUIFactory;
 import fi.utu.ville.standardutils.StandardUIConstants;
 import fi.utu.ville.standardutils.StandardUIFactory;
 import fi.utu.ville.standardutils.TempFilesManager;
+import fi.utu.ville.standardutils.UIConstants;
 
 public class LevelMathExecutorWrapper<E extends ExerciseData, S extends LevelSubmissionInfo>
 		extends VerticalLayout implements Executor<LevelMathDataWrapper<E>, S> {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -7363354799686763767L;
 
@@ -64,7 +64,7 @@ public class LevelMathExecutorWrapper<E extends ExerciseData, S extends LevelSub
 	private final ClickListener cl = new Button.ClickListener() {
 
 		/**
-		 * 
+		 *
 		 */
 		private static final long serialVersionUID = 4026684080223114316L;
 
@@ -73,19 +73,20 @@ public class LevelMathExecutorWrapper<E extends ExerciseData, S extends LevelSub
 			final DiffLevel usedLevel;
 			levelSelected = true;
 
-			if (event.getButton().equals(easy))
+			if (event.getButton().equals(easy)) {
 				usedLevel = DiffLevel.EASY;
-			else if (event.getButton().equals(normal))
+			} else if (event.getButton().equals(normal)) {
 				usedLevel = DiffLevel.NORMAL;
-			else
+			} else {
 				usedLevel = DiffLevel.HARD;
+			}
 
 			loadRealExercise(usedLevel);
 
 			realExecutor.registerSubmitListener(new SubmissionListener<S>() {
 
 				/**
-				 * 
+				 *
 				 */
 				private static final long serialVersionUID = -1277278707017051715L;
 
@@ -232,6 +233,10 @@ public class LevelMathExecutorWrapper<E extends ExerciseData, S extends LevelSub
 	@Override
 	public MisconceptionPerformanceSubject getMisconceptionSubject() {
 		return realExecutor.getMisconceptionSubject();
+	}
+
+	public void setHardButtonEnabled(boolean value) {
+		hard.setEnabled(value);
 	}
 
 }
