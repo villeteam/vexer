@@ -1,9 +1,13 @@
 package fi.utu.ville.exercises.stub;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.google.gwt.json.client.JSONException;
 
+import elemental.json.JsonArray;
+import elemental.json.JsonFactory;
+import elemental.json.JsonObject;
+import elemental.json.impl.JreJsonArray;
+import elemental.json.impl.JreJsonFactory;
+import elemental.json.impl.JreJsonObject;
 import fi.utu.ville.standardutils.ui.DynamicStyles.StyleSettings;
 
 /**
@@ -13,28 +17,28 @@ import fi.utu.ville.standardutils.ui.DynamicStyles.StyleSettings;
  * 
  */
 class StubStyleSettings implements StyleSettings {
-
+	
 	/* colors */
 	private String backgroundColor;
 	private String foregroundColor;
-
+	
 	private BorderStyle borderStyle;
 	private int borderWidth;
 	private String borderColor;
 	private int borderRounded;
-
+	
 	/* margins & paddings */
 	private String marginString;
 	private String paddingString;
 	private final int[] margin = { 0, 0, 0, 0 };
 	private final int[] padding = { 0, 0, 0, 0 };
-
+	
 	/* fonts */
 	private String fontFamily;
 	private String fontSize;
 	private boolean fontBolded;
 	private boolean fontItalic;
-
+	
 	/**
 	 * Creates new style settings with default values for each property.
 	 */
@@ -52,7 +56,7 @@ class StubStyleSettings implements StyleSettings {
 		fontBolded = false;
 		fontItalic = false;
 	}
-
+	
 	/**
 	 * Sets the border property of this style
 	 * 
@@ -61,11 +65,9 @@ class StubStyleSettings implements StyleSettings {
 	 * @param width
 	 *            the width of the border in pixels
 	 * @param borderColor
-	 *            the color of the border in CSS compatible hexadecimal
-	 *            representation, starting with #
+	 *            the color of the border in CSS compatible hexadecimal representation, starting with #
 	 * @param roundedAmount
-	 *            the amount of rounding applied in pixels. Note, that this may
-	 *            not work in all browsers.
+	 *            the amount of rounding applied in pixels. Note, that this may not work in all browsers.
 	 */
 	@Override
 	public void setBorder(BorderStyle style, int width, String borderColor,
@@ -78,10 +80,9 @@ class StubStyleSettings implements StyleSettings {
 		}
 		this.borderColor = borderColor;
 	}
-
+	
 	/**
-	 * Sets the color properties of this style. Colors are given in CSS
-	 * compatible hexadecimal representation, starting with #
+	 * Sets the color properties of this style. Colors are given in CSS compatible hexadecimal representation, starting with #
 	 * 
 	 * @param foregroundColor
 	 *            the text color
@@ -100,7 +101,7 @@ class StubStyleSettings implements StyleSettings {
 		this.foregroundColor = foregroundColor;
 		this.backgroundColor = backgroundColor;
 	}
-
+	
 	/**
 	 * Sets all margins in symmetric form.
 	 * 
@@ -115,7 +116,7 @@ class StubStyleSettings implements StyleSettings {
 		margin[3] = marginInPixels;
 		marginString = marginInPixels + "px";
 	}
-
+	
 	/**
 	 * Sets the padding property in symmetric form.
 	 * 
@@ -130,7 +131,7 @@ class StubStyleSettings implements StyleSettings {
 		padding[3] = paddingInPixels;
 		paddingString = paddingInPixels + "px";
 	}
-
+	
 	/**
 	 * Sets the margin individually for all sides.
 	 * 
@@ -152,7 +153,7 @@ class StubStyleSettings implements StyleSettings {
 		marginString = top + "px " + right + "px " + bottom + "px " + left
 				+ "px";
 	}
-
+	
 	/**
 	 * Sets the padding individually for all sides.
 	 * 
@@ -174,19 +175,17 @@ class StubStyleSettings implements StyleSettings {
 		paddingString = top + "px " + right + "px " + bottom + "px " + left
 				+ "px";
 	}
-
+	
 	/**
 	 * <p>
 	 * Sets the font property for this style.
 	 * <p>
-	 * Note, that components other properties may override these settings.
-	 * Typical example is using the rich text editor to enter label content.
+	 * Note, that components other properties may override these settings. Typical example is using the rich text editor to enter label content.
 	 * 
 	 * @param fontFamily
 	 *            font family; please prefer generic font names
 	 * @param fontSize
-	 *            size of the font with unit added (such as "21px", "105%" or
-	 *            "1.5em")
+	 *            size of the font with unit added (such as "21px", "105%" or "1.5em")
 	 * @param bolded
 	 *            if true, font is displayed in bold
 	 * @param italic
@@ -200,7 +199,7 @@ class StubStyleSettings implements StyleSettings {
 		fontBolded = bolded;
 		fontItalic = italic;
 	}
-
+	
 	/**
 	 * Returns these settings as a CSS string.
 	 * 
@@ -215,7 +214,7 @@ class StubStyleSettings implements StyleSettings {
 		// set colors
 		css += "color: " + foregroundColor + ";";
 		css += "background-color:" + backgroundColor + ";";
-
+		
 		// set borders
 		if (borderStyle != BorderStyle.NONE) {
 			css += "border: " + borderStyle.getStyle() + " " + borderWidth
@@ -227,91 +226,91 @@ class StubStyleSettings implements StyleSettings {
 				css += "-moz-border-radius:" + bpx;
 			}
 		}
-
+		
 		// set margin and padding
 		css += "margin:" + marginString + ";";
 		css += "padding:" + paddingString + ";";
-
+		
 		// set font
 		css += "font-family:" + fontFamily + ";";
 		css += "font-size:" + fontSize + ";";
 		css += "font-weight:" + (fontBolded ? "bold;" : "normal;");
 		css += "font-style:" + (fontItalic ? "italic;" : "normal;");
-
+		
 		return css;
-
+		
 	}
-
+	
 	@Override
 	public String getBackgroundColor() {
 		return backgroundColor;
 	}
-
+	
 	@Override
 	public void setBackgroundColor(String backgroundColor) {
 		this.backgroundColor = backgroundColor;
 	}
-
+	
 	@Override
 	public String getForegroundColor() {
 		return foregroundColor;
 	}
-
+	
 	@Override
 	public void setForegroundColor(String foregroundColor) {
 		this.foregroundColor = foregroundColor;
 	}
-
+	
 	@Override
 	public String getBorderColor() {
 		return borderColor;
 	}
-
+	
 	@Override
 	public int getBorderWidth() {
 		return borderWidth;
 	}
-
+	
 	@Override
 	public int getBorderRounded() {
 		return borderRounded;
 	}
-
+	
 	@Override
 	public BorderStyle getBorderStyle() {
 		return borderStyle;
 	}
-
+	
 	@Override
 	public String getFontFamily() {
 		return fontFamily;
 	}
-
+	
 	@Override
 	public String getFontSize() {
 		return fontSize;
 	}
-
+	
 	@Override
 	public boolean isFontBolded() {
 		return fontBolded;
 	}
-
+	
 	@Override
 	public boolean isFontItalic() {
 		return fontItalic;
 	}
-
+	
 	@Override
 	public int[] getMargin() {
 		return margin;
 	}
-
+	
 	@Override
 	public int[] getPadding() {
 		return padding;
 	}
-
+	
 	/**
 	 * Copies all settings from given StyleSettings object to <code>this</code>
 	 * 
@@ -334,11 +333,13 @@ class StubStyleSettings implements StyleSettings {
 		setPadding(ss.getPadding()[0], ss.getPadding()[1], ss.getPadding()[2],
 				ss.getPadding()[3]);
 	}
-
+	
 	@Override
 	public String toJson() {
-		JSONObject json = new JSONObject();
-
+		JsonFactory factory = new JreJsonFactory();
+		System.out.println("TO JSON:");
+		JsonObject json = new JreJsonObject(factory);
+		
 		try {
 			json.put("bgColor", backgroundColor);
 			json.put("fgColor", foregroundColor);
@@ -346,60 +347,70 @@ class StubStyleSettings implements StyleSettings {
 			json.put("borderWidth", borderWidth);
 			json.put("borderColor", borderColor);
 			json.put("borderRounded", borderRounded);
-			JSONArray margins = new JSONArray(margin);
+			JsonArray margins = new JreJsonArray(factory);
+			for (int i = 0; i < margin.length; i++) {
+				margins.set(i, margin[i]);
+			}
 			json.put("margins", margins);
-			JSONArray paddings = new JSONArray(padding);
+			JsonArray paddings = new JreJsonArray(factory);
+			for (int i = 0; i < padding.length; i++) {
+				paddings.set(i, padding[i]);
+			}
 			json.put("paddings", paddings);
 			json.put("fontFamily", fontFamily);
 			json.put("fontSize", fontSize);
 			json.put("fontBolded", fontBolded);
 			json.put("fontItalic", fontItalic);
-
+			
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
 		return json.toString();
 	}
-
-	private static int[] parseIntJSONArr(JSONArray toParse)
+	
+	private static int[] parseIntJSONArr(JsonArray toParse)
 			throws JSONException {
-
+			
 		int size = toParse.length();
 		int[] res = new int[size];
 		for (int i = 0; i < size; i++) {
-			res[i] = toParse.getInt(i);
+			res[i] = (int) toParse.getNumber(i);
 		}
 		return res;
-
+		
 	}
-
+	
 	@Override
 	public void fromJson(String jsonStr) {
+		System.out.println("FROM JSON:" + jsonStr);
+		
+		JsonFactory factory = new JreJsonFactory();
 		try {
-			JSONObject json = new JSONObject(jsonStr);
+			JsonObject json = factory.parse(jsonStr);
+			
 			backgroundColor = json.getString("bgColor");
 			foregroundColor = json.getString("fgColor");
 			borderStyle = BorderStyle.getFromStyle(json
 					.getString("borderStyle"));
-			borderWidth = json.getInt("borderWidth");
+			borderWidth = (int) json.getNumber("borderWidth");
 			borderColor = json.getString("borderColor");
-			borderRounded = json.getInt("borderRounded");
-			int[] margins = parseIntJSONArr(json.getJSONArray("margins"));
+			borderRounded = (int) json.getNumber("borderRounded");
+			int[] margins = parseIntJSONArr(json.getArray("margins"));
 			setMargin(margins[0], margins[1], margins[2], margins[3]);
-			int[] paddings = parseIntJSONArr(json.getJSONArray("paddings"));
+			int[] paddings = parseIntJSONArr(json.getArray("paddings"));
 			setPadding(paddings[0], paddings[1], paddings[2], paddings[3]);
 			fontFamily = json.getString("fontFamily");
 			fontSize = json.getString("fontSize");
 			fontBolded = json.getBoolean("fontBolded");
 			fontItalic = json.getBoolean("fontItalic");
-
+			
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
 	}
-
+	
 }
