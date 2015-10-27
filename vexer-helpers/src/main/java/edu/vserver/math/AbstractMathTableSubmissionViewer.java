@@ -214,7 +214,7 @@ public abstract class AbstractMathTableSubmissionViewer<E extends ExerciseData, 
 
 			// Average time answering exercises
 			if (t > 0) {
-				average = t;
+				average += t;
 				amount++;
 			}
 
