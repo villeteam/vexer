@@ -233,7 +233,11 @@ public abstract class AbstractMathTableSubmissionViewer<E extends ExerciseData, 
 		stats.addStyleName("submissionInfo");
 		horStats.addComponent(stats);
 
-		double avg = average / amount;
+		double avg;
+		if(amount > 0)
+			avg = average / amount;
+		else
+			avg = 0;
 		Label averageTime = new Label("Average time: " + "<span>"
 				+ format.format((avg)) + "s" + "</span>");
 		averageTime.setContentMode(ContentMode.HTML);
