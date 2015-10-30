@@ -11,14 +11,14 @@ public class TimeStampHandler implements Serializable {
 	private static final long serialVersionUID = 1442223078865521609L;
 	private final ArrayList<TimeStamp> stamps;
 
-	public static String startExercise = "startExercise";
-	public static String submitExercise = "submitExercise";
-	public static String resetExercise = "resetExercise";
-	public static String nextButton = "NextButtonListener.buttonClick()";
-	public static String prevButton = "PrevButtonListener.buttonClick()";
-	public static String checkButton = "CheckButtonListener.buttonClick()";
-	public static String feedbackChecked = "feedbackChecked";
-	public static String separator = ";";
+	public static final String startExercise = "startExercise";
+	public static final String submitExercise = "submitExercise";
+	public static final String resetExercise = "resetExercise";
+	public static final String nextButton = "NextButtonListener.buttonClick()";
+	public static final String prevButton = "PrevButtonListener.buttonClick()";
+	public static final String checkButton = "CheckButtonListener.buttonClick()";
+	public static final String feedbackChecked = "feedbackChecked";
+	public static final String separator = ";";
 	
 	public TimeStampHandler() {
 		stamps = new ArrayList<TimeStamp>();

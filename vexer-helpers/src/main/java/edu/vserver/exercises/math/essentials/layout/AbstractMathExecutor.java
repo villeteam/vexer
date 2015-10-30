@@ -151,6 +151,9 @@ public abstract class AbstractMathExecutor<E extends ExerciseData, F extends Mat
 		listenerHelper.informResetDefault();
 		// startTime = System.currentTimeMillis();
 
+		if(timeStampHandler == null)
+			timeStampHandler = new TimeStampHandler();
+		
 		timeStampHandler.add(TimeStampHandler.resetExercise);
 	}
 
@@ -167,6 +170,9 @@ public abstract class AbstractMathExecutor<E extends ExerciseData, F extends Mat
 			mpd.save();
 		}
 
+		if(timeStampHandler == null)
+			timeStampHandler = new TimeStampHandler();
+		
 		timeStampHandler.add(TimeStampHandler.submitExercise);
 
 		listenerHelper.informSubmitDefault(checkCorrectness(),
