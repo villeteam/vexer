@@ -108,9 +108,11 @@ public class ExerciseExecutionHelper<S extends SubmissionInfo> implements
 	public void informSubmitDefault(double correctness, S data,
 			SubmissionType submType, Component fbComponent) {
 
+		int timeOnTask = getTimeOnTask(submType);
+		
 		for (SubmissionListener<S> sListener : submitListeners) {
 			sListener.submitted(new SubmissionResult<S>(correctness,
-					getTimeOnTask(submType), data, fbComponent, submType));
+					timeOnTask, data, fbComponent, submType));
 		}
 
 		stateHelper.setCanReset(true);
@@ -140,9 +142,12 @@ public class ExerciseExecutionHelper<S extends SubmissionInfo> implements
 	 */
 	public void informOnlySubmit(double correctness, S data,
 			SubmissionType submType, Component fbComponent) {
+		
+		int timeOnTask = getTimeOnTask(submType);
+		
 		for (SubmissionListener<S> sListener : submitListeners) {
 			sListener.submitted(new SubmissionResult<S>(correctness,
-					getTimeOnTask(submType), data, fbComponent, submType));
+					timeOnTask, data, fbComponent, submType));
 		}
 	}
 
