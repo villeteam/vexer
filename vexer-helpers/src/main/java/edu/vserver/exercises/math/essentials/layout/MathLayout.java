@@ -297,12 +297,9 @@ public class MathLayout<P extends Problem> extends VerticalLayout
 	private void setFocusAndShortcut(Button b) {
 		checkBtn.removeClickShortcut();
 		nextBtn.removeClickShortcut();
-		System.out.println("removed click shortcuts");
 		if (b != null) {
-			System.out.println("set button " + b.getCaption());
 			b.setClickShortcut(KeyCode.ENTER);
 			b.focus();
-			//			b.focus();
 		}
 	}
 	

@@ -157,7 +157,7 @@ public abstract class AbstractMathTableSubmissionViewer<E extends ExerciseData, 
 			try {
 				t = Double.parseDouble(time);
 			} catch (Exception e) {
-				System.out.println("Number format exception " + e.getMessage());
+				e.printStackTrace();
 			}
 			timesPerTask[i] = t;
 			
