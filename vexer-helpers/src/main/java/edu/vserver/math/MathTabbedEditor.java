@@ -224,6 +224,8 @@ public abstract class MathTabbedEditor<E extends ExerciseData> extends
 			}
 		});
 		
+		tabPanel.setWidthUndefined();
+		
 		// Easy editor as a default option
 		settingsLayout.removeAllComponents();
 		settingsLayout.addComponent(tabPanel);
