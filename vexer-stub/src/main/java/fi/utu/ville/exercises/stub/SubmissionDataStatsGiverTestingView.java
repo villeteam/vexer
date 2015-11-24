@@ -28,8 +28,7 @@ import fi.utu.ville.standardutils.StandardUIFactory;
 import fi.utu.ville.standardutils.TempFilesManager;
 
 /**
- * A quick-and-dirty class for loading {@link SubmissionStatisticsGiver}
- * -implementor for testing.
+ * A quick-and-dirty class for loading {@link SubmissionStatisticsGiver} -implementor for testing.
  * 
  * @author Riku Haavisto
  * 
@@ -40,21 +39,19 @@ import fi.utu.ville.standardutils.TempFilesManager;
  */
 class SubmissionDataStatsGiverTestingView<E extends ExerciseData, S extends SubmissionInfo>
 		extends VerticalLayout {
-
+		
 	private static final Logger logger = Logger
 			.getLogger(SubmissionDataStatsGiverTestingView.class.getName());
-
+			
 	private static final String submissionStatGiverTestingViewId = "statgiverview";
-
+	
 	private static final long serialVersionUID = 2019222167594454557L;
-
+	
 	/**
-	 * Constructs and returns a new {@link SubmissionDataStatsGiverTestingView}.
-	 * Explicit type-parameters are not needed when using this factory-method.
+	 * Constructs and returns a new {@link SubmissionDataStatsGiverTestingView}. Explicit type-parameters are not needed when using this factory-method.
 	 * 
 	 * @param toLoad
-	 *            {@link ExerciseTypeDescriptor} for exer-type for which to load
-	 *            a {@link SubmissionStatisticsGiver}
+	 *            {@link ExerciseTypeDescriptor} for exer-type for which to load a {@link SubmissionStatisticsGiver}
 	 * @param exerName
 	 *            name (or id) of the exercise-instance to load
 	 * @param localizer
@@ -66,7 +63,7 @@ class SubmissionDataStatsGiverTestingView<E extends ExerciseData, S extends Subm
 	public static SubmissionDataStatsGiverTestingView<?, ?> getViewFor(
 			ExerciseTypeDescriptor<?, ?> toLoad, String exerName,
 			Localizer localizer, TempFilesManager tempMan) {
-
+			
 		SubmDataStatHelper<? extends ExerciseData, ? extends SubmissionInfo> toUse = null;
 		try {
 			toUse = SubmDataStatHelper.loadFor(localizer, tempMan, exerName,
@@ -77,47 +74,45 @@ class SubmissionDataStatsGiverTestingView<E extends ExerciseData, S extends Subm
 		}
 		return getViewFor(toUse, localizer);
 	}
-
+	
 	/**
 	 * Constructs and returns a new {@link SubmissionDataStatsGiverTestingView}.
 	 * 
 	 * @param backingDataColl
-	 *            {@link SubmDataStatHelper}-helper class holding needed data
-	 *            and the actual {@link SubmissionStatisticsGiver}
+	 *            {@link SubmDataStatHelper}-helper class holding needed data and the actual {@link SubmissionStatisticsGiver}
 	 * @param localizer
 	 *            {@link Localizer} for localizing the UI
 	 * @return newly constructed {@link SubmissionDataStatsGiverTestingView}
 	 */
 	private static <E extends ExerciseData, S extends SubmissionInfo> SubmissionDataStatsGiverTestingView<E, S> getViewFor(
 			SubmDataStatHelper<E, S> backingDataColl, Localizer localizer) {
-
+			
 		return new SubmissionDataStatsGiverTestingView<E, S>(localizer,
 				backingDataColl);
 	}
-
+	
 	private final SubmDataStatHelper<E, S> backingDataColl;
 	private final Localizer localizer;
-
+	
 	/**
 	 * Conscructs a new {@link SubmissionDataStatsGiverTestingView}.
 	 * 
 	 * @param main
 	 *            {@link Localizer} for localizing the UI
 	 * @param backingDataColl
-	 *            {@link SubmDataStatHelper} holding the actual data used in
-	 *            this view
+	 *            {@link SubmDataStatHelper} holding the actual data used in this view
 	 */
 	private SubmissionDataStatsGiverTestingView(Localizer main,
 			SubmDataStatHelper<E, S> backingDataColl) {
-
+			
 		setId(submissionStatGiverTestingViewId);
-
+		
 		this.localizer = main;
 		this.backingDataColl = backingDataColl;
-
+		
 		doLayout();
 	}
-
+	
 	/**
 	 * Loads the layout for this view
 	 */
@@ -126,7 +121,7 @@ class SubmissionDataStatsGiverTestingView<E extends ExerciseData, S extends Subm
 		setSpacing(true);
 		setWidth("100%");
 		removeAllComponents();
-
+		
 		this.addComponent(new StubViewHeaderBar(localizer, localizer
 				.getUIText(StubUiConstants.STATS_TEST_INFO)));
 		List<StatisticsInfoColumn<?>> statsCols = backingDataColl
@@ -138,49 +133,49 @@ class SubmissionDataStatsGiverTestingView<E extends ExerciseData, S extends Subm
 		final Set<Integer> nonExpIds = StatsGiverHelper
 				.getNonExportableColIds(statsCols);
 		exportableDataTable.setWidth("100%");
-
+		
 		addComponent(exportableDataTable);
-
+		
 		Button showLegend = new Button(
 				localizer.getUIText(StandardUIConstants.COLUMNS_LEGEND));
-
+				
 		showLegend.addClickListener(new Button.ClickListener() {
-
+			
 			/**
 			 * 
 			 */
 			private static final long serialVersionUID = 5243795826485743165L;
-
+			
 			@Override
 			public void buttonClick(ClickEvent event) {
 				Window specViewDial = StandardUIFactory.getModalWindow("80%",
 						"spec-stats-view");
 				((Layout) specViewDial.getContent()).addComponent(legendComp);
 				UI.getCurrent().addWindow(specViewDial);
-
+				
 			}
-
+			
 		});
-
+		
 		addComponent(showLegend);
-
+		
 		Button exportExcelBtn = new Button("Export to excel");
-
+		
 		exportExcelBtn.addClickListener(new Button.ClickListener() {
-
+			
 			/**
 			 * 
 			 */
 			private static final long serialVersionUID = -8544436928176494097L;
-
+			
 			@Override
 			public void buttonClick(ClickEvent event) {
-
+				
 				exportableDataTable.setColumnCollapsingAllowed(true);
 				for (Integer id : nonExpIds) {
 					exportableDataTable.setColumnCollapsed(id, true);
 				}
-
+				
 				ExcelExport exporter = new ExcelExport(exportableDataTable);
 				exporter.excludeCollapsedColumns();
 				exporter.export();
@@ -190,37 +185,37 @@ class SubmissionDataStatsGiverTestingView<E extends ExerciseData, S extends Subm
 				exportableDataTable.setColumnCollapsingAllowed(false);
 			}
 		});
-
+		
 		addComponent(exportExcelBtn);
-
+		
 		// addComponent(StandardUIFactory.getHr());
-
+		
 		Button specViewBtn = StandardUIFactory.getButton("spec-stats-view",
 				null);
-
+				
 		final Component specView = backingDataColl.getSpecificStatsView();
-
+		
 		if (specView != null) {
 			specViewBtn.addClickListener(new Button.ClickListener() {
-
+				
 				/**
 				 * 
 				 */
 				private static final long serialVersionUID = -825604045826922358L;
-
+				
 				@Override
 				public void buttonClick(ClickEvent event) {
 					Window specViewDial = StandardUIFactory.getModalWindow(
 							"80%", "spec-stats-view");
 					((Layout) specViewDial.getContent()).addComponent(specView);
 					UI.getCurrent().addWindow(specViewDial);
-
+					
 				}
 			});
 		} else {
 			specViewBtn.setEnabled(false);
 		}
 		this.addComponent(specViewBtn);
-
+		
 	}
 }

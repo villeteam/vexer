@@ -16,8 +16,7 @@ import fi.utu.ville.standardutils.AbstractFile;
 import fi.utu.ville.standardutils.Util;
 
 /**
- * Stub-implementation for scoped material saving and loading (
- * {@link ByRefSaver} and {@link ByRefLoader}).
+ * Stub-implementation for scoped material saving and loading ( {@link ByRefSaver} and {@link ByRefLoader}).
  * 
  * 
  * 
@@ -25,19 +24,18 @@ import fi.utu.ville.standardutils.Util;
  * 
  */
 public class StubMatPersistenceHandler implements ByRefSaver, ByRefLoader {
-
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1432351237084696903L;
-
+	
 	private final String matScope;
 	private final Set<String> regToBeSaved = new HashSet<String>();
 	private final boolean inSaveMode;
-
+	
 	/**
-	 * Constructs a new {@link StubMatPersistenceHandler} and initializes it to
-	 * use certain matScope-folder.
+	 * Constructs a new {@link StubMatPersistenceHandler} and initializes it to use certain matScope-folder.
 	 * 
 	 * @param matScope
 	 *            path to folder to be used as material-scope
@@ -48,7 +46,7 @@ public class StubMatPersistenceHandler implements ByRefSaver, ByRefLoader {
 		this.matScope = matScope;
 		this.inSaveMode = inSaveMode;
 	}
-
+	
 	@Override
 	public AbstractFile loadByReference(String refId) throws ExerciseException {
 		File afFile = new File(matScope + File.separator + refId);
@@ -60,7 +58,7 @@ public class StubMatPersistenceHandler implements ByRefSaver, ByRefLoader {
 					null);
 		}
 	}
-
+	
 	@Override
 	public String saveByReference(AbstractFile toSave) throws ExerciseException {
 		if (!inSaveMode) {
@@ -71,7 +69,7 @@ public class StubMatPersistenceHandler implements ByRefSaver, ByRefLoader {
 		if (!matScopeF.exists()) {
 			matScopeF.mkdir();
 		}
-
+		
 		if (toSave instanceof ExistingAFFile) {
 			ExistingAFFile fileToSave = (ExistingAFFile) toSave;
 			String oldRef = fileToSave.getName();
@@ -92,11 +90,9 @@ public class StubMatPersistenceHandler implements ByRefSaver, ByRefLoader {
 			return newRef;
 		}
 	}
-
+	
 	/**
-	 * This method attempts to clean-up all the saved material-files that have
-	 * become obsolete (were not saved when the exercise-instance was last
-	 * saved).
+	 * This method attempts to clean-up all the saved material-files that have become obsolete (were not saved when the exercise-instance was last saved).
 	 */
 	void cleanupObsoleteFiles() {
 		if (!inSaveMode) {
@@ -114,20 +110,20 @@ public class StubMatPersistenceHandler implements ByRefSaver, ByRefLoader {
 			}
 		}
 	}
-
+	
 	// this is used only as a marker class to know which files have already been
 	// saved to disk
 	private static final class ExistingAFFile extends AFFile {
-
+		
 		/**
 		 * 
 		 */
 		private static final long serialVersionUID = 5235576214041087662L;
-
+		
 		public ExistingAFFile(File file) {
 			super(file);
 		}
-
+		
 	}
-
+	
 }

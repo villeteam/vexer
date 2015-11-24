@@ -6,7 +6,7 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
 public class NextButtonListener implements ClickListener {
-
+	
 	/**
 	 * 
 	 */
@@ -15,14 +15,14 @@ public class NextButtonListener implements ClickListener {
 	// private final MathExerciseState state;
 	private final MathLayout<?> layout;
 	private final TimeStampHandler timeStampHandler;
-
+	
 	public NextButtonListener(MathLayout<?> l, TimeStampHandler timeStampHandler) {
 		// this.view = view;
 		// this.state = state;
-		this.layout = l;
+		layout = l;
 		this.timeStampHandler = timeStampHandler;
 	}
-
+	
 	@Override
 	public void buttonClick(ClickEvent event) {
 		// layout.aNext = layout.getProxy().animate(view,

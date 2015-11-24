@@ -12,20 +12,19 @@ import fi.utu.ville.standardutils.StandardIcon.Icon;
 import fi.utu.ville.standardutils.StandardUIFactory;
 
 /**
- * A header-bar to show over the testing views in stub. The header-bar provides
- * a navigation button back to stub's start-view and possibly an info-text
+ * A header-bar to show over the testing views in stub. The header-bar provides a navigation button back to stub's start-view and possibly an info-text
  * describing the current view.
  * 
  * @author Riku Haavisto
  * 
  */
 public class StubViewHeaderBar extends VerticalLayout {
-
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 7718375416856425313L;
-
+	
 	/**
 	 * Constructs a new {@link StubViewHeaderBar}.
 	 * 
@@ -40,33 +39,33 @@ public class StubViewHeaderBar extends VerticalLayout {
 		actualLayout.addStyleName("stub-header-bar");
 		actualLayout.setMargin(true);
 		actualLayout.setSpacing(true);
-
+		
 		Button backToStubStartView = StandardUIFactory.getButton(
 				localizer.getUIText(StubUiConstants.BACK_TO_STUB_START),
 				Icon.PREVIOUS);
-
+				
 		backToStubStartView.addClickListener(new Button.ClickListener() {
-
+			
 			private static final long serialVersionUID = 7996549476059355446L;
-
+			
 			@Override
 			public void buttonClick(ClickEvent event) {
 				getUI().setContent(new StubStartView());
-
+				
 			}
 		});
-
+		
 		actualLayout.addComponent(backToStubStartView);
-
+		
 		HorizontalLayout infoLabel = StandardUIFactory
 				.getInformationPanel(infoText);
-
+				
 		actualLayout.addComponent(infoLabel);
 		actualLayout.setExpandRatio(infoLabel, 1.0f);
-
+		
 		this.addComponent(actualLayout);
 		this.addComponent(new Label("<hr/>", ContentMode.HTML));
-
+		
 	}
-
+	
 }

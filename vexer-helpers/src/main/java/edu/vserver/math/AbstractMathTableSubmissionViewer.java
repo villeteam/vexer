@@ -35,21 +35,21 @@ import fi.utu.ville.standardutils.TempFilesManager;
 
 public abstract class AbstractMathTableSubmissionViewer<E extends ExerciseData, F extends LevelMathSubmissionInfo<G>, G extends Problem>
 		extends VerticalLayout implements SubmissionVisualizer<E, F> {
-
+		
 	/**
-* 
-*/
+	* 
+	*/
 	private static final long serialVersionUID = -1228022609075470958L;
-
+	
 	private Table table;
 	private E exercise;
 	private F submInfo;
 	private Localizer localizer;
 	private DecimalFormat format;
-
+	
 	// Abstract method for getting executor for each type of exercise.
 	protected abstract MathExerciseView<G> getExerView(E exerData, F submInfo);
-
+	
 	@Override
 	public void initialize(E exercise, F dataObject, Localizer localizer,
 			TempFilesManager tempFilesManager) throws ExerciseException {
@@ -58,63 +58,63 @@ public abstract class AbstractMathTableSubmissionViewer<E extends ExerciseData, 
 		this.localizer = localizer;
 		format = new DecimalFormat("#.##");
 		doLayout();
-
+		
 	}
-
+	
 	@Override
 	public Layout getView() {
 		return this;
 	}
-
+	
 	@Override
 	public String exportSubmissionDataAsText() {
 		return AbstractMathSubmissionViewer.getSimpleTextExport(exercise,
 				submInfo, localizer, "");
 	}
-
+	
 	protected Embedded getDiffLevel() {
 		ThemeResource pic = new ThemeResource(
 				"../vexer-math/icons/star-gold-64.png");
-
+				
 		if (submInfo.getDiffLevel() == DiffLevel.EASY) {
 			pic = new ThemeResource("../vexer-math/icons/star-bronze-64.png");
 		} else if (submInfo.getDiffLevel() == DiffLevel.NORMAL) {
 			pic = new ThemeResource("../vexer-math/icons/star-silver-64.png");
 		}
-
+		
 		Embedded diffLevel = new Embedded(submInfo.getDiffLevel().name(), pic);
-
+		
 		return diffLevel;
 	}
-
+	
 	protected void doLayout() {
 		setSpacing(true);
 		setMargin(true);
 		setWidth("100%");
-
+		
 		table = new Table();
 		table.addColumnResizeListener(new Table.ColumnResizeListener() {
 			/**
 			 * 
 			 */
 			private static final long serialVersionUID = -3535283813634437776L;
-
+			
 			@Override
 			public void columnResize(ColumnResizeEvent event) {
 				// Get the new width of the resized column
 				int width = event.getCurrentWidth();
-
+				
 				// Get the property ID of the resized column
 				String column = (String) event.getPropertyId();
-
+				
 				// Do something with the information
 				table.setColumnFooter(column, String.valueOf(width) + "px");
 			}
 		});
-
+		
 		// Must be immediate to send the resize events immediately
 		table.setImmediate(true);
-
+		
 		// Common knowledge to all math problems:
 		// - Question
 		// - isCorrect
@@ -123,9 +123,9 @@ public abstract class AbstractMathTableSubmissionViewer<E extends ExerciseData, 
 		// - Correctness
 		// - Time on task
 		// - Time on answer
-
+		
 		table.addStyleName(ChameleonTheme.TABLE_STRIPED);
-
+		
 		table.addContainerProperty("Question", String.class, null);
 		table.addContainerProperty("Correct answer", String.class, null);
 		table.addContainerProperty("Given answer", String.class, null);
@@ -133,31 +133,28 @@ public abstract class AbstractMathTableSubmissionViewer<E extends ExerciseData, 
 		table.addContainerProperty("Time (s)", String.class, null);
 		table.addContainerProperty("Timeline", Button.class, null);
 		table.addContainerProperty("Show exercise", Button.class, null);
-
+		
 		table.setColumnAlignment("Correct/Incorrect", Table.Align.CENTER);
-
+		
 		int correctAnswers = 0;
 		double average = 0;
 		int amount = 0;
-
+		
 		// Divided handlers
 		final ArrayList<TimeStampHandler> handlers = divideTimeStamps(submInfo
 				.getTimeStamps());
-
+				
 		//int i = 0;
 		Double[] timesPerTask = new Double[handlers.size()];
-		for (int i = 0; i< handlers.size() && i<submInfo.getProblems().size(); i++){
+		for (int i = 0; i < handlers.size() && i < submInfo.getProblems().size(); i++) {
 			final G problem = submInfo.getProblems().get(i);
-			String time = "0";
-			
-			time = timePerTask(handlers, i);
-			
+			String time = timePerTask(handlers, i);
 			
 			double t = 0;
 			try {
 				t = Double.parseDouble(time);
 			} catch (Exception e) {
-				e.printStackTrace();
+				//				e.printStackTrace();
 			}
 			timesPerTask[i] = t;
 			
@@ -166,65 +163,64 @@ public abstract class AbstractMathTableSubmissionViewer<E extends ExerciseData, 
 			Button showExercise = new Button("Show exercise");
 			showExercise.addStyleName(BaseTheme.BUTTON_LINK);
 			showExercise.addClickListener(new Button.ClickListener() {
-
+				
 				/**
 				 * 
 				 */
 				private static final long serialVersionUID = 524295315804770796L;
-
+				
 				@Override
 				public void buttonClick(ClickEvent event) {
 					Window res = new Window("Show exercise");
-
+					
 					VerticalLayout content = new VerticalLayout();
 					content.setSizeUndefined();
 					content.setSpacing(true);
-
+					
 					MathExerciseView<G> view = getExerView(exercise, submInfo);
 					view.drawProblem(problem);
-
+					
 					content.addComponent(view);
-
+					
 					res.setContent(content);
-
+					
 					UI.getCurrent().addWindow(res);
 				}
 			});
-
+			
 			ThemeResource icon = new ThemeResource(
 					"../vexer-math/icons/false.png");
 			Embedded correctness = new Embedded(null, icon);
-
+			
 			try {
 				// The amount of correct answers
 				if (problem.isCorrect()) {
 					correctAnswers++;
-
+					
 					icon = new ThemeResource("../vexer-math/icons/correct.png");
 					correctness = new Embedded(null, icon);
 				}
 			} catch (Exception e) {
-
+			
 			}
-
-			table.addItem(new Object[] { problem.getQuestion(localizer),
-					problem.getCorrectAnswer(), problem.getUserAnswer(),
-					correctness, format.format(t), timeline, showExercise },
+			
+			table.addItem(new Object[] { problem.getQuestion(localizer), problem.getCorrectAnswer(), problem.getUserAnswer(), correctness, format
+					.format(t), timeline, showExercise },
 					new Integer(i));
-
+					
 			// Average time answering exercises
 			if (t > 0) {
 				average += t;
 				amount++;
 			}
-
+			
 		}
-
+		
 		HorizontalLayout horStats = new HorizontalLayout();
 		horStats.setSizeUndefined();
 		horStats.setSpacing(true);
 		horStats.addStyleName("statBox");
-
+		
 		Label stats = new Label("Correct answers: "
 				+ "<span style=\"color: green\">" + correctAnswers + "</span>"
 				+ "<span>/</span>" + "<span>" + submInfo.getProblems().size()
@@ -232,46 +228,47 @@ public abstract class AbstractMathTableSubmissionViewer<E extends ExerciseData, 
 		stats.setContentMode(ContentMode.HTML);
 		stats.addStyleName("submissionInfo");
 		horStats.addComponent(stats);
-
+		
 		double avg;
-		if(amount > 0)
+		if (amount > 0) {
 			avg = average / amount;
-		else
+		} else {
 			avg = 0;
+		}
 		Label averageTime = new Label("Average time: " + "<span>"
 				+ format.format((avg)) + "s" + "</span>");
 		averageTime.setContentMode(ContentMode.HTML);
 		averageTime.addStyleName("submissionInfo");
 		horStats.addComponent(averageTime);
-
+		
 		Label doneExers = new Label("Tasks done: " + "<span>" + amount + "/"
 				+ submInfo.getProblems().size() + "</span>");
 		doneExers.setContentMode(ContentMode.HTML);
 		doneExers.addStyleName("lastSubmissionInfo");
 		horStats.addComponent(doneExers);
-
-		HorizontalLayout chartContainer = MathSubmissionUIFactory.getChartContainer(handlers, timesPerTask, correctAnswers,(handlers.size() - correctAnswers));//new HorizontalLayout();
-
+		
+		HorizontalLayout chartContainer = MathSubmissionUIFactory.getChartContainer(handlers, timesPerTask, correctAnswers, (handlers.size() - correctAnswers));//new HorizontalLayout();
+		
 		Embedded diffLevel = getDiffLevel();
-
+		
 		addComponent(diffLevel);
 		addComponent(horStats);
 		addComponent(chartContainer);
-
+		
 		VerticalLayout tableContainer = new VerticalLayout();
 		tableContainer.setSizeUndefined();
 		tableContainer.addStyleName("tableBox");
 		tableContainer.addComponent(table);
 		addComponent(tableContainer);
-
+		
 		setComponentAlignment(diffLevel, Alignment.MIDDLE_CENTER);
 		setComponentAlignment(chartContainer, Alignment.MIDDLE_CENTER);
 		setComponentAlignment(horStats, Alignment.MIDDLE_CENTER);
-
+		
 		setComponentAlignment(tableContainer, Alignment.MIDDLE_CENTER);
-
+		
 	}
-
+	
 	/*
 	 * divides Submission info Time stamp handler into sub exercise handlers.
 	 */
@@ -280,29 +277,29 @@ public abstract class AbstractMathTableSubmissionViewer<E extends ExerciseData, 
 		int i = 3;
 		while (i < stamps.size()) {
 			TimeStampHandler handler = new TimeStampHandler();
-
+			
 			int j = i - 3;
-
+			
 			while (j <= i) {
 				handler.add(stamps.get(j));
 				j++;
 			}
-
+			
 			handlers.add(handler);
-
+			
 			i = i + 3;
-
+			
 		}
-
+		
 		return handlers;
 	}
 	
 	protected String timePerTask(ArrayList<TimeStampHandler> stamp, int i) {
-
+		
 		TimeStampHandler subProblem = stamp.get(i);
 		TimeStamp firstEvent = subProblem.get(0);
 		TimeStamp lastEvent = subProblem.get(subProblem.size() - 1);
-
+		
 		if (firstEvent.getEventStr().equals("startExercise")
 				|| firstEvent.getEventStr().equals(
 						"NextButtonListener.buttonClick()")
@@ -311,9 +308,9 @@ public abstract class AbstractMathTableSubmissionViewer<E extends ExerciseData, 
 						"NextButtonListener.buttonClick()")) {
 			long start = firstEvent.getTime();
 			long end = lastEvent.getTime();
-
+			
 			double time = (end - start) / (double) 1000;
-
+			
 			return "" + time;
 		} else {
 			return "N/A";
@@ -323,9 +320,9 @@ public abstract class AbstractMathTableSubmissionViewer<E extends ExerciseData, 
 	protected Layout doAdditionalSubProbLayout(final G subProblem) {
 		return null;
 	}
-
+	
 	protected Localizer getLocalizer() {
 		return localizer;
 	}
-
+	
 }

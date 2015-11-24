@@ -16,9 +16,13 @@ public class TimeStamp implements Serializable {
 		this.eventStr = eventStr;
 	}
 	
-	public String getEventStr() { return eventStr; }
+	public String getEventStr() {
+		return eventStr;
+	}
 	
-	public long getTime() { return time; }
+	public long getTime() {
+		return time;
+	}
 	
 	@Override
 	public String toString() {

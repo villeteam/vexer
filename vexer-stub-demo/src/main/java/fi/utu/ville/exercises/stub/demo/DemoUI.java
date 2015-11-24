@@ -13,10 +13,20 @@ import fi.utu.ville.exercises.stub.VilleExerStubUI;
 @Title("Ville-Plugin-Exercise-Stub Demo")
 @SuppressWarnings("serial")
 public class DemoUI extends VilleExerStubUI {
-
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	@WebServlet(value = "/*", asyncSupported = true)
 	@VaadinServletConfiguration(productionMode = false, ui = DemoUI.class, widgetset = "fi.utu.ville.exercises.stub.demo.DemoWidgetSet")
 	public static class Servlet extends VaadinServlet {
+		
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 	}
-
+	
 }

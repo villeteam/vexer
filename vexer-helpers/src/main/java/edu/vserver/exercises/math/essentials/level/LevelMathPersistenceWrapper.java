@@ -33,9 +33,8 @@ import fi.utu.ville.standardutils.TempFilesManager;
 import fi.utu.ville.standardutils.XMLHelper;
 
 /**
- * A persistencehandler wrapper to use with exercises that use
- * LevelMathDataWrapper. Internally it uses a GsonPersistenceHandler to convert
- * the difficulty levels to Json, which are combined into one XML file.
+ * A persistencehandler wrapper to use with exercises that use LevelMathDataWrapper. Internally it uses a GsonPersistenceHandler to convert the difficulty
+ * levels to Json, which are combined into one XML file.
  * 
  * @param <E>
  *            ExerciseData to manage
@@ -44,28 +43,28 @@ import fi.utu.ville.standardutils.XMLHelper;
  */
 public class LevelMathPersistenceWrapper<E extends ExerciseData, S extends SubmissionInfo>
 		implements PersistenceHandler<LevelMathDataWrapper<E>, S> {
-
+		
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 2629452801442738865L;
 	private final GsonPersistenceHandler<E, S> handler;
-
+	
 	public LevelMathPersistenceWrapper(Class<E> exerDataClass,
 			Class<S> submInfoClass) {
 		this.handler = new GsonPersistenceHandler<>(exerDataClass,
 				submInfoClass);
 	}
-
+	
 	@Override
 	public byte[] saveExerData(
 			LevelMathDataWrapper<E> etd,
 			TempFilesManager tempManager,
 			fi.utu.ville.exercises.model.PersistenceHandler.ByRefSaver matHandler)
-			throws ExerciseException {
-
+					throws ExerciseException {
+					
 		PersistenceHandler<E, S> persistenceHandler = getPersistenceHandler();
-
+		
 		E easy = etd.getForLevel(DiffLevel.EASY);
 		E normal = etd.getForLevel(DiffLevel.NORMAL);
 		E hard = etd.getForLevel(DiffLevel.HARD);
@@ -75,16 +74,16 @@ public class LevelMathPersistenceWrapper<E extends ExerciseData, S extends Submi
 				matHandler);
 		byte[] hardBuf = persistenceHandler.saveExerData(hard, tempManager,
 				matHandler);
-
+				
 		try {
 			DocumentBuilderFactory docFactory = DocumentBuilderFactory
 					.newInstance();
 			DocumentBuilder docBuilder;
 			docBuilder = docFactory.newDocumentBuilder();
-
+			
 			Document doc = docBuilder.newDocument();
 			Element rootElement = doc.createElement("levels");
-
+			
 			CDATASection easyData = doc.createCDATASection(Arrays
 					.toString(easyBuf));
 			CDATASection normalData = doc.createCDATASection(Arrays
@@ -97,14 +96,14 @@ public class LevelMathPersistenceWrapper<E extends ExerciseData, S extends Submi
 			normalElement.appendChild(normalData);
 			Element hardElement = doc.createElement("hard");
 			hardElement.appendChild(hardData);
-
+			
 			rootElement.appendChild(easyElement);
 			rootElement.appendChild(normalElement);
 			rootElement.appendChild(hardElement);
-
+			
 			doc.appendChild(rootElement);
 			return XMLHelper.xmlToBytes(doc);
-
+			
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
 		} catch (TransformerConfigurationException e) {
@@ -116,13 +115,13 @@ public class LevelMathPersistenceWrapper<E extends ExerciseData, S extends Submi
 		}
 		return new byte[] {};
 	}
-
+	
 	@Override
 	public LevelMathDataWrapper<E> loadExerData(
 			byte[] dataPres,
 			TempFilesManager tempManager,
 			fi.utu.ville.exercises.model.PersistenceHandler.ByRefLoader matHandler)
-			throws ExerciseException {
+					throws ExerciseException {
 		E easy = null;
 		E normal = null;
 		E hard = null;
@@ -142,11 +141,11 @@ public class LevelMathPersistenceWrapper<E extends ExerciseData, S extends Submi
 		for (int i = 0; i < listOfLevels.getLength(); i++) {
 			Node levelElement = listOfLevels.item(i);
 			String name = levelElement.getNodeName();
-
+			
 			String levelData = levelElement.getChildNodes().item(0)
 					.getNodeValue();
 			byte[] levelBuf = stringToByteArray(levelData);
-
+			
 			switch (name) {
 			case "easy":
 				easy = persistenceHandler.loadExerData(levelBuf, tempManager,
@@ -162,38 +161,38 @@ public class LevelMathPersistenceWrapper<E extends ExerciseData, S extends Submi
 				break;
 			}
 		}
-
+		
 		return new LevelMathDataWrapper<E>(easy, normal, hard);
 	}
-
+	
 	@Override
 	public byte[] saveSubmission(S subm, TempFilesManager tempManager)
 			throws ExerciseException {
 		PersistenceHandler<E, S> handler = getPersistenceHandler();
 		return handler.saveSubmission(subm, tempManager);
 	}
-
+	
 	@Override
 	public S loadSubmission(byte[] dataPres, boolean forStatGiver,
 			TempFilesManager tempManager) throws ExerciseException {
 		PersistenceHandler<E, S> handler = getPersistenceHandler();
 		return handler.loadSubmission(dataPres, forStatGiver, tempManager);
 	}
-
+	
 	public GsonPersistenceHandler<E, S> getPersistenceHandler() {
 		return handler;
 	}
-
+	
 	private byte[] stringToByteArray(String value) {
 		String[] byteValues = value.substring(1, value.length() - 1).split(",");
 		byte[] bytes = new byte[byteValues.length];
-
+		
 		for (int i = 0, len = bytes.length; i < len; i++) {
 			bytes[i] = Byte.valueOf(byteValues[i].trim());
 		}
 		return bytes;
 	}
-
+	
 	public static void printDocument(Document doc, OutputStream out)
 			throws IOException, TransformerException {
 		TransformerFactory tf = TransformerFactory.newInstance();
@@ -204,7 +203,7 @@ public class LevelMathPersistenceWrapper<E extends ExerciseData, S extends Submi
 		transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
 		transformer.setOutputProperty(
 				"{http://xml.apache.org/xslt}indent-amount", "4");
-
+				
 		transformer.transform(new DOMSource(doc), new StreamResult(
 				new OutputStreamWriter(out, "UTF-8")));
 	}

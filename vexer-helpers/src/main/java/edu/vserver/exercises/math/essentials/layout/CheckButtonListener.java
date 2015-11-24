@@ -6,7 +6,7 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
 public class CheckButtonListener implements ClickListener {
-
+	
 	/**
 	 * 
 	 */
@@ -14,14 +14,14 @@ public class CheckButtonListener implements ClickListener {
 	private final MathExerciseView<?> view;
 	private final MathLayout<?> layout;
 	private final TimeStampHandler timeStampHandler;
-
+	
 	public CheckButtonListener(MathExerciseView<?> view, MathLayout<?> l,
 			TimeStampHandler timeStampHandler) {
 		this.view = view;
-		this.layout = l;
+		layout = l;
 		this.timeStampHandler = timeStampHandler;
 	}
-
+	
 	@Override
 	public void buttonClick(ClickEvent event) {
 		timeStampHandler.add(TimeStampHandler.checkButton);

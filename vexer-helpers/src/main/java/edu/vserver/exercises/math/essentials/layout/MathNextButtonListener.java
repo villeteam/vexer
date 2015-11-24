@@ -8,7 +8,7 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.VerticalLayout;
 
 public class MathNextButtonListener implements ClickListener {
-
+	
 	/**
 	 * 
 	 */
@@ -19,7 +19,7 @@ public class MathNextButtonListener implements ClickListener {
 	private Button next;
 	private Button check;
 	private boolean chart;
-
+	
 	public MathNextButtonListener(VerticalLayout assign,
 			List<VerticalLayout> exercises, Button next, Button check,
 			int loop, boolean chart) {
@@ -30,13 +30,13 @@ public class MathNextButtonListener implements ClickListener {
 		this.loop = loop;
 		this.chart = chart;
 	}
-
+	
 	@Override
 	public void buttonClick(ClickEvent event) {
 		assign.removeAllComponents();
-
+		
 		if (loop < exercises.size()) {
-
+			
 			/**
 			 * If chart is true the chart (exercises.get(0)) will be shown first
 			 */
@@ -45,11 +45,11 @@ public class MathNextButtonListener implements ClickListener {
 				chart.addStyleName("math-replace");
 				assign.addComponent(chart);
 			}
-
+			
 			assign.addComponent(exercises.get(loop));
 			loop++;
 			check.setEnabled(true);
-
+			
 		}
 		next.setEnabled(false);
 	}

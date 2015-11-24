@@ -6,7 +6,7 @@ import fi.utu.ville.exercises.model.ExerciseData;
 
 public class LevelMathDataWrapper<E extends ExerciseData> implements
 		ExerciseData, Serializable {
-
+		
 	/**
 	 * 
 	 */
@@ -14,13 +14,13 @@ public class LevelMathDataWrapper<E extends ExerciseData> implements
 	private final E easy;
 	private final E normal;
 	private final E hard;
-
+	
 	public LevelMathDataWrapper(E easy, E normal, E hard) {
 		this.easy = easy;
 		this.normal = normal;
 		this.hard = hard;
 	}
-
+	
 	public E getForLevel(DiffLevel level) {
 		if (level == DiffLevel.EASY) {
 			return easy;
@@ -33,5 +33,5 @@ public class LevelMathDataWrapper<E extends ExerciseData> implements
 					"Difficulty level not implemented in class " + getClass());
 		}
 	}
-
+	
 }

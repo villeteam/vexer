@@ -9,16 +9,14 @@ public enum TemplateFontIcons {
 	DELETE(StandardIcon.RawIcon.times),
 	UPLOAD(StandardIcon.RawIcon.upload);
 	
-	
-	
 	private final RawIcon rawIcon;
-
+	
 	private TemplateFontIcons(RawIcon icon) {
 		rawIcon = icon;
 	}
-
+	
 	public RawIcon getIcon() {
 		return rawIcon;
 	}
-
+	
 }

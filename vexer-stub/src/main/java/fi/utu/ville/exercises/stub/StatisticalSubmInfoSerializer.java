@@ -25,39 +25,37 @@ import fi.utu.ville.standardutils.TempFilesManager;
 import fi.utu.ville.standardutils.XMLHelper;
 
 /**
- * A class for storing persistently {@link StatisticalSubmissionInfo}-objects to
- * XML and loading them from the persistent representation.
+ * A class for storing persistently {@link StatisticalSubmissionInfo}-objects to XML and loading them from the persistent representation.
  * 
  * @author Riku Haavisto
  * 
  */
 public class StatisticalSubmInfoSerializer implements Serializable {
-
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 3630050290963327288L;
-
+	
 	private static final Logger logger = Logger
 			.getLogger(StatisticalSubmInfoSerializer.class.getName());
-
+			
 	public static final StatisticalSubmInfoSerializer INSTANCE = new StatisticalSubmInfoSerializer();
-
+	
 	// used element and attribute names
 	private static final String rootName = "statistical-subm-info";
-
+	
 	private static final String timeOnTaskAttr = "time-on-task";
 	private static final String evaluationAttr = "evaluation";
 	private static final String doneTimeAttr = "done-time";
 	private static final String actSubmElName = "submission-info";
-
+	
 	private StatisticalSubmInfoSerializer() {
 	}
-
+	
 	/**
-	 * Parses a byte array produced by
-	 * {@link #save(StatisticalSubmissionInfo, PersistenceHandler, TempFilesManager)
-	 * save()} to a {@link StatisticalSubmissionInfo}-object.
+	 * Parses a byte array produced by {@link #save(StatisticalSubmissionInfo, PersistenceHandler, TempFilesManager) save()} to a
+	 * {@link StatisticalSubmissionInfo}-object.
 	 * 
 	 * @param dataPres
 	 *            saved bytes
@@ -76,35 +74,35 @@ public class StatisticalSubmInfoSerializer implements Serializable {
 		StatisticalSubmissionInfo<S> res = null;
 		ByteArrayInputStream binput = null;
 		try {
-
+			
 			Document doc = XMLHelper.parseFromBytes(dataPres);
-
+			
 			Element rootEl = (Element) doc.getElementsByTagName(rootName).item(
 					0);
-
+					
 			int timeOnTask = Integer.parseInt(rootEl
 					.getAttribute(timeOnTaskAttr));
 			double evaluation = Double.parseDouble(rootEl
 					.getAttribute(evaluationAttr));
 			long doneTime = Long.parseLong(rootEl.getAttribute(doneTimeAttr));
-
+			
 			Element submInfoEl = (Element) rootEl.getElementsByTagName(
 					actSubmElName).item(0);
-
+					
 			String submInfoAscii = submInfoEl.getTextContent();
-
+			
 			byte[] submBytes = Base64.decodeBase64(submInfoAscii);
-
+			
 			S submInfo = null;
-
+			
 			submInfo = persistenceHandler.loadSubmission(submBytes,
 					forStatGiver, tempManager);
-
+					
 			res = new StatisticalSubmissionInfo<S>(timeOnTask, evaluation,
 					doneTime, submInfo);
-
+					
 			logger.info("Loaded: " + res);
-
+			
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
 		} catch (SAXException e) {
@@ -122,23 +120,20 @@ public class StatisticalSubmInfoSerializer implements Serializable {
 				}
 			}
 		}
-
+		
 		return res;
 	}
-
+	
 	/**
-	 * Saves a given {@link StatisticalSubmissionInfo} object to persistence
-	 * (XML) byte-form.
+	 * Saves a given {@link StatisticalSubmissionInfo} object to persistence (XML) byte-form.
 	 * 
 	 * @param toWrite
 	 *            {@link StatisticalSubmissionInfo} to save
 	 * @param serializerHandler
-	 *            exercise-type specific {@link PersistenceHandler} for saving
-	 *            the {@link SubmissionInfo}-object
+	 *            exercise-type specific {@link PersistenceHandler} for saving the {@link SubmissionInfo}-object
 	 * @param tempManager
 	 *            {@link TempFilesManager}
-	 * @return bytes of the persistent representation of
-	 *         {@link StatisticalSubmissionInfo}-object
+	 * @return bytes of the persistent representation of {@link StatisticalSubmissionInfo}-object
 	 */
 	public <S extends SubmissionInfo> byte[] save(
 			StatisticalSubmissionInfo<S> toWrite,
@@ -147,29 +142,29 @@ public class StatisticalSubmInfoSerializer implements Serializable {
 		byte[] res = null;
 		try {
 			logger.info("About to save: " + toWrite);
-
+			
 			Document doc = XMLHelper.createEmptyDocument();
-
+			
 			Element topEl = doc.createElement(rootName);
-
+			
 			topEl.setAttribute(doneTimeAttr, toWrite.getDoneTime() + "");
 			topEl.setAttribute(evaluationAttr, toWrite.getEvalution() + "");
 			topEl.setAttribute(timeOnTaskAttr, toWrite.getTimeOnTask() + "");
-
+			
 			Element submInfoEl = doc.createElement(actSubmElName);
-
+			
 			byte[] submBytes = serializerHandler.saveSubmission(
 					toWrite.getSubmissionData(), tempManager);
-
+					
 			submInfoEl.setTextContent(BinaryStringConversionHelper
 					.bytesToString(submBytes));
-
+					
 			topEl.appendChild(submInfoEl);
-
+			
 			doc.appendChild(topEl);
-
+			
 			res = XMLHelper.xmlToBytes(doc);
-
+			
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
 		} catch (TransformerConfigurationException e) {
@@ -183,21 +178,18 @@ public class StatisticalSubmInfoSerializer implements Serializable {
 		} catch (ExerciseException e) {
 			e.printStackTrace();
 		}
-
+		
 		return res;
 	}
-
+	
 	/**
 	 * <p>
-	 * Loads the bytes of {@link SubmissionInfo} contained in a
-	 * byte-representation of a {@link StatisticalSubmissionInfo}.
+	 * Loads the bytes of {@link SubmissionInfo} contained in a byte-representation of a {@link StatisticalSubmissionInfo}.
 	 * </p>
 	 * 
 	 * <p>
-	 * This method is mainly useful for loading the byte-representation to
-	 * inspection so that the developer of an exercise type can easily see does
-	 * the persistent representation of a {@link SubmissionInfo} be what it
-	 * should be.
+	 * This method is mainly useful for loading the byte-representation to inspection so that the developer of an exercise type can easily see does the
+	 * persistent representation of a {@link SubmissionInfo} be what it should be.
 	 * </p>
 	 * 
 	 * @param dataPres
@@ -207,19 +199,19 @@ public class StatisticalSubmInfoSerializer implements Serializable {
 	public byte[] loadOnlySubmDataForInspecting(byte[] dataPres) {
 		byte[] res = null;
 		try {
-
+			
 			Document doc = XMLHelper.parseFromBytes(dataPres);
-
+			
 			Element rootEl = (Element) doc.getElementsByTagName(rootName).item(
 					0);
-
+					
 			Element submInfoEl = (Element) rootEl.getElementsByTagName(
 					actSubmElName).item(0);
-
+					
 			String submInfoAscii = submInfoEl.getTextContent();
-
+			
 			res = Base64.decodeBase64(submInfoAscii);
-
+			
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
 		} catch (SAXException e) {
@@ -227,8 +219,8 @@ public class StatisticalSubmInfoSerializer implements Serializable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+		
 		return res;
 	}
-
+	
 }

@@ -16,38 +16,37 @@ import fi.utu.ville.standardutils.Localizer;
 import fi.utu.ville.standardutils.TempFilesManager;
 
 public class StubSubmissionVisualizerProvider implements SubmissionVisualizerProvider {
-
-
+	
 	@Override
 	public <E extends ExerciseData, S extends SubmissionInfo> SubmissionVisualizer<E, S> getSubmissionVisualizer() {
 		return new SubmissionVisualizer<E, S>() {
-
+			
 			private static final long serialVersionUID = 1L;
-
+			
 			@Override
 			public void initialize(E exercise, S dataObject,
 					Localizer localizer, TempFilesManager tempManager)
-					throws ExerciseException {				
+							throws ExerciseException {
 			}
-
+			
 			@Override
 			public Component getView() {
 				return new VerticalLayout();
 			}
-
+			
 			@Override
 			public String exportSubmissionDataAsText() {
 				return "";
 			}
 		};
 	}
-
+	
 	@Override
 	public <E extends ExerciseData, S extends LevelMathSubmissionInfo<P>, P extends Problem> AbstractMathTableSubmissionViewer<LevelMathDataWrapper<E>, S, P> getMathTableSubmissionVisualizer() {
 		return new AbstractMathTableSubmissionViewer<LevelMathDataWrapper<E>, S, P>() {
-
+			
 			private static final long serialVersionUID = 1L;
-
+			
 			@Override
 			protected MathExerciseView<P> getExerView(
 					LevelMathDataWrapper<E> exerData, S submInfo) {
@@ -55,33 +54,35 @@ public class StubSubmissionVisualizerProvider implements SubmissionVisualizerPro
 			}
 		};
 	}
-
+	
 	@Override
 	public <E extends ExerciseData, S extends LevelMathSubmissionInfo<Problem>, P extends Problem> SubmissionVisualizer<E, S> getMathSubmissionVisualizer() {
 		return getMathSubmissionVisualizer(null);
-				
+		
 	}
 	
 	@Override
-	public <E extends ExerciseData, S extends LevelMathSubmissionInfo<Problem>, P extends Problem> SubmissionVisualizer<E, S> getMathSubmissionVisualizer(SubmissionVisualizer<E, S> specificImplementation) {
-		if(specificImplementation == null)
+	public <E extends ExerciseData, S extends LevelMathSubmissionInfo<Problem>, P extends Problem> SubmissionVisualizer<E, S> getMathSubmissionVisualizer(
+			SubmissionVisualizer<E, S> specificImplementation) {
+		if (specificImplementation == null) {
 			return new AbstractLevelMathSubmissionViewer<E, S, Problem>() {
-	
+				
 				private static final long serialVersionUID = 1L;
-	
+				
 				@Override
 				protected Layout doAdditionalSubProbLayout(Problem subProblem) {
 					return new VerticalLayout();
 				}
-	
+				
 				@Override
 				protected String doAdditionalExportInfo(Problem subProblem) {
 					return "";
 				}
 			};
-		else
+		} else {
 			return specificImplementation;
-				
+		}
+		
 	}
-
+	
 }

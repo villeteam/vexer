@@ -19,39 +19,38 @@ import org.apache.commons.io.IOUtils;
 import fi.utu.ville.exercises.stub.TranslationFileParser;
 
 /**
- * Contains a static method that can be used for testing a UIConstant-file -
- * .trl-file pair implemented for localization in a classic ViLLE-way.
+ * Contains a static method that can be used for testing a UIConstant-file - .trl-file pair implemented for localization in a classic ViLLE-way.
  * 
  * @author Riku Haavisto
  * 
  */
 public final class VilleTranslationsFileTester {
-
+	
 	private static final String translationFileSuffix = ".trl";
 	private static final Logger logger = Logger
 			.getLogger(VilleTranslationsFileTester.class.getName());
-
+			
 	private VilleTranslationsFileTester() {
-
+	
 	}
-
+	
 	public static boolean testLangFiles(Class<?> uiConstantsClass,
 			File trlFile, List<String> languagesToTest) throws IOException {
-
+			
 		HashMap<String, String> uiconstUsedValueToName
-
+		
 		= new HashMap<String, String>();
-
+		
 		HashMap<String, Boolean> loadedKeysUsed
-
+		
 		= new HashMap<String, Boolean>();
-
+		
 		boolean res = true;
-
+		
 		Set<String> keysThatHadParametersInValues = new HashSet<String>();
-
+		
 		String trlFileName = trlFile.getName();
-
+		
 		String prefix = "";
 		if (!trlFileName.endsWith(translationFileSuffix)) {
 			logger.severe("FAIL: Translation files must have extension .trl");
@@ -75,24 +74,24 @@ public final class VilleTranslationsFileTester {
 			}
 		}
 		Map<String, Map<String, String>> translationsByLang =
-
+		
 		TranslationFileParser.parseTranslationFile(prefix, trlFileLines);
-
+		
 		for (Map<String, String> aDict : translationsByLang.values()) {
 			for (String aKey : aDict.keySet()) {
 				loadedKeysUsed.put(aKey, Boolean.FALSE);
 			}
 		}
-
+		
 		for (Field uiConstField : uiConstantsClass.getDeclaredFields()) {
-
+			
 			// interested in public static String fields
 			if ((Modifier.isStatic(uiConstField.getModifiers())
 					&& Modifier.isPublic(uiConstField.getModifiers()) && uiConstField
-					.getType().equals(String.class))) {
-
+							.getType().equals(String.class))) {
+							
 				try {
-
+					
 					// should be static and final
 					if (!Modifier.isFinal(uiConstField.getModifiers())) {
 						logger.severe("FAIL: Constant field not declared final: "
@@ -101,9 +100,9 @@ public final class VilleTranslationsFileTester {
 								+ ((String) uiConstField.get(null)) + ")");
 						res = false;
 					}
-
+					
 					String uiConstValue = (String) uiConstField.get(null);
-
+					
 					String alreadyUsedByField = null;
 					if (null != (alreadyUsedByField = uiconstUsedValueToName
 							.put(uiConstValue, uiConstField.getName()))) {
@@ -114,40 +113,41 @@ public final class VilleTranslationsFileTester {
 								+ alreadyUsedByField);
 						res = false;
 					}
-
+					
 					loadedKeysUsed.put(uiConstValue, Boolean.TRUE);
-
+					
 					// should have a translation in all required languages
 					for (String lang : languagesToTest) {
-
+						
 						// the key has no translation for this language
 						if (!translationsByLang.containsKey(lang) ||
-
-						!translationsByLang.get(lang).containsKey(uiConstValue)) {
-
+								
+								!translationsByLang.get(lang).containsKey(uiConstValue)) {
+								
 							logger.severe("----------\nFAIL: " + uiConstValue
 									+ " not found for lang " + lang);
-
+									
 							res = false;
 						}
-
+						
 						else {
 							logger.fine("Matched: "
 									+ uiConstValue
 									+ " = \""
 									+ translationsByLang.get(lang).get(
-											uiConstValue) + " \" in lang "
+											uiConstValue)
+									+ " \" in lang "
 									+ lang);
-
+									
 							if (translationsByLang.get(lang).get(uiConstValue)
 									.contains("@")) {
 								keysThatHadParametersInValues.add(uiConstValue);
 							}
-
+							
 						}
-
+						
 					}
-
+					
 				} catch (IllegalArgumentException e) {
 					// Should not happen
 					e.printStackTrace();
@@ -155,41 +155,41 @@ public final class VilleTranslationsFileTester {
 					// Should not happen
 					e.printStackTrace();
 				}
-
+				
 			}
-
+			
 		}
-
+		
 		for (Entry<String, Boolean> keyUsed : loadedKeysUsed.entrySet()) {
-
+			
 			if (!keyUsed.getValue()) {
 				logger.warning("----------\nWARNING: a translation-key "
 						+ keyUsed.getKey()
 						+ " contained in a language file identified by the prefix was "
 						+ "not used by any of the tested constant-files");
 			}
-
+			
 		}
-
+		
 		testParametrized(keysThatHadParametersInValues, translationsByLang);
-
+		
 		return res;
-
+		
 	}
-
+	
 	private static void testParametrized(Set<String> keysForParametrized,
 			Map<String, Map<String, String>> translationsByLang) {
-
+			
 		for (String keyForParametrized : keysForParametrized) {
 			Set<Integer> lastParamSet = null;
 			String lastLang = "";
-
+			
 			for (Entry<String, Map<String, String>> aDict : translationsByLang
 					.entrySet()) {
-
+					
 				Set<Integer> currParamSet = getParamNumbers(aDict.getValue()
 						.get(keyForParametrized));
-
+						
 				if (lastParamSet != null) {
 					if (!lastParamSet.equals(currParamSet)) {
 						logger.warning("----------\nWARNING: "
@@ -200,7 +200,7 @@ public final class VilleTranslationsFileTester {
 								+ aDict.getKey() + "'");
 					}
 				}
-
+				
 				if (currParamSet.isEmpty()) {
 					logger.warning("----------\nWARNING: "
 							+ "ui-constant-key: " + keyForParametrized
@@ -208,7 +208,7 @@ public final class VilleTranslationsFileTester {
 							+ " contained no substitutable parameters");
 				} else {
 					Integer max = Collections.max(currParamSet);
-
+					
 					for (int i = 0; i < max; i++) {
 						if (!currParamSet.contains(i)) {
 							logger.warning("----------\nWARNING: "
@@ -226,19 +226,19 @@ public final class VilleTranslationsFileTester {
 				lastParamSet = currParamSet;
 				lastLang = aDict.getKey();
 			}
-
+			
 		}
-
+		
 	}
-
+	
 	private static Set<Integer> getParamNumbers(String parametrized) {
 		if (parametrized == null) {
 			return new HashSet<Integer>();
 		}
-
+		
 		int index = parametrized.indexOf('@', 0);
 		Set<Integer> res = new HashSet<Integer>();
-
+		
 		while (index >= 0) {
 			if (!(parametrized.charAt(index + 1) == '{')) {
 				try {
@@ -262,12 +262,12 @@ public final class VilleTranslationsFileTester {
 			} else {
 				// add some tests for parameters with @{name} syntax
 			}
-
+			
 			index = parametrized.indexOf('@', index + 1);
 		}
-
+		
 		return res;
-
+		
 	}
-
+	
 }

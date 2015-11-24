@@ -4,27 +4,25 @@ import java.io.File;
 import java.io.Serializable;
 
 /**
- * A collection of static utility methods needed in various stages of ViLLE. The
- * main focus is in formatting of dates and numbers. No instances of this class
+ * A collection of static utility methods needed in various stages of ViLLE. The main focus is in formatting of dates and numbers. No instances of this class
  * are needed, as all methods are static.
  * 
  * @author Riku Haavisto
  * 
  */
 class StubUtil implements Serializable {
-
+	
 	private static final long serialVersionUID = 7942926019637649010L;
-
+	
 	/**
 	 * Not to be used: Use static methods only
 	 */
 	private StubUtil() {
-
+	
 	}
-
+	
 	/**
-	 * Deletes files contained in the directory and possibly the directory
-	 * itself.
+	 * Deletes files contained in the directory and possibly the directory itself.
 	 * 
 	 * NOTE: this implementation would very likely fail with sym-links.
 	 * 
@@ -49,5 +47,5 @@ class StubUtil implements Serializable {
 			path.delete();
 		}
 	}
-
+	
 }

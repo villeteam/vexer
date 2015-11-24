@@ -14,19 +14,18 @@ import fi.utu.ville.standardutils.StandardIcon.Icon;
 import fi.utu.ville.standardutils.StandardUIFactory;
 
 /**
- * A simple UI-element wrapping a title and a button for opening help text in a
- * pop-up.
+ * A simple UI-element wrapping a title and a button for opening help text in a pop-up.
  * 
  * @author Riku Haavisto
  * 
  */
 class StubStartSectionTitle extends HorizontalLayout {
-
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -1819498224390930865L;
-
+	
 	/**
 	 * Constructs a new {@link StubStartSectionTitle}
 	 * 
@@ -38,47 +37,47 @@ class StubStartSectionTitle extends HorizontalLayout {
 	public StubStartSectionTitle(String title, final String helpText) {
 		setWidth("100%");
 		setMargin(true);
-
+		
 		Label titleLabel = new Label(title);
 		titleLabel.addStyleName("stub-section-title");
 		titleLabel.setSizeUndefined();
 		addComponent(titleLabel);
-
+		
 		Button showHelp = StandardUIFactory.getButton("Help", Icon.HELP);
-
+		
 		showHelp.addClickListener(new Button.ClickListener() {
-
+			
 			/**
 			 * 
 			 */
 			private static final long serialVersionUID = -9209700206964686363L;
-
+			
 			@Override
 			public void buttonClick(ClickEvent event) {
 				Window helpWindow = new Window();
 				helpWindow.addStyleName("opaque");
-
+				
 				helpWindow.setWidth("500px");
 				helpWindow.center();
 				helpWindow.setResizable(false);
-
+				
 				VerticalLayout content = new VerticalLayout();
 				content.setMargin(true);
 				content.addComponent(new Label("<br/>", ContentMode.HTML));
 				content.addComponent(StandardUIFactory
 						.getInformationPanel(helpText));
-
+						
 				helpWindow.setContent(content);
-
+				
 				UI.getCurrent().addWindow(helpWindow);
-
+				
 			}
 		});
-
+		
 		addComponent(showHelp);
 		setComponentAlignment(showHelp, Alignment.MIDDLE_RIGHT);
-
+		
 		setExpandRatio(showHelp, 1.0f);
-
+		
 	}
 }

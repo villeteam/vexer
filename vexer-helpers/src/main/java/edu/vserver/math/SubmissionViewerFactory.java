@@ -8,8 +8,8 @@ public enum SubmissionViewerFactory {
 	NORMAL,
 	TABBED;
 	
-	public static <E extends ExerciseData, S extends SubmissionInfo> SubmissionVisualizer<E,S> getVisualizer(SubmissionViewerFactory type){
-		switch(type){
+	public static <E extends ExerciseData, S extends SubmissionInfo> SubmissionVisualizer<E, S> getVisualizer(SubmissionViewerFactory type) {
+		switch (type) {
 		case NORMAL:
 			//return SubmissionVisualizer<E, S>
 			break;
@@ -17,7 +17,7 @@ public enum SubmissionViewerFactory {
 			break;
 		default:
 			break;
-		
+			
 		}
 		return null;
 	}

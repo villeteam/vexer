@@ -12,12 +12,10 @@ import fi.utu.ville.exercises.model.SubmissionType;
 
 /**
  * <p>
- * A simple helper class to which standard {@link SubmissionListener}-handling
- * can be delegated to.
+ * A simple helper class to which standard {@link SubmissionListener}-handling can be delegated to.
  * </p>
  * <p>
- * This class might be usable if all the functionality in
- * {@link ExerciseExecutionHelper} is not needed.
+ * This class might be usable if all the functionality in {@link ExerciseExecutionHelper} is not needed.
  * </p>
  * 
  * @author Riku Haavisto
@@ -27,20 +25,18 @@ import fi.utu.ville.exercises.model.SubmissionType;
  */
 public class SubmitListenerHelper<S extends SubmissionInfo> implements
 		Serializable {
-
+		
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -4399905295186961688L;
 	private final HashSet<SubmissionListener<S>> submitListeners = new HashSet<SubmissionListener<S>>();
-
+	
 	public SubmitListenerHelper() {
 	}
-
+	
 	/**
-	 * Registers a {@link SubmissionListener}.
-	 * {@link Executor #registerSubmitListener(SubmissionListener)} can be
-	 * delegated to this method.
+	 * Registers a {@link SubmissionListener}. {@link Executor #registerSubmitListener(SubmissionListener)} can be delegated to this method.
 	 * 
 	 * @param submitListener
 	 *            {@link SubmissionListener} to be registered
@@ -48,11 +44,10 @@ public class SubmitListenerHelper<S extends SubmissionInfo> implements
 	public void registerSubmitListener(SubmissionListener<S> submitListener) {
 		submitListeners.add(submitListener);
 	}
-
+	
 	/**
 	 * <p>
-	 * Informs registered {@link SubmissionListener}s with
-	 * {@link SubmissionResult} constructed from the parameters.
+	 * Informs registered {@link SubmissionListener}s with {@link SubmissionResult} constructed from the parameters.
 	 * </p>
 	 * <p>
 	 * Does not perform any {@link ExecutionState}-changes.
@@ -74,11 +69,10 @@ public class SubmitListenerHelper<S extends SubmissionInfo> implements
 					timeOnTask, data, null, submType));
 		}
 	}
-
+	
 	/**
 	 * <p>
-	 * Informs registered {@link SubmissionListener}s with given
-	 * {@link SubmissionResult}.
+	 * Informs registered {@link SubmissionListener}s with given {@link SubmissionResult}.
 	 * </p>
 	 * <p>
 	 * Does not perform any {@link ExecutionState}-changes.

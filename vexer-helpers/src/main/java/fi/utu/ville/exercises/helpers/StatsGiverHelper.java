@@ -20,21 +20,15 @@ import fi.utu.ville.standardutils.StandardUIConstants;
 
 /**
  * <p>
- * A helper class containing method for filtering
- * {@link StatisticalSubmissionInfo}-objects and with implementors of
- * {@link StatSubmInfoFilter} -interface.
+ * A helper class containing method for filtering {@link StatisticalSubmissionInfo}-objects and with implementors of {@link StatSubmInfoFilter} -interface.
  * </p>
  * <p>
- * Also contains standard implementations of {@link StatSubmInfoFilterConnector}
- * for grouping {@link StatSubmInfoFilter}s ( {@link MatchAllFilter},
- * {@link MatchAnyFilter} ). And {@link StatSubmInfoFilter}-implementor for
- * inverting another filter ({@link InvertedFilter}), and for filtering by
- * general {@link StatisticalSubmissionInfo}-properties ( {@link DateFilter},
- * {@link EvaluationFilter}, {@link TimeOnTaskFilter}).
+ * Also contains standard implementations of {@link StatSubmInfoFilterConnector} for grouping {@link StatSubmInfoFilter}s ( {@link MatchAllFilter},
+ * {@link MatchAnyFilter} ). And {@link StatSubmInfoFilter}-implementor for inverting another filter ({@link InvertedFilter}), and for filtering by general
+ * {@link StatisticalSubmissionInfo}-properties ( {@link DateFilter}, {@link EvaluationFilter}, {@link TimeOnTaskFilter}).
  * </p>
  * <p>
- * {@link SubmMatcher}-interface and {@link BySubmMatcher}-filter can be used to
- * create {@link StatSubmInfoFilter}s that only care about properties of a
+ * {@link SubmMatcher}-interface and {@link BySubmMatcher}-filter can be used to create {@link StatSubmInfoFilter}s that only care about properties of a
  * {@link SubmissionInfo}-object.
  * </p>
  * 
@@ -47,23 +41,18 @@ import fi.utu.ville.standardutils.StandardUIConstants;
  * 
  */
 public class StatsGiverHelper {
-
+	
 	/**
 	 * <p>
-	 * Returns a table parsed from the {@link StatisticsInfoColumn}s. <b>It is
-	 * absolutely necessary that all {@link StatisticsInfoColumn}s have same
-	 * number of data-objects (nulls are allowed) and match the order of input
-	 * data.</b>
+	 * Returns a table parsed from the {@link StatisticsInfoColumn}s. <b>It is absolutely necessary that all {@link StatisticsInfoColumn}s have same number of
+	 * data-objects (nulls are allowed) and match the order of input data.</b>
 	 * </p>
 	 * <p>
-	 * Table's columns will have as their property-id the index of certain
-	 * {@link StatisticsInfoColumn} in the {@link StatisticsInfoColumn}-list.
-	 * Table's rows will have as their property-ids the index of the row's data
-	 * in (all of the) {@link StatisticsInfoColumn #getDataObjects()}-lists.
+	 * Table's columns will have as their property-id the index of certain {@link StatisticsInfoColumn} in the {@link StatisticsInfoColumn}-list. Table's rows
+	 * will have as their property-ids the index of the row's data in (all of the) {@link StatisticsInfoColumn #getDataObjects()}-lists.
 	 * </p>
 	 * <p>
-	 * The returned {@link Table} will contain the data, but otherwise is in
-	 * default state.
+	 * The returned {@link Table} will contain the data, but otherwise is in default state.
 	 * </p>
 	 * 
 	 * @param colsToLoad
@@ -72,13 +61,13 @@ public class StatsGiverHelper {
 	 */
 	public static Table getTableFromStatCols(
 			List<StatisticsInfoColumn<?>> colsToLoad) {
-
+			
 		Table res = new Table();
-
+		
 		if (colsToLoad.isEmpty()) {
 			return res;
 		}
-
+		
 		// init table-props
 		for (int i = 0; i < colsToLoad.size(); i++) {
 			res.addContainerProperty(i, colsToLoad.get(i).getColDataType(),
@@ -87,7 +76,7 @@ public class StatsGiverHelper {
 			// with identical column-names...
 			res.setColumnHeader(i, colsToLoad.get(i).getName());
 		}
-
+		
 		// all the StatisticsInfoColumns are required to hold
 		// as many data-values (nulls are allowed, but dataObj-lists must
 		// be of same size)
@@ -100,13 +89,12 @@ public class StatsGiverHelper {
 			}
 			res.addItem(cells, i);
 		}
-
+		
 		return res;
 	}
-
+	
 	/**
-	 * Returns ids (indexes in the list) of columns for which
-	 * {@link StatisticsInfoColumn #isExportable()} returns false.
+	 * Returns ids (indexes in the list) of columns for which {@link StatisticsInfoColumn #isExportable()} returns false.
 	 * 
 	 * @param cols
 	 *            list of {@link StatisticsInfoColumn}s
@@ -114,21 +102,20 @@ public class StatsGiverHelper {
 	 */
 	public static Set<Integer> getNonExportableColIds(
 			List<StatisticsInfoColumn<?>> cols) {
-
+			
 		Set<Integer> res = new HashSet<Integer>();
-
+		
 		for (int i = 0; i < cols.size(); i++) {
 			if (!cols.get(i).isExportable()) {
 				res.add(i);
 			}
 		}
-
+		
 		return res;
 	}
-
+	
 	/**
-	 * Parses a {@link Component} with simple legend about what kind of data
-	 * each column has.
+	 * Parses a {@link Component} with simple legend about what kind of data each column has.
 	 * 
 	 * @param forCols
 	 *            list of {@link StatisticsInfoColumn}s
@@ -139,41 +126,37 @@ public class StatsGiverHelper {
 	public static Component getTableColsLegend(
 			List<StatisticsInfoColumn<?>> forCols, Localizer localizer) {
 		VerticalLayout res = new VerticalLayout();
-
+		
 		res.addComponent(new Label(localizer
 				.getUIText(StandardUIConstants.COLUMNS_LEGEND)));
-
+				
 		for (StatisticsInfoColumn<?> col : forCols) {
 			res.addComponent(new Label("--"));
 			res.addComponent(new Label(localizer.getUIText(
 					StandardUIConstants.DESC_FOR_COL_X, col.getName())));
 			res.addComponent(new Label(col.getDescription()));
-
+			
 		}
-
+		
 		return res;
 	}
-
+	
 	/**
-	 * Returns a new {@link List} containing all
-	 * {@link StatisticalSubmissionInfo}-objects from the toFilter list matching
-	 * {@link StatSubmInfoFilter} filter.
+	 * Returns a new {@link List} containing all {@link StatisticalSubmissionInfo}-objects from the toFilter list matching {@link StatSubmInfoFilter} filter.
 	 * 
 	 * @param toFilter
-	 *            {@link List} of {@link StatisticalSubmissionInfo}-objects to
-	 *            be filtered
+	 *            {@link List} of {@link StatisticalSubmissionInfo}-objects to be filtered
 	 * @param filter
 	 *            {@link StatSubmInfoFilter} to use
-	 * @return {@link List} of {@link StatisticalSubmissionInfo}-objects from
-	 *         toFilter matching filter
+	 * @return {@link List} of {@link StatisticalSubmissionInfo}-objects from toFilter matching filter
 	 */
 	public static <S extends SubmissionInfo>
-
+	
 	List<StatisticalSubmissionInfo<S>> filterStatInfos(
 			List<StatisticalSubmissionInfo<S>> toFilter,
 			StatSubmInfoFilter<S> filter) {
 		List<StatisticalSubmissionInfo<S>> res = new ArrayList<StatisticalSubmissionInfo<S>>();
-
+		
 		for (StatisticalSubmissionInfo<S> anItem : toFilter) {
 			if (filter.matches(anItem)) {
 				res.add(anItem);
@@ -181,10 +164,9 @@ public class StatsGiverHelper {
 		}
 		return res;
 	}
-
+	
 	/**
-	 * Implementor of {@link StatSubmInfoFilter}-interface can be used to filter
-	 * {@link StatisticalSubmissionInfo}-objects.
+	 * Implementor of {@link StatSubmInfoFilter}-interface can be used to filter {@link StatisticalSubmissionInfo}-objects.
 	 * 
 	 * @author Riku Haavisto
 	 * 
@@ -192,22 +174,20 @@ public class StatsGiverHelper {
 	 *            accepted {@link SubmissionInfo}-type
 	 */
 	public interface StatSubmInfoFilter<A extends SubmissionInfo> {
-
+		
 		/**
-		 * Test whether certain {@link StatisticalSubmissionInfo} matches this
-		 * {@link StatSubmInfoFilter}.
+		 * Test whether certain {@link StatisticalSubmissionInfo} matches this {@link StatSubmInfoFilter}.
 		 * 
 		 * @param toTest
 		 *            {@link StatisticalSubmissionInfo} to test
 		 * @return true if toTest matches this filter, false otherwise
 		 */
 		boolean matches(StatisticalSubmissionInfo<A> toTest);
-
+		
 	}
-
+	
 	/**
-	 * Implementors of {@link StatSubmInfoFilterConnector}-interface can connect
-	 * several {@link StatSubmInfoFilter}-objects to a single
+	 * Implementors of {@link StatSubmInfoFilterConnector}-interface can connect several {@link StatSubmInfoFilter}-objects to a single
 	 * {@link StatSubmInfoFilter} .
 	 * 
 	 * @author Riku Haavisto
@@ -217,31 +197,28 @@ public class StatsGiverHelper {
 	 */
 	public interface StatSubmInfoFilterConnector<A extends SubmissionInfo>
 			extends StatSubmInfoFilter<A> {
-
+			
 		/**
 		 * @return all the connected {@link StatSubmInfoFilter}s
 		 */
 		List<StatSubmInfoFilter<A>> getConnectedFilters();
-
+		
 		/**
 		 * @param toConnect
-		 *            adds {@link StatSubmInfoFilter} toConnect to this
-		 *            connector
+		 *            adds {@link StatSubmInfoFilter} toConnect to this connector
 		 */
 		void connectFilter(StatSubmInfoFilter<A> toConnect);
-
+		
 		/**
 		 * @param toDisconnect
-		 *            removes {@link StatSubmInfoFilter} toDisconnect from this
-		 *            connector
+		 *            removes {@link StatSubmInfoFilter} toDisconnect from this connector
 		 */
 		void disconnectFilter(StatSubmInfoFilter<A> toDisconnect);
-
+		
 	}
-
+	
 	/**
-	 * {@link StatSubmInfoFilter} that filters {@link StatisticalSubmissionInfo}
-	 * -objects by their {@link StatisticalSubmissionInfo #getDoneTime()} value.
+	 * {@link StatSubmInfoFilter} that filters {@link StatisticalSubmissionInfo} -objects by their {@link StatisticalSubmissionInfo #getDoneTime()} value.
 	 * 
 	 * @author Riku Haavisto
 	 * 
@@ -250,14 +227,12 @@ public class StatsGiverHelper {
 	 */
 	public static class DateFilter<A extends SubmissionInfo> implements
 			StatSubmInfoFilter<A> {
-
+			
 		private final long startMillis;
 		private final long endMillis;
-
+		
 		/**
-		 * Constructs a new {@link DateFilter} matching given interval. You can
-		 * use {@link Date #getTime()} to get milliseconds to use with this
-		 * class.
+		 * Constructs a new {@link DateFilter} matching given interval. You can use {@link Date #getTime()} to get milliseconds to use with this class.
 		 * 
 		 * @param startMillis
 		 *            start of accepted interval
@@ -274,19 +249,17 @@ public class StatsGiverHelper {
 								+ this.endMillis);
 			}
 		}
-
+		
 		@Override
 		public boolean matches(StatisticalSubmissionInfo<A> toTest) {
-
+			
 			return (toTest.getDoneTime() >= startMillis)
 					&& (toTest.getDoneTime() <= endMillis);
 		}
 	}
-
+	
 	/**
-	 * {@link StatSubmInfoFilter} that filters {@link StatisticalSubmissionInfo}
-	 * -objects by their {@link StatisticalSubmissionInfo #getEvalution()}
-	 * value.
+	 * {@link StatSubmInfoFilter} that filters {@link StatisticalSubmissionInfo} -objects by their {@link StatisticalSubmissionInfo #getEvalution()} value.
 	 * 
 	 * @author Riku Haavisto
 	 * 
@@ -295,13 +268,12 @@ public class StatsGiverHelper {
 	 */
 	public static class EvaluationFilter<A extends SubmissionInfo> implements
 			StatSubmInfoFilter<A> {
-
+			
 		private final double min;
 		private final double max;
-
+		
 		/**
-		 * Constructs a new {@link EvaluationFilter} matching given evaluation
-		 * interval.
+		 * Constructs a new {@link EvaluationFilter} matching given evaluation interval.
 		 * 
 		 * @param min
 		 *            minimum matching evaluation value
@@ -317,20 +289,18 @@ public class StatsGiverHelper {
 								+ "and max must be at least equal to min; max was: "
 								+ this.max + "; min was " + this.min);
 			}
-
+			
 		}
-
+		
 		@Override
 		public boolean matches(StatisticalSubmissionInfo<A> toTest) {
 			return (toTest.getEvalution() >= min)
 					&& (toTest.getEvalution() <= max);
 		}
 	}
-
+	
 	/**
-	 * {@link StatSubmInfoFilter} that filters {@link StatisticalSubmissionInfo}
-	 * -objects by their {@link StatisticalSubmissionInfo #getTimeOnTask()}
-	 * value.
+	 * {@link StatSubmInfoFilter} that filters {@link StatisticalSubmissionInfo} -objects by their {@link StatisticalSubmissionInfo #getTimeOnTask()} value.
 	 * 
 	 * @author Riku Haavisto
 	 * 
@@ -339,13 +309,12 @@ public class StatsGiverHelper {
 	 */
 	public static class TimeOnTaskFilter<A extends SubmissionInfo> implements
 			StatSubmInfoFilter<A> {
-
+			
 		private final int maxTime;
 		private final int minTime;
-
+		
 		/**
-		 * Constructs a new {@link TimeOnTaskFilter} matching certain interval
-		 * of time-on-task values
+		 * Constructs a new {@link TimeOnTaskFilter} matching certain interval of time-on-task values
 		 * 
 		 * @param min
 		 *            minimum matching time-on-task (seconds)
@@ -361,25 +330,22 @@ public class StatsGiverHelper {
 								+ this.maxTime + "; min was: " + this.minTime);
 			}
 		}
-
+		
 		@Override
 		public boolean matches(StatisticalSubmissionInfo<A> toTest) {
 			return (toTest.getTimeOnTask() >= minTime)
 					&& (toTest.getTimeOnTask() <= maxTime);
 		}
-
+		
 	}
-
+	
 	/**
 	 * <p>
-	 * {@link StatSubmInfoFilterConnector}-implementor that matches a
-	 * {@link StatisticalSubmissionInfo}-object if all
-	 * {@link StatSubmInfoFilter}s connected by it match the
-	 * {@link StatisticalSubmissionInfo}.
+	 * {@link StatSubmInfoFilterConnector}-implementor that matches a {@link StatisticalSubmissionInfo}-object if all {@link StatSubmInfoFilter}s connected by
+	 * it match the {@link StatisticalSubmissionInfo}.
 	 * </p>
 	 * <p>
-	 * Matches ALL {@link StatisticalSubmissionInfo}-objects if the set of
-	 * connected {@link StatSubmInfoFilter}s is EMPTY.
+	 * Matches ALL {@link StatisticalSubmissionInfo}-objects if the set of connected {@link StatSubmInfoFilter}s is EMPTY.
 	 * </p>
 	 * 
 	 * @author Riku Haavisto
@@ -389,20 +355,18 @@ public class StatsGiverHelper {
 	 */
 	public static class MatchAllFilter<A extends SubmissionInfo> implements
 			StatSubmInfoFilterConnector<A> {
-
+			
 		private final List<StatSubmInfoFilter<A>> filters;
-
+		
 		/**
 		 * Constructs a new empty {@link MatchAllFilter}.
 		 */
 		public MatchAllFilter() {
 			this(null);
 		}
-
+		
 		/**
-		 * Constructs a new {@link MatchAllFilter} consisting of given filters.
-		 * If given filters-list is null constructs an empty
-		 * {@link MatchAllFilter}.
+		 * Constructs a new {@link MatchAllFilter} consisting of given filters. If given filters-list is null constructs an empty {@link MatchAllFilter}.
 		 * 
 		 * @param filters
 		 *            {@link List} of {@link StatSubmInfoFilter}s or null
@@ -414,7 +378,7 @@ public class StatsGiverHelper {
 				this.filters = new ArrayList<StatSubmInfoFilter<A>>();
 			}
 		}
-
+		
 		@Override
 		public boolean matches(StatisticalSubmissionInfo<A> toTest) {
 			boolean res = true;
@@ -426,34 +390,31 @@ public class StatsGiverHelper {
 			}
 			return res;
 		}
-
+		
 		@Override
 		public List<StatSubmInfoFilter<A>> getConnectedFilters() {
 			return filters;
 		}
-
+		
 		@Override
 		public void connectFilter(StatSubmInfoFilter<A> toConnect) {
 			filters.add(toConnect);
 		}
-
+		
 		@Override
 		public void disconnectFilter(StatSubmInfoFilter<A> toDisconnect) {
 			filters.remove(toDisconnect);
 		}
-
+		
 	}
-
+	
 	/**
 	 * <p>
-	 * {@link StatSubmInfoFilterConnector}-implementor that matches a
-	 * {@link StatisticalSubmissionInfo}-object if any of the
-	 * {@link StatSubmInfoFilter}s connected by it match the
-	 * {@link StatisticalSubmissionInfo}.
+	 * {@link StatSubmInfoFilterConnector}-implementor that matches a {@link StatisticalSubmissionInfo}-object if any of the {@link StatSubmInfoFilter}s
+	 * connected by it match the {@link StatisticalSubmissionInfo}.
 	 * </p>
 	 * <p>
-	 * NEVER matches a {@link StatisticalSubmissionInfo}-object if the set of
-	 * connected {@link StatSubmInfoFilter}s is EMPTY.
+	 * NEVER matches a {@link StatisticalSubmissionInfo}-object if the set of connected {@link StatSubmInfoFilter}s is EMPTY.
 	 * </p>
 	 * 
 	 * @author Riku Haavisto
@@ -463,19 +424,18 @@ public class StatsGiverHelper {
 	 */
 	public static class MatchAnyFilter<A extends SubmissionInfo> implements
 			StatSubmInfoFilterConnector<A> {
-
+			
 		private final List<StatSubmInfoFilter<A>> filters;
-
+		
 		/**
 		 * Constructs a new empty {@link MatchAnyFilter}.
 		 */
 		public MatchAnyFilter() {
 			this(null);
 		}
-
+		
 		/**
-		 * Constructs a new {@link MatchAnyFilter} containing all filters in
-		 * given list or no filters if null is used.
+		 * Constructs a new {@link MatchAnyFilter} containing all filters in given list or no filters if null is used.
 		 * 
 		 * @param filters
 		 *            {@link List} of {@link StatSubmInfoFilter}s
@@ -487,7 +447,7 @@ public class StatsGiverHelper {
 				this.filters = new ArrayList<StatSubmInfoFilter<A>>();
 			}
 		}
-
+		
 		@Override
 		public boolean matches(StatisticalSubmissionInfo<A> toTest) {
 			boolean res = false;
@@ -499,30 +459,28 @@ public class StatsGiverHelper {
 			}
 			return res;
 		}
-
+		
 		@Override
 		public List<StatSubmInfoFilter<A>> getConnectedFilters() {
 			return filters;
 		}
-
+		
 		@Override
 		public void connectFilter(StatSubmInfoFilter<A> toConnect) {
 			filters.add(toConnect);
-
+			
 		}
-
+		
 		@Override
 		public void disconnectFilter(StatSubmInfoFilter<A> toDisconnect) {
 			filters.remove(toDisconnect);
 		}
-
+		
 	}
-
+	
 	/**
-	 * {@link StatSubmInfoFilter}-implementor that matches a
-	 * {@link StatisticalSubmissionInfo}-object if the
-	 * {@link StatSubmInfoFilter} it is inverting does NOT match that
-	 * {@link StatisticalSubmissionInfo}.
+	 * {@link StatSubmInfoFilter}-implementor that matches a {@link StatisticalSubmissionInfo}-object if the {@link StatSubmInfoFilter} it is inverting does NOT
+	 * match that {@link StatisticalSubmissionInfo}.
 	 * 
 	 * @author Riku Haavisto
 	 * 
@@ -531,9 +489,9 @@ public class StatsGiverHelper {
 	 */
 	public static class InvertedFilter<A extends SubmissionInfo> implements
 			StatSubmInfoFilter<A> {
-
+			
 		private final StatSubmInfoFilter<A> toInvert;
-
+		
 		/**
 		 * Constructs a new {@link InvertedFilter} inverting given filter.
 		 * 
@@ -543,24 +501,23 @@ public class StatsGiverHelper {
 		public InvertedFilter(StatSubmInfoFilter<A> toInvert) {
 			this.toInvert = toInvert;
 		}
-
+		
 		@Override
 		public boolean matches(StatisticalSubmissionInfo<A> toTest) {
 			return !toInvert.matches(toTest);
 		}
-
+		
 		/**
 		 * @return the underlying filter in its original (non-inverted) form
 		 */
 		public StatSubmInfoFilter<A> getUnderlyingFilter() {
 			return toInvert;
 		}
-
+		
 	}
-
+	
 	/**
-	 * Wrapper to implement {@link StatSubmInfoFilter} that only cares about the
-	 * value of {@link StatisticalSubmissionInfo #getSubmissionData()}.
+	 * Wrapper to implement {@link StatSubmInfoFilter} that only cares about the value of {@link StatisticalSubmissionInfo #getSubmissionData()}.
 	 * 
 	 * @author Riku Haavisto
 	 * 
@@ -569,12 +526,11 @@ public class StatsGiverHelper {
 	 */
 	public static class BySubmMatcher<A extends SubmissionInfo> implements
 			StatSubmInfoFilter<A> {
-
+			
 		private final SubmMatcher<A> submMatcher;
-
+		
 		/**
-		 * Constructs a new {@link BySubmMatcher} wrapping given
-		 * {@link SubmMatcher} to implement {@link StatSubmInfoFilter}.
+		 * Constructs a new {@link BySubmMatcher} wrapping given {@link SubmMatcher} to implement {@link StatSubmInfoFilter}.
 		 * 
 		 * @param submMatcher
 		 *            {@link SubmMatcher} to wrap
@@ -582,17 +538,16 @@ public class StatsGiverHelper {
 		public BySubmMatcher(SubmMatcher<A> submMatcher) {
 			this.submMatcher = submMatcher;
 		}
-
+		
 		@Override
 		public boolean matches(StatisticalSubmissionInfo<A> toTest) {
 			return submMatcher.matches(toTest.getSubmissionData());
 		}
-
+		
 	}
-
+	
 	/**
-	 * Can be used to implement {@link StatSubmInfoFilter} that only cares about
-	 * the value of {@link StatisticalSubmissionInfo #getSubmissionData()}. The
+	 * Can be used to implement {@link StatSubmInfoFilter} that only cares about the value of {@link StatisticalSubmissionInfo #getSubmissionData()}. The
 	 * implementor must be wrapped with {@link BySubmMatcher}.
 	 * 
 	 * @author Riku Haavisto
@@ -603,5 +558,5 @@ public class StatsGiverHelper {
 	public interface SubmMatcher<S extends SubmissionInfo> {
 		boolean matches(S toTest);
 	}
-
+	
 }

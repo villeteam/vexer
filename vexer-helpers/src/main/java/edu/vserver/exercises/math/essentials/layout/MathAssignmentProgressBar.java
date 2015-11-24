@@ -15,33 +15,36 @@ import com.vaadin.ui.HorizontalLayout;
  * 
  */
 public class MathAssignmentProgressBar extends HorizontalLayout {
-
+	
 	private static final long serialVersionUID = -599885191285347355L;
-
+	
 	/* Number of steps */
 	private final int numberOfSteps;
-
+	
 	/* Current step */
 	private int currentStep;
-
+	
 	/* Mode of the step */
 	public enum StepMode {
-		DISABLED, CURRENT, CORRECT, INCORRECT;
+		DISABLED,
+		CURRENT,
+		CORRECT,
+		INCORRECT;
 	}
-
+	
 	private StepMode[] steps;
-
+	
 	/* Graphical representation of steps */
 	private Embedded[] stepIcons;
-
+	
 	/* Folder for step icons */
 	private static final String ICONS_FOLDER = "../ville-standardutils/images/prog_bar/";
-
+	
 	/* Maximum number of steps */
 	private static final int MAX_NUMBER_OF_STEPS = 20;
-
+	
 	private boolean isShowCorrect;
-
+	
 	/**
 	 * Creates a new progress bar
 	 * 
@@ -61,7 +64,7 @@ public class MathAssignmentProgressBar extends HorizontalLayout {
 		initSteps();
 		doLayout();
 	}
-
+	
 	/**
 	 * <p>
 	 * (re)draws this component and all subcomponents;
@@ -78,9 +81,9 @@ public class MathAssignmentProgressBar extends HorizontalLayout {
 			addComponent(e);
 			setComponentAlignment(e, Alignment.MIDDLE_LEFT);
 		}
-
+		
 	}
-
+	
 	/**
 	 * Initializes the steps used in the bar
 	 */
@@ -90,7 +93,7 @@ public class MathAssignmentProgressBar extends HorizontalLayout {
 			steps[i] = StepMode.DISABLED;
 		}
 		steps[0] = StepMode.CURRENT;
-
+		
 		stepIcons = new Embedded[numberOfSteps];
 		for (int i = 0; i < stepIcons.length; i++) {
 			stepIcons[i] = new Embedded(null, getStepIcon(steps[i], i + 1));
@@ -100,7 +103,7 @@ public class MathAssignmentProgressBar extends HorizontalLayout {
 		}
 		stepIcons[0].setEnabled(true); // enable first
 	}
-
+	
 	/**
 	 * Updates the step icons to match the step states.
 	 */
@@ -109,7 +112,7 @@ public class MathAssignmentProgressBar extends HorizontalLayout {
 			stepIcons[i].setSource(getStepIcon(steps[i], i + 1));
 		}
 	}
-
+	
 	/**
 	 * Returns an icon for the step
 	 * 
@@ -120,7 +123,7 @@ public class MathAssignmentProgressBar extends HorizontalLayout {
 	 * @return an icon representing a step
 	 */
 	private ThemeResource getStepIcon(StepMode mode, int number) {
-
+		
 		if (isShowCorrect) {
 			switch (mode) {
 			case DISABLED:
@@ -134,7 +137,7 @@ public class MathAssignmentProgressBar extends HorizontalLayout {
 			default:
 				// not accessible
 				return null;
-
+				
 			}
 		} else {
 			switch (mode) {
@@ -149,11 +152,11 @@ public class MathAssignmentProgressBar extends HorizontalLayout {
 			default:
 				// not accessible
 				return null;
-
+				
 			}
 		}
 	}
-
+	
 	/**
 	 * Animates the given icon by flashing it a few times.
 	 * 
@@ -169,15 +172,13 @@ public class MathAssignmentProgressBar extends HorizontalLayout {
 		animatorProxy.animate(icon, AnimType.FADE_IN).setDuration(500)
 				.setDelay(1000);
 	}
-
+	
 	/**
 	 * <p>
-	 * Advances to next step; sets the current step's icon to correct or
-	 * incorrect based on the students answer, and enables the next step (if any
-	 * left) in the bar.
+	 * Advances to next step; sets the current step's icon to correct or incorrect based on the students answer, and enables the next step (if any left) in the
+	 * bar.
 	 * <p>
-	 * If the bar is already at the last step, the state of that step is
-	 * changed.
+	 * If the bar is already at the last step, the state of that step is changed.
 	 * 
 	 * @param currentStepCorrect
 	 *            was the previous answer correct or not
@@ -195,12 +196,11 @@ public class MathAssignmentProgressBar extends HorizontalLayout {
 			updateStepIcons();
 			animateIcon(stepIcons[currentStep]);
 		}
-
+		
 	}
-
+	
 	/**
-	 * Returns to previous step; the current step's state is set to unanswered.
-	 * If the bar is already at the first step, the method does nothing.
+	 * Returns to previous step; the current step's state is set to unanswered. If the bar is already at the first step, the method does nothing.
 	 */
 	public void previousStep() {
 		if (currentStep > 0) {
@@ -211,7 +211,7 @@ public class MathAssignmentProgressBar extends HorizontalLayout {
 			updateStepIcons();
 		}
 	}
-
+	
 	/**
 	 * Resets the state of the progress bar.
 	 */
@@ -220,7 +220,7 @@ public class MathAssignmentProgressBar extends HorizontalLayout {
 		initSteps();
 		doLayout();
 	}
-
+	
 	/**
 	 * Returns true, if the current step is the final step on this bar.
 	 * 

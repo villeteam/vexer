@@ -24,8 +24,7 @@ import fi.utu.ville.standardutils.StandardUIFactory;
 import fi.utu.ville.standardutils.TempFilesManager;
 
 /**
- * A quick-and-dirty class for loading {@link Executor} -implementor for testing
- * and storing {@link SubmissionInfo}-objects from submissions made using it.
+ * A quick-and-dirty class for loading {@link Executor} -implementor for testing and storing {@link SubmissionInfo}-objects from submissions made using it.
  * 
  * @author Riku Haavisto
  * 
@@ -33,26 +32,23 @@ import fi.utu.ville.standardutils.TempFilesManager;
  *            tested {@link SubmissionInfo}-implementor
  */
 class TestingExerciseView<S extends SubmissionInfo> extends VerticalLayout {
-
+	
 	private static final Logger logger = Logger
 			.getLogger(TestingExerciseView.class.getName());
-
+			
 	private static final String testingExerViewId = "testingexerview";
-
+	
 	private static final long serialVersionUID = 6423843365009117711L;
-
+	
 	/**
-	 * Loads and returns a new {@link TestingExerciseView} suitable for testing
-	 * exercises in student-mode.
+	 * Loads and returns a new {@link TestingExerciseView} suitable for testing exercises in student-mode.
 	 * 
 	 * @param toLoad
-	 *            {@link ExerciseTypeDescriptor} for the exercise-type for which
-	 *            to load an {@link Executor}
+	 *            {@link ExerciseTypeDescriptor} for the exercise-type for which to load an {@link Executor}
 	 * @param localizer
 	 *            {@link Localizer} for localizing the UI
 	 * @param exerInfo
-	 *            {@link GeneralExerciseInfo} storing general info on the
-	 *            exercise-instance
+	 *            {@link GeneralExerciseInfo} storing general info on the exercise-instance
 	 * @param execSettings
 	 *            {@link ExecutionSettings} to use
 	 * @param tempMan
@@ -63,7 +59,7 @@ class TestingExerciseView<S extends SubmissionInfo> extends VerticalLayout {
 			ExerciseTypeDescriptor<?, S> toLoad, Localizer localizer,
 			GeneralExerciseInfo exerInfo, ExecutionSettings execSettings,
 			TempFilesManager tempMan) {
-
+			
 		Executor<?, S> execToUse = null;
 		String exerName = exerInfo.getName();
 		try {
@@ -77,11 +73,9 @@ class TestingExerciseView<S extends SubmissionInfo> extends VerticalLayout {
 		return getViewFor(execToUse, exerInfo, false, localizer, toLoad,
 				tempMan);
 	}
-
+	
 	/**
-	 * Loads and returns a {@link TestingExerciseView} suitable for testing
-	 * exercise-instances directly from {@link Editor} while still under
-	 * editing.
+	 * Loads and returns a {@link TestingExerciseView} suitable for testing exercise-instances directly from {@link Editor} while still under editing.
 	 * 
 	 * @param execToUse
 	 *            pre-loaded {@link Executor} to use
@@ -97,12 +91,12 @@ class TestingExerciseView<S extends SubmissionInfo> extends VerticalLayout {
 			Executor<?, ? extends SubmissionInfo> execToUse,
 			GeneralExerciseInfo exerInfo, Localizer localizer,
 			TempFilesManager tempMan) {
-
+			
 		// descriptor is not needed here as it is only used to get correct
 		// path for saving submission-infos
 		return getViewFor(execToUse, exerInfo, true, localizer, null, tempMan);
 	}
-
+	
 	/**
 	 * Constructs and returns a new {@link TestingExerciseView}.
 	 * 
@@ -111,8 +105,7 @@ class TestingExerciseView<S extends SubmissionInfo> extends VerticalLayout {
 	 * @param exerInfo
 	 *            general info on exercise
 	 * @param editorTest
-	 *            whether the view is for testing exercise in editor, or for
-	 *            'real' student-side testing (ie. whether to save submissions)
+	 *            whether the view is for testing exercise in editor, or for 'real' student-side testing (ie. whether to save submissions)
 	 * @param localizer
 	 *            {@link Localizer} for localizing the UI
 	 * @param toLoad
@@ -128,14 +121,14 @@ class TestingExerciseView<S extends SubmissionInfo> extends VerticalLayout {
 		return new TestingExerciseView<S>(execToUse, exerInfo, editorTest,
 				localizer, toLoad, tempMan);
 	}
-
+	
 	private final Executor<?, S> currentExecutor;
 	private final GeneralExerciseInfo exerInfo;
 	private final boolean editorTest;
 	private final Localizer localizer;
 	private final ExerciseTypeDescriptor<?, S> stubUsed;
 	private final TempFilesManager tempMan;
-
+	
 	/**
 	 * Constructs a new {@link TestingExerciseView}.
 	 * 
@@ -144,8 +137,7 @@ class TestingExerciseView<S extends SubmissionInfo> extends VerticalLayout {
 	 * @param exerInfo
 	 *            general info on exercise
 	 * @param editorTest
-	 *            whether the view is for testing exercise in editor, or for
-	 *            'real' student-side testing (ie. whether to save submissions)
+	 *            whether the view is for testing exercise in editor, or for 'real' student-side testing (ie. whether to save submissions)
 	 * @param localizer
 	 *            {@link Localizer} for localizing the UI
 	 * @param desc
@@ -165,46 +157,46 @@ class TestingExerciseView<S extends SubmissionInfo> extends VerticalLayout {
 		this.stubUsed = desc;
 		setId(testingExerViewId);
 		doLayout();
-
+		
 	}
-
+	
 	/**
 	 * Draws the UI and attaches needed listeners to the {@link Executor}
 	 */
 	private void doLayout() {
-
+		
 		removeAllComponents();
 		setMargin(true);
 		setSpacing(true);
 		setWidth("100%");
 		if (!editorTest) {
-
+			
 			this.addComponent(new StubViewHeaderBar(localizer, localizer
 					.getUIText(StubUiConstants.EXECUTOR_TEST_INFO)));
 		}
 		if (currentExecutor == null) {
 			this.addComponent(StandardUIFactory
 					.getInformationPanel(StubUiConstants.EXECUTOR_LOAD_ERROR));
-
+					
 		} else {
-
+			
 			addComponent(new TestingExerciseInfoView(localizer, exerInfo,
 					stubUsed));
-
+					
 			addComponent(new ResetSubmitControlView(localizer, currentExecutor));
-
+			
 			Component exerLayout = currentExecutor.getView();
 			addComponent(exerLayout);
 			setComponentAlignment(exerLayout, Alignment.TOP_CENTER);
 			setExpandRatio(exerLayout, 1.0f);
-
+			
 			currentExecutor.registerSubmitListener(new SubmissionListener<S>() {
-
+				
 				/**
 				 * 
 				 */
 				private static final long serialVersionUID = -8757213787542086588L;
-
+				
 				@Override
 				public void submitted(SubmissionResult<S> submission) {
 					if (!Arrays.asList(StandardSubmissionType.values())
@@ -214,31 +206,31 @@ class TestingExerciseView<S extends SubmissionInfo> extends VerticalLayout {
 										+ "askSubmit must be passed as such to "
 										+ "the corresponding SubmissionFeedback");
 					}
-
+					
 					if (!editorTest) {
-
+						
 						StatisticalSubmissionInfo<S> toWrite
-
+						
 						= new StatisticalSubmissionInfo<S>(submission
 								.getTimeOnTask(), submission.getCorrectness(),
 								System.currentTimeMillis(), submission
 										.getSubmissionInfo());
-
+										
 						StubDataFilesHandler.writeSubmToDisk(stubUsed,
 								exerInfo.getName(), toWrite, tempMan);
-
+								
 					}
-
+					
 					SubmissionPopup sp = new SubmissionPopup(localizer,
 							submission);
-
+							
 					getUI().addWindow(sp);
 				}
 			});
 		}
-
+		
 	}
-
+	
 	@Override
 	public void detach() {
 		if (currentExecutor != null) {
@@ -246,5 +238,5 @@ class TestingExerciseView<S extends SubmissionInfo> extends VerticalLayout {
 		}
 		super.detach();
 	}
-
+	
 }

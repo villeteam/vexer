@@ -4,8 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * This class wraps an {@link SubmissionInfo}-implementor and some generic info
- * on the submission.
+ * This class wraps an {@link SubmissionInfo}-implementor and some generic info on the submission.
  * 
  * @author Riku Haavisto
  * 
@@ -16,7 +15,7 @@ import java.util.Date;
  */
 public final class StatisticalSubmissionInfo<S extends SubmissionInfo>
 		implements Serializable {
-
+		
 	/**
 	 * 
 	 */
@@ -25,10 +24,9 @@ public final class StatisticalSubmissionInfo<S extends SubmissionInfo>
 	private final double evalution;
 	private final long doneTime;
 	private final S submissionData;
-
+	
 	/**
-	 * Constructs a new StatisticalSubmissionInfo-object. Exercise-type
-	 * implementors should never need to construct objects of this class.
+	 * Constructs a new StatisticalSubmissionInfo-object. Exercise-type implementors should never need to construct objects of this class.
 	 * 
 	 * @param timeOnTask
 	 *            the time student used to make submission (in seconds)
@@ -46,7 +44,7 @@ public final class StatisticalSubmissionInfo<S extends SubmissionInfo>
 		this.doneTime = doneTime;
 		this.submissionData = submData;
 	}
-
+	
 	/**
 	 * The time student used for this submission.
 	 * 
@@ -55,20 +53,18 @@ public final class StatisticalSubmissionInfo<S extends SubmissionInfo>
 	public int getTimeOnTask() {
 		return timeOnTask;
 	}
-
+	
 	/**
-	 * The evaluation in scale 0.0 (worst) - 1.0 (best) the student received
-	 * from this submission.
+	 * The evaluation in scale 0.0 (worst) - 1.0 (best) the student received from this submission.
 	 * 
 	 * @return the evaluation the student received from this submission
 	 */
 	public double getEvalution() {
 		return evalution;
 	}
-
+	
 	/**
-	 * Time-stamp of when the student submitted this submission. In milliseconds
-	 * as defined by {@link System #currentTimeMillis()}. A {@link Date}-object
+	 * Time-stamp of when the student submitted this submission. In milliseconds as defined by {@link System #currentTimeMillis()}. A {@link Date}-object
 	 * wrapping the time-stamp can be constructed by {@link Date #Date(long)}.
 	 * 
 	 * @return time-stamp of when the submission was submitted
@@ -76,22 +72,21 @@ public final class StatisticalSubmissionInfo<S extends SubmissionInfo>
 	public long getDoneTime() {
 		return doneTime;
 	}
-
+	
 	/**
-	 * Exercise-type-specific {@link SubmissionInfo}-implementor defining the
-	 * exercise-type specific aspects of certain submission.
+	 * Exercise-type-specific {@link SubmissionInfo}-implementor defining the exercise-type specific aspects of certain submission.
 	 * 
 	 * @return exercise-type-specific {@link SubmissionInfo}-implementor
 	 */
 	public S getSubmissionData() {
 		return submissionData;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "StatisticalSubmissionInfo [timeOnTask=" + timeOnTask
 				+ ", evalution=" + evalution + ", doneTime=" + doneTime
 				+ ", submissionData=" + submissionData + "]";
 	}
-
+	
 }
