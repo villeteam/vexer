@@ -51,6 +51,14 @@ public interface Executor<E extends ExerciseData, S extends SubmissionInfo>
 	void registerSubmitListener(SubmissionListener<S> submitListener);
 	
 	/**
+	 * Default method, which is empty. You should implement this if you want to do reset listening.
+	 * 
+	 * @param resetListener
+	 */
+	default void registerResetListener(ResetListener resetListener) {
+	}
+	
+	/**
 	 * @return The GUI through which the user can execute certain exercise-instance
 	 */
 	Component getView();

@@ -18,6 +18,7 @@ import fi.utu.ville.exercises.model.ExecutionStateChangeListener;
 import fi.utu.ville.exercises.model.Executor;
 import fi.utu.ville.exercises.model.ExerciseData;
 import fi.utu.ville.exercises.model.ExerciseException;
+import fi.utu.ville.exercises.model.ResetListener;
 import fi.utu.ville.exercises.model.SubmissionListener;
 import fi.utu.ville.exercises.model.SubmissionType;
 import fi.utu.ville.standardutils.Localizer;
@@ -115,7 +116,11 @@ public abstract class AbstractMathExecutor<E extends ExerciseData, F extends Mat
 	public final void registerSubmitListener(
 			SubmissionListener<F> submitListener) {
 		listenerHelper.registerSubmitListener(submitListener);
-		
+	}
+	
+	@Override
+	public final void registerResetListener(ResetListener resetListener) {
+		listenerHelper.registerResetListener(resetListener);
 	}
 	
 	@Override
@@ -134,7 +139,6 @@ public abstract class AbstractMathExecutor<E extends ExerciseData, F extends Mat
 	
 	@Override
 	public final void askReset() {
-		
 		MisconceptionPerformanceData mpd = getMathPerformanceData();
 		mpd.setSubmitted(false);
 		// if you try this as a student first and then test it in teacher view,

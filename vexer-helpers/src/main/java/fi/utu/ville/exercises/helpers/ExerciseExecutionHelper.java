@@ -8,6 +8,7 @@ import com.vaadin.ui.Component;
 import fi.utu.ville.exercises.model.ExecutionState;
 import fi.utu.ville.exercises.model.ExecutionStateChangeListener;
 import fi.utu.ville.exercises.model.Executor;
+import fi.utu.ville.exercises.model.ResetListener;
 import fi.utu.ville.exercises.model.SubmissionInfo;
 import fi.utu.ville.exercises.model.SubmissionListener;
 import fi.utu.ville.exercises.model.SubmissionResult;
@@ -32,6 +33,8 @@ public class ExerciseExecutionHelper<S extends SubmissionInfo> implements
 	
 	private final HashSet<SubmissionListener<S>> submitListeners = new HashSet<SubmissionListener<S>>();
 	
+	private final HashSet<ResetListener> resetListeners = new HashSet<ResetListener>();
+	
 	private final HashSet<ExecutionStateChangeListener> stateListeners = new HashSet<ExecutionStateChangeListener>();
 	
 	private final MutableExecutionState stateHelper = new MutableExecutionState();
@@ -55,6 +58,10 @@ public class ExerciseExecutionHelper<S extends SubmissionInfo> implements
 		submitListeners.add(submitListener);
 	}
 	
+	public void registerResetListener(ResetListener resetListener) {
+		resetListeners.add(resetListener);
+	}
+	
 	/**
 	 * A quite standard {@link ExecutionState}-change after reset. Enables reset and submit, and informs registered {@link ExecutionStateChangeListener}s.
 	 */
@@ -65,6 +72,9 @@ public class ExerciseExecutionHelper<S extends SubmissionInfo> implements
 		
 		informStateListeners();
 		
+		for (ResetListener rListener : resetListeners) {
+			rListener.resetted();
+		}
 	}
 	
 	/**

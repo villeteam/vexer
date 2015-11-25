@@ -17,6 +17,7 @@ import fi.utu.ville.exercises.model.ExecutionStateChangeListener;
 import fi.utu.ville.exercises.model.Executor;
 import fi.utu.ville.exercises.model.ExerciseData;
 import fi.utu.ville.exercises.model.ExerciseException;
+import fi.utu.ville.exercises.model.ResetListener;
 import fi.utu.ville.exercises.model.SubmissionListener;
 import fi.utu.ville.exercises.model.SubmissionResult;
 import fi.utu.ville.exercises.model.SubmissionType;
@@ -82,6 +83,11 @@ public class LevelMathExecutorWrapper<E extends ExerciseData, S extends LevelSub
 			}
 			
 			loadRealExercise(usedLevel);
+			
+			realExecutor.registerResetListener(() -> {
+				realListeners.informResetDefault();
+				
+			});
 			
 			realExecutor.registerSubmitListener(new SubmissionListener<S>() {
 				
@@ -178,6 +184,11 @@ public class LevelMathExecutorWrapper<E extends ExerciseData, S extends LevelSub
 	@Override
 	public void registerSubmitListener(SubmissionListener<S> submitListener) {
 		realListeners.registerSubmitListener(submitListener);
+	}
+	
+	@Override
+	public void registerResetListener(ResetListener resetListener) {
+		realListeners.registerResetListener(resetListener);
 	}
 	
 	@Override
