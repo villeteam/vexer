@@ -226,6 +226,7 @@ public abstract class MathTabbedEditor<E extends ExerciseData> extends
 		// Easy editor as a default option
 		settingsLayout.removeAllComponents();
 		settingsLayout.addComponent(tabPanel);
+		settingsLayout.addStyleName("course-editor-tabsheet-holder");
 		//		settingsLayout.addComponent(tabs);
 		//		settingsLayout.addComponent(e);
 		this.easy.addStyleName("math-tabbed-button-selected");
