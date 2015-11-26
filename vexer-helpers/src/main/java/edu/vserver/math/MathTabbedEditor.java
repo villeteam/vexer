@@ -31,9 +31,6 @@ import fi.utu.ville.standardutils.UIConstants;
 public abstract class MathTabbedEditor<E extends ExerciseData> extends
 		VilleContent implements ClickListener, Editor<LevelMathDataWrapper<E>> {
 		
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	private static final String GENERAL_PANEL_WIDTH = "400px";
@@ -79,6 +76,8 @@ public abstract class MathTabbedEditor<E extends ExerciseData> extends
 		contentLayout = new HorizontalLayout();
 		contentLayout.setSizeFull();
 		contentLayout.setMargin(false);
+		
+		tabPanel.setSizeFull();
 	}
 	
 	protected Localizer getLocalizer() {
@@ -223,8 +222,6 @@ public abstract class MathTabbedEditor<E extends ExerciseData> extends
 						.setCaption(Icon.MATH_LEVEL_NORMAL.getIcon().variant(IconVariant.GREEN) + " " + localizer.getUIText(UIConstants.HARD));
 			}
 		});
-		
-		tabPanel.setWidthUndefined();
 		
 		// Easy editor as a default option
 		settingsLayout.removeAllComponents();
