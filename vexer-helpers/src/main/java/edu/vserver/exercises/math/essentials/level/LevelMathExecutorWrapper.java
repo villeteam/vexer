@@ -47,6 +47,8 @@ public class LevelMathExecutorWrapper<E extends ExerciseData, S extends LevelSub
 	
 	private boolean levelSelected = false;
 	
+	private int difficultyIndicator = 0;
+	
 	private final ExerciseExecutionHelper<S> realListeners = new ExerciseExecutionHelper<S>();
 	
 	public LevelMathExecutorWrapper(Executor<E, S> realExecutor) {
@@ -76,10 +78,13 @@ public class LevelMathExecutorWrapper<E extends ExerciseData, S extends LevelSub
 			
 			if (event.getButton().equals(easy)) {
 				usedLevel = DiffLevel.EASY;
+				difficultyIndicator = 1;
 			} else if (event.getButton().equals(normal)) {
 				usedLevel = DiffLevel.NORMAL;
+				difficultyIndicator = 2;
 			} else {
 				usedLevel = DiffLevel.HARD;
+				difficultyIndicator = 3;
 			}
 			
 			loadRealExercise(usedLevel);
@@ -248,6 +253,14 @@ public class LevelMathExecutorWrapper<E extends ExerciseData, S extends LevelSub
 	
 	public void setHardButtonEnabled(boolean value) {
 		hard.setEnabled(value);
+	}
+	
+	/**
+	 * 
+	 * @return 1 = easy, 2 = medium, 3 = hard
+	 */
+	public int getDifficulty() {
+		return difficultyIndicator;
 	}
 	
 }
