@@ -16,11 +16,11 @@ Project is licensed under MIT-license (see LICENSE.txt).
 3. Decide which stub you begin developing on.
 3.1. For the normal stub run:
 
-mvn archetype:generate -DarchetypeGroupId=fi.utu.ville.exercises -DarchetypeArtifactId=vexer-archetype -DarchetypeVersion=0.3.3-RELEASE -DarchetypeRepository=http://www.mvn.villeteam.net
+mvn archetype:generate -DarchetypeGroupId=fi.utu.ville.exercises -DarchetypeArtifactId=vexer-archetype -DarchetypeVersion=0.3.21-RELEASE -DarchetypeRepository=https://ville.utu.fi/mvn/
 
 3.2. For the Leveled stub run:
 
-mvn archetype:generate -DarchetypeGroupId=fi.utu.ville.exercises -DarchetypeArtifactId=vexer-archetype-mathlayout -DarchetypeVersion=0.3.3-RELEASE -DarchetypeRepository=http://www.mvn.villeteam.net
+mvn archetype:generate -DarchetypeGroupId=fi.utu.ville.exercises -DarchetypeArtifactId=vexer-archetype-mathlayout -DarchetypeVersion=0.3.21-RELEASE -DarchetypeRepository=https://ville.utu.fi/mvn/
     
 4. After a while you will be asked to provide some information, namely:
     - groupId: you can use "fi.utu.ville.exercises"
