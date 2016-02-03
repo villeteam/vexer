@@ -201,6 +201,7 @@ public abstract class MathTabbedEditor<E extends ExerciseData> extends
 		
 		tabPanel.setTabCaptionsAsHtml(true);
 		tabPanel.addStyleName("course-editor-tabsheet");
+		tabPanel.setSizeFull();
 		
 		tabPanel.addSelectedTabChangeListener(event -> {
 			TabSheet tabSheet = event.getTabSheet();
@@ -223,8 +224,6 @@ public abstract class MathTabbedEditor<E extends ExerciseData> extends
 						.setCaption(Icon.MATH_LEVEL_NORMAL.getIcon().variant(IconVariant.GREEN) + " " + localizer.getUIText(UIConstants.HARD));
 			}
 		});
-		
-		tabPanel.setWidthUndefined();
 		
 		// Easy editor as a default option
 		settingsLayout.removeAllComponents();
