@@ -43,8 +43,16 @@ public abstract class VilleContent extends VerticalLayout implements View {
 	/* Comes from interface View */
 	@Override
 	public void enter(ViewChangeEvent event) {
-		// TODO Auto-generated method stub
-		
+	}
+	
+	/**
+	 * Returns prettified information about the content suitable for displaying to users or in error reports. Must not contain sensitive information (e.g.
+	 * usernames, passwords)
+	 * 
+	 * @return A String containing information about the content or an empty String if there is nothing interesting to show.
+	 */
+	public String getPrettyInformation() {
+		return "";
 	}
 	
 }
