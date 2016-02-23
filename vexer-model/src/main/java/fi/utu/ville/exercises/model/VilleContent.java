@@ -49,10 +49,10 @@ public abstract class VilleContent extends VerticalLayout implements View {
 	 * Returns prettified information about the content suitable for displaying to users or in error reports. Must not contain sensitive information (e.g.
 	 * usernames, passwords)
 	 * 
-	 * @return A String containing information about the content or an empty String if there is nothing interesting to show.
+	 * @return A String containing information about the content or toString() if there is nothing interesting to show.
 	 */
 	public String getPrettyInformation() {
-		return "";
+		return toString();
 	}
 	
 }
