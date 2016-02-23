@@ -70,4 +70,12 @@ public interface VilleUI {
 	 * @return A confirm dialog.
 	 */
 	public DialogWithConfirm getConfirmExitDialog();
+	
+	/**
+	 * Returns any information related to the current view in a human readable format suitable, for instance, displaying to ViLLE-users. Must not return any sensitive information (e.g. passwords, usernames or database ids)
+	 * @return A string displaying useful information about the view (e.g. assignment, round, course names), or an empty string in case of a really boring view.
+	 */
+	public default String getCurrentContentInformation(){
+		return "";
+	}
 }
