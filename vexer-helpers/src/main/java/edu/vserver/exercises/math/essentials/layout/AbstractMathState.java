@@ -1,6 +1,7 @@
 package edu.vserver.exercises.math.essentials.layout;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import fi.utu.ville.exercises.model.ExerciseData;
 import fi.utu.ville.standardutils.Localizer;
@@ -15,11 +16,13 @@ public abstract class AbstractMathState<E extends ExerciseData, P extends Proble
 	private final int rounds;
 	private int currentProblem = -1;
 	private final ArrayList<P> problems = new ArrayList<P>();
+	private final boolean[] problemsReplaced;
 	protected final Localizer localizer;
 	
 	public AbstractMathState(E data, Localizer localizer) {
 		this.localizer = localizer;
 		this.rounds = loadDataAndGetAmount(data);
+		problemsReplaced = new boolean[rounds];
 		initProblems();
 	}
 	
@@ -82,8 +85,26 @@ public abstract class AbstractMathState<E extends ExerciseData, P extends Proble
 	private void initProblems() {
 		problems.clear();
 		for (int i = 0; i < rounds; i++) {
-			problems.add(createProblem());
+			problems.add(createUnequalProblem(6));
+			problemsReplaced[i] = false;
 		}
+	}
+	
+	private P createUnequalProblem(int amountOfTries) {
+		if (amountOfTries < 1) {
+			return createProblem();
+		}
+		
+		P problemProposition = createProblem();
+		for (P p : problems) {
+			if (p.getQuestion(localizer).equals(problemProposition.getQuestion(localizer))) {
+				//				System.out.println("Found an equal problem: " + p.getQuestion(localizer));
+				return createUnequalProblem(--amountOfTries);
+			}
+		}
+		//		System.out.println("Not equal problems: " + problemProposition.getQuestion(localizer));
+		return problemProposition;
+		
 	}
 	
 	@Override
@@ -103,8 +124,47 @@ public abstract class AbstractMathState<E extends ExerciseData, P extends Proble
 	}
 	
 	@Override
+	public boolean tryAnswer(AbstractMathAnswer answer, boolean isExam) {
+		if (getCurrentProblem().tryAnswer(answer)) {
+			setPoints();
+		} else {
+			if (!isExam) {
+				//				System.out.println("CurrentP: " + problems.get(currentProblem).getQuestion(localizer));
+				//				System.out.println("NextP: " + problems.get(currentProblem + 1).getQuestion(localizer));
+				if (problems.size() - currentProblem >= 3) {
+					//					Random rand = new Random();
+					int randomIndex = getRandomUnusedInt();
+					if (problems.size() > randomIndex || randomIndex < 1) {
+						problems.set(randomIndex, getCurrentProblem());
+					} else {
+						//						System.out.println("Faulty random number generated: " + randomIndex);
+					}
+				}
+			}
+		}
+		return getCurrentProblem().tryAnswer(answer);
+	}
+	
+	@Override
 	public boolean hasNextProblem() {
 		return currentProblem < problems.size() - 1;
+	}
+	
+	private int getRandomUnusedInt() {
+		Random rand = new Random();
+		int randomIndex = 0;
+		for (int i = 0; i < 4; i++) {
+			randomIndex = rand.nextInt((problems.size() - 1) - (currentProblem + 2) + 1) + currentProblem + 2;
+			if (problemsReplaced[randomIndex] == false) {
+				//				System.out.println("problem inserted to: " + randomIndex);
+				problemsReplaced[randomIndex] = true;
+				return randomIndex;
+			} else {
+				//				System.out.println("already modified: " + randomIndex);
+			}
+		}
+		
+		return randomIndex;
 	}
 	
 }

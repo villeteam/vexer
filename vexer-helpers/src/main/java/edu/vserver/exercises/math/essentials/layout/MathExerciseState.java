@@ -18,5 +18,9 @@ public interface MathExerciseState<P extends Problem> extends Serializable {
 	
 	public boolean tryAnswer(AbstractMathAnswer answer);
 	
+	public default boolean tryAnswer(AbstractMathAnswer answer, boolean isExam) {
+		return tryAnswer(answer);
+	}
+	
 	public boolean hasNextProblem();
 }

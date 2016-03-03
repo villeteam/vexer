@@ -134,7 +134,7 @@ public class MathLayout<P extends Problem> extends VerticalLayout
 							.setDelay(20);
 							
 				} else if (event.getAnimation() == aCheck) {
-					exState.tryAnswer(exView.getAnswer());
+					exState.tryAnswer(exView.getAnswer(), execSettings.isExam());
 					exerExecutor.setUnsubmittedChangesFlag(true);
 					
 					if (!execSettings.isNoCorrAnswers()) {
