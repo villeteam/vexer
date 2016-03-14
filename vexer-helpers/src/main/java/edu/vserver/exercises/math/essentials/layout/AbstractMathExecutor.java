@@ -76,7 +76,8 @@ public abstract class AbstractMathExecutor<E extends ExerciseData, F extends Mat
 		this.data = data;
 		this.localizer = localizer;
 		
-		UI.getCurrent().addStyleName(getBgStyleName());
+		if(UI.getCurrent() != null)			
+			UI.getCurrent().addStyleName(getBgStyleName());
 		
 		initStateAndView(data, localizer);
 		
