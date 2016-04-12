@@ -4,7 +4,7 @@
     <parent>
         <groupId>fi.utu.ville.exercises</groupId>
         <artifactId>vexer</artifactId>
-        <version>0.3.30-SNAPSHOT</version>
+        <version>0.3.31-SNAPSHOT</version>
     </parent>	
     <modelVersion>4.0.0</modelVersion>
 	<artifactId>vexer-helpers</artifactId>
@@ -47,6 +47,13 @@
 			<artifactId>junit</artifactId>
 			<version>4.8.1</version>
 			<scope>test</scope>
+		</dependency>
+
+
+		<dependency>
+			<groupId>uk.com.robust-it</groupId>
+			<artifactId>cloning</artifactId>
+			<version>1.9.2</version>
 		</dependency>
 	</dependencies>
 

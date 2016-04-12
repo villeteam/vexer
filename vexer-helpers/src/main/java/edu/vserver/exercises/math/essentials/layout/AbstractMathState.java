@@ -3,6 +3,8 @@ package edu.vserver.exercises.math.essentials.layout;
 import java.util.ArrayList;
 import java.util.Random;
 
+import com.rits.cloning.Cloner;
+
 import fi.utu.ville.exercises.model.ExerciseData;
 import fi.utu.ville.standardutils.Localizer;
 
@@ -133,9 +135,12 @@ public abstract class AbstractMathState<E extends ExerciseData, P extends Proble
 				//				System.out.println("NextP: " + problems.get(currentProblem + 1).getQuestion(localizer));
 				if (problems.size() - currentProblem >= 3) {
 					//					Random rand = new Random();
+					
 					int randomIndex = getRandomUnusedInt();
 					if (problems.size() > randomIndex || randomIndex < 1) {
-						problems.set(randomIndex, getCurrentProblem());
+						Cloner cloner = new Cloner();
+						P clone = cloner.deepClone(getCurrentProblem());
+						problems.set(randomIndex, clone);
 					} else {
 						//						System.out.println("Faulty random number generated: " + randomIndex);
 					}
