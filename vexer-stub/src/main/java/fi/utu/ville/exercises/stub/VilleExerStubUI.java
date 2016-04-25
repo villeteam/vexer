@@ -9,7 +9,6 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.logging.Logger;
 
-import org.apache.commons.io.FileUtils;
 import org.reflections.Reflections;
 
 import com.vaadin.annotations.StyleSheet;
@@ -207,7 +206,7 @@ public abstract class VilleExerStubUI extends UI {
 			// likely deployed as war, use temp-location
 			if (pathToRes == null) {
 				logger.warning("Placing VILLE-stub-resources-directory under temp");
-				pathToRes = FileUtils.getTempDirectoryPath() + "/VILLE/stub";
+				pathToRes = System.getProperty("java.io.tmpdir") + "/VILLE/stub";
 			}
 		}
 		
