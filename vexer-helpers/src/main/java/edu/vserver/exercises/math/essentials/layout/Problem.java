@@ -2,6 +2,8 @@ package edu.vserver.exercises.math.essentials.layout;
 
 import java.io.Serializable;
 
+import com.rits.cloning.Cloner;
+
 import fi.utu.ville.standardutils.Localizer;
 
 public interface Problem extends Serializable {
@@ -44,4 +46,11 @@ public interface Problem extends Serializable {
 	 * @return the user's answer
 	 */
 	public String getUserAnswer();
+	
+	public default <P extends Problem> P cloneThis(P problem) {
+		Cloner cloner = new Cloner();
+		cloner.setNullTransient(true);
+		P clone = cloner.deepClone(problem);
+		return clone;
+	}
 }
