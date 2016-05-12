@@ -18,6 +18,7 @@ public abstract class AbstractMathState<E extends ExerciseData, P extends Proble
 	private final ArrayList<P> problems = new ArrayList<P>();
 	private final boolean[] problemsReplaced;
 	protected final Localizer localizer;
+	private final int AMOUNT_OF_TRIES = 6;
 	
 	public AbstractMathState(E data, Localizer localizer) {
 		this.localizer = localizer;
@@ -85,26 +86,37 @@ public abstract class AbstractMathState<E extends ExerciseData, P extends Proble
 	private void initProblems() {
 		problems.clear();
 		for (int i = 0; i < rounds; i++) {
-			problems.add(createUnequalProblem(6));
-			problemsReplaced[i] = false;
+			P prob = createUnequalProblem(AMOUNT_OF_TRIES);
+			if (prob != null) {
+				problems.add(prob);
+				problemsReplaced[i] = false;
+			} else {
+				break;
+			}
 		}
 	}
 	
 	private P createUnequalProblem(int amountOfTries) {
-		if (amountOfTries < 1) {
-			return createProblem();
-		}
-		
-		P problemProposition = createProblem();
-		for (P p : problems) {
-			if (p.getQuestion(localizer).equals(problemProposition.getQuestion(localizer))) {
-				//				System.out.println("Found an equal problem: " + p.getQuestion(localizer));
-				return createUnequalProblem(--amountOfTries);
+		try {
+			if (amountOfTries < 1) {
+				return createProblem();
 			}
+			
+			P problemProposition = createProblem();
+			for (P p : problems) {
+				if (p.getQuestion(localizer).equals(problemProposition.getQuestion(localizer))) {
+					//				System.out.println("Found an equal problem: " + p.getQuestion(localizer));
+					return createUnequalProblem(--amountOfTries);
+				}
+			}
+			//		System.out.println("Not equal problems: " + problemProposition.getQuestion(localizer));
+			if (problemProposition == null) {
+				System.out.println("problem proposition = null");
+			}
+			return problemProposition;
+		} catch (Exception e) {
+			return null;
 		}
-		//		System.out.println("Not equal problems: " + problemProposition.getQuestion(localizer));
-		return problemProposition;
-		
 	}
 	
 	@Override

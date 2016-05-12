@@ -2,6 +2,7 @@ package edu.vserver.exercises.math.essentials.layout;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import com.vaadin.ui.Layout;
 import com.vaadin.ui.UI;
@@ -18,6 +19,7 @@ import fi.utu.ville.exercises.model.ExecutionStateChangeListener;
 import fi.utu.ville.exercises.model.Executor;
 import fi.utu.ville.exercises.model.ExerciseData;
 import fi.utu.ville.exercises.model.ExerciseException;
+import fi.utu.ville.exercises.model.ExerciseException.ErrorType;
 import fi.utu.ville.exercises.model.ResetListener;
 import fi.utu.ville.exercises.model.SubmissionListener;
 import fi.utu.ville.exercises.model.SubmissionType;
@@ -76,8 +78,9 @@ public abstract class AbstractMathExecutor<E extends ExerciseData, F extends Mat
 		this.data = data;
 		this.localizer = localizer;
 		
-		if(UI.getCurrent() != null)			
+		if (UI.getCurrent() != null) {
 			UI.getCurrent().addStyleName(getBgStyleName());
+		}
 		
 		initStateAndView(data, localizer);
 		
@@ -104,9 +107,30 @@ public abstract class AbstractMathExecutor<E extends ExerciseData, F extends Mat
 		// ExecSettings are used to check if immediate feedback should be shown
 		// or not
 		
-		getMathView().drawProblem(getMathState().nextProblem());
-		startMathPerformance(getMathState().getCurrentProblem());
+		//TODO
+		try {
+			getMathView().drawProblem(getMathState().nextProblem());
+			startMathPerformance(getMathState().getCurrentProblem());
+		} catch (NullPointerException e) {
+			//			Notification.show("Oops, this exercise seems to have a problem", Type.ERROR_MESSAGE);
+			throw new ExerciseException(
+					ErrorType.EXERCISE_LOAD_ERROR,
+					"Failed to load " + getMathState().getClass().getName(),
+					e);
+		} catch (IndexOutOfBoundsException e) {
+			throw new ExerciseException(
+					ErrorType.EXERCISE_LOAD_ERROR,
+					"Failed to load " + getMathState().getClass().getName(),
+					e);
+		} catch (NoSuchElementException e) {
+			//			VilleErrorReporter.reportByMail("Failed to load " + getMathState().getClass().getName(), e);
+			throw new ExerciseException(
+					ErrorType.EXERCISE_LOAD_ERROR,
+					"Failed to load " + getMathState().getClass().getName(),
+					e);
+		}
 		mpd.setStartTime();
+		
 	}
 	
 	private double checkCorrectness() {

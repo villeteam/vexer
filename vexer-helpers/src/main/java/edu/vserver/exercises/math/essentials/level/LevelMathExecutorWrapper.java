@@ -11,6 +11,7 @@ import com.vaadin.ui.VerticalLayout;
 
 import edu.vserver.misconception.MisconceptionPerformanceSubject;
 import fi.utu.ville.exercises.helpers.ExerciseExecutionHelper;
+import fi.utu.ville.exercises.helpers.VilleErrorReporter;
 import fi.utu.ville.exercises.model.ExecutionSettings;
 import fi.utu.ville.exercises.model.ExecutionState;
 import fi.utu.ville.exercises.model.ExecutionStateChangeListener;
@@ -179,7 +180,12 @@ public class LevelMathExecutorWrapper<E extends ExerciseData, S extends LevelSub
 					execSettings);
 			addComponent(realExecutor.getView());
 		} catch (ExerciseException e) {
-			e.printStackTrace();
+			realListeners.getState().setCanReset(false);
+			realListeners.getState().setCanSubmit(false);
+			realListeners.informStateListeners();
+			VilleErrorReporter.reportByMail("", e);
+			//			realExecutor.reportError(errorMethod, error);
+			//			e.printStackTrace();
 			addComponent(StandardUIFactory.getWarningPanel(localizer
 					.getUIText(StandardUIConstants.EXERCISE_LOAD_ERROR)));
 		}
