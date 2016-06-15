@@ -31,7 +31,10 @@ import fi.utu.ville.exercises.model.ExerciseData;
 import fi.utu.ville.exercises.model.ExerciseException;
 import fi.utu.ville.exercises.model.SubmissionVisualizer;
 import fi.utu.ville.standardutils.Localizer;
+import fi.utu.ville.standardutils.StandardIcon.Icon;
+import fi.utu.ville.standardutils.StandardIcon.IconVariant;
 import fi.utu.ville.standardutils.TempFilesManager;
+import fi.utu.ville.standardutils.UIConstants;
 
 public abstract class AbstractMathTableSubmissionViewer<E extends ExerciseData, F extends LevelMathSubmissionInfo<G>, G extends Problem>
 		extends VerticalLayout implements SubmissionVisualizer<E, F> {
@@ -46,6 +49,14 @@ public abstract class AbstractMathTableSubmissionViewer<E extends ExerciseData, 
 	private F submInfo;
 	private Localizer localizer;
 	private DecimalFormat format;
+	
+	private final String assignmentName;
+	private final String exerciseName;
+	
+	public AbstractMathTableSubmissionViewer(String assignmentName,String exerciseName) {
+		this.assignmentName = assignmentName;
+		this.exerciseName = exerciseName;
+	}
 	
 	// Abstract method for getting executor for each type of exercise.
 	protected abstract MathExerciseView<G> getExerView(E exerData, F submInfo);
@@ -127,14 +138,28 @@ public abstract class AbstractMathTableSubmissionViewer<E extends ExerciseData, 
 		table.addStyleName(ChameleonTheme.TABLE_STRIPED);
 		
 		table.addContainerProperty("Question", String.class, null);
-		table.addContainerProperty("Correct answer", String.class, null);
 		table.addContainerProperty("Given answer", String.class, null);
-		table.addContainerProperty("Correct/Incorrect", Embedded.class, null);
-		table.addContainerProperty("Time (s)", String.class, null);
-		table.addContainerProperty("Timeline", Button.class, null);
-		table.addContainerProperty("Show exercise", Button.class, null);
+		table.addContainerProperty("Correct answer", String.class, null);
+		table.addContainerProperty("Time", String.class, null);
+		table.addContainerProperty("Correctness", Label.class, null);
 		
-		table.setColumnAlignment("Correct/Incorrect", Table.Align.CENTER);
+//		table.addContainerProperty("Timeline", Button.class, null);
+//		table.addContainerProperty("Show exercise", Button.class, null);
+		
+		table.setColumnAlignment("Correctness", Table.Align.CENTER);
+		
+		table.setCellStyleGenerator(new Table.CellStyleGenerator() {
+			
+			private static final long serialVersionUID = -2373086824079035962L;
+
+			@Override
+			public String getStyle(Table source, Object itemId, Object propertyId) {
+				if(submInfo.getProblems().get((int)itemId).isCorrect()) {
+					return "background-green";
+				}
+				return "background-red";
+			}
+		});
 		
 		int correctAnswers = 0;
 		double average = 0;
@@ -188,24 +213,32 @@ public abstract class AbstractMathTableSubmissionViewer<E extends ExerciseData, 
 				}
 			});
 			
-			ThemeResource icon = new ThemeResource(
-					"../vexer-math/icons/false.png");
-			Embedded correctness = new Embedded(null, icon);
+//			ThemeResource icon = new ThemeResource(
+//					"../vexer-math/icons/false.png");
+//			Embedded correctness = new Embedded(null, icon);
+//			
+//			try {
+//				// The amount of correct answers
+//				if (problem.isCorrect()) {
+//					correctAnswers++;
+//					
+//					icon = new ThemeResource("../vexer-math/icons/correct.png");
+//					correctness = new Embedded(null, icon);
+//				}
+//			} catch (Exception e) {
+//			
+//			}
 			
-			try {
-				// The amount of correct answers
-				if (problem.isCorrect()) {
-					correctAnswers++;
-					
-					icon = new ThemeResource("../vexer-math/icons/correct.png");
-					correctness = new Embedded(null, icon);
-				}
-			} catch (Exception e) {
-			
+			if(problem.isCorrect()) {
+				correctAnswers++;
 			}
 			
-			table.addItem(new Object[] { problem.getQuestion(localizer), problem.getCorrectAnswer(), problem.getUserAnswer(), correctness, format
-					.format(t), timeline, showExercise },
+			table.addItem(new Object[] { problem.getQuestion(localizer),
+					problem.getUserAnswer(),
+					problem.getCorrectAnswer(),
+					time,
+					new Label(problem.isCorrect() ? Icon.OK.getIcon().variant(IconVariant.BLACK)
+							: Icon.CANCEL.getIcon().variant(IconVariant.BLACK),ContentMode.HTML)},
 					new Integer(i));
 					
 			// Average time answering exercises
@@ -219,41 +252,59 @@ public abstract class AbstractMathTableSubmissionViewer<E extends ExerciseData, 
 		HorizontalLayout horStats = new HorizontalLayout();
 		horStats.setSizeUndefined();
 		horStats.setSpacing(true);
-		horStats.addStyleName("statBox");
 		
-		Label stats = new Label("Correct answers: "
-				+ "<span style=\"color: green\">" + correctAnswers + "</span>"
-				+ "<span>/</span>" + "<span>" + submInfo.getProblems().size()
+		Label stats = new Label("<span>" + correctAnswers + "</span>"
+				+ "<span>/</span>" + "<span style='font-size:26px'>" + submInfo.getProblems().size()
 				+ "</span>");
 		stats.setContentMode(ContentMode.HTML);
-		stats.addStyleName("submissionInfo");
-		horStats.addComponent(stats);
+		stats.addStyleName("lastSubmissionInfo");
+		VerticalLayout statsContainer = new VerticalLayout();
+		Label pointLabel = new Label(localizer.getUIText(UIConstants.POINTS));
+		pointLabel.addStyleName("lastSubmissionInfo");
+		statsContainer.setSpacing(true);
+		statsContainer.addComponents(stats,pointLabel);
+		statsContainer.setComponentAlignment(stats, Alignment.MIDDLE_CENTER);
+		statsContainer.setComponentAlignment(pointLabel, Alignment.MIDDLE_CENTER);
+		horStats.addComponent(statsContainer);
 		
-		double avg;
-		if (amount > 0) {
-			avg = average / amount;
-		} else {
-			avg = 0;
-		}
-		Label averageTime = new Label("Average time: " + "<span>"
-				+ format.format((avg)) + "s" + "</span>");
+//		double avg;
+//		if (amount > 0) {
+//			avg = average / amount;
+//		} else {
+//			avg = 0;
+//		}
+		Label averageTime = new Label("<span>"
+				+ format.format((average)) + "s" + "</span>");
 		averageTime.setContentMode(ContentMode.HTML);
-		averageTime.addStyleName("submissionInfo");
-		horStats.addComponent(averageTime);
+		averageTime.addStyleName("lastSubmissionInfo");
+		VerticalLayout timeContainer = new VerticalLayout();
+		Label timeLabel = new Label(localizer.getUIText(UIConstants.TIME));
+		timeLabel.addStyleName("lastSubmissionInfo");
+		timeContainer.setSpacing(true);
+		timeContainer.addComponents(averageTime,timeLabel);
+		timeContainer.setComponentAlignment(averageTime, Alignment.MIDDLE_CENTER);
+		timeContainer.setComponentAlignment(timeLabel, Alignment.MIDDLE_CENTER);
+		horStats.addComponent(timeContainer);
 		
-		Label doneExers = new Label("Tasks done: " + "<span>" + amount + "/"
-				+ submInfo.getProblems().size() + "</span>");
+		Label doneExers = new Label("<span>" + amount + "</span>");
 		doneExers.setContentMode(ContentMode.HTML);
 		doneExers.addStyleName("lastSubmissionInfo");
-		horStats.addComponent(doneExers);
+		VerticalLayout doneExersContainer = new VerticalLayout();
+		Label doneExersLabel = new Label(localizer.getUIText(UIConstants.QUESTIONS));
+		doneExersLabel.addStyleName("lastSubmissionInfo");
+		doneExersContainer.setSpacing(true);
+		doneExersContainer.addComponents(doneExers,doneExersLabel);
+		doneExersContainer.setComponentAlignment(doneExers, Alignment.MIDDLE_CENTER);
+		doneExersContainer.setComponentAlignment(doneExersLabel, Alignment.MIDDLE_CENTER);
+		horStats.addComponent(doneExersContainer);
 		
-		HorizontalLayout chartContainer = MathSubmissionUIFactory.getChartContainer(handlers, timesPerTask, correctAnswers, (handlers.size() - correctAnswers));//new HorizontalLayout();
+		//HorizontalLayout chartContainer = MathSubmissionUIFactory.getChartContainer(handlers, timesPerTask, correctAnswers, (handlers.size() - correctAnswers));//new HorizontalLayout();
 		
-		Embedded diffLevel = getDiffLevel();
+		//Embedded diffLevel = getDiffLevel();
 		
-		addComponent(diffLevel);
+		//addComponent(diffLevel);
 		addComponent(horStats);
-		addComponent(chartContainer);
+		//addComponent(chartContainer);
 		
 		VerticalLayout tableContainer = new VerticalLayout();
 		tableContainer.setSizeUndefined();
@@ -261,8 +312,8 @@ public abstract class AbstractMathTableSubmissionViewer<E extends ExerciseData, 
 		tableContainer.addComponent(table);
 		addComponent(tableContainer);
 		
-		setComponentAlignment(diffLevel, Alignment.MIDDLE_CENTER);
-		setComponentAlignment(chartContainer, Alignment.MIDDLE_CENTER);
+		//setComponentAlignment(diffLevel, Alignment.MIDDLE_CENTER);
+		//setComponentAlignment(chartContainer, Alignment.MIDDLE_CENTER);
 		setComponentAlignment(horStats, Alignment.MIDDLE_CENTER);
 		
 		setComponentAlignment(tableContainer, Alignment.MIDDLE_CENTER);

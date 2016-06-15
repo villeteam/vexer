@@ -43,7 +43,7 @@ public class StubSubmissionVisualizerProvider implements SubmissionVisualizerPro
 	
 	@Override
 	public <E extends ExerciseData, S extends LevelMathSubmissionInfo<P>, P extends Problem> AbstractMathTableSubmissionViewer<LevelMathDataWrapper<E>, S, P> getMathTableSubmissionVisualizer() {
-		return new AbstractMathTableSubmissionViewer<LevelMathDataWrapper<E>, S, P>() {
+		return new AbstractMathTableSubmissionViewer<LevelMathDataWrapper<E>, S, P>(null,null) {
 			
 			private static final long serialVersionUID = 1L;
 			
