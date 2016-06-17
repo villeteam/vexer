@@ -20,9 +20,6 @@ public abstract class AbstractMathSubmissionInfo<P extends Problem> implements
 	private ArrayList<P> userProblemsAndAnswers;
 	private DiffLevel usedLevel;
 	
-	private String assignmentName;
-	private String exerciseName;
-	
 	public AbstractMathSubmissionInfo() {
 
 	}

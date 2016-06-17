@@ -57,7 +57,7 @@ public class TemplateTypeDescriptor implements
 	}
 	
 	@Override
-	public SubmissionVisualizer<TemplateExerciseData, TemplateSubmissionInfo> newSubmissionVisualizer() {
+	public SubmissionVisualizer<TemplateExerciseData, TemplateSubmissionInfo> newSubmissionVisualizer(String assignmentName, Localizer localizer) {
 		return new TemplateSubmissionViewer();
 	}
 	

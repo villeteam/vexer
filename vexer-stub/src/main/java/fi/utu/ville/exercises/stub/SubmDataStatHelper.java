@@ -352,7 +352,7 @@ public class SubmDataStatHelper<E extends ExerciseData, S extends SubmissionInfo
 	private SubmissionVisualizer<?, ?> getSubmissionViewerFor(
 			StatisticalSubmissionInfo<?> statInfo, TempFilesManager tempManToUse)
 					throws ExerciseException {
-		SubmissionVisualizer<E, S> res = exerDesc.newSubmissionVisualizer();
+		SubmissionVisualizer<E, S> res = exerDesc.newSubmissionVisualizer(exerName,localizer);
 		
 		SubmissionInfo sInfo = statInfo.getSubmissionData();
 		

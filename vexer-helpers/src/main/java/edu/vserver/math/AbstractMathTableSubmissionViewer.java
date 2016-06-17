@@ -20,7 +20,6 @@ import com.vaadin.ui.Window;
 import com.vaadin.ui.themes.BaseTheme;
 import com.vaadin.ui.themes.ChameleonTheme;
 
-import edu.vserver.exercises.math.MathSubmissionUIFactory;
 import edu.vserver.exercises.math.essentials.layout.MathExerciseView;
 import edu.vserver.exercises.math.essentials.layout.Problem;
 import edu.vserver.exercises.math.essentials.layout.TimeStamp;
@@ -32,7 +31,6 @@ import fi.utu.ville.exercises.model.ExerciseException;
 import fi.utu.ville.exercises.model.SubmissionVisualizer;
 import fi.utu.ville.standardutils.Localizer;
 import fi.utu.ville.standardutils.StandardIcon.Icon;
-import fi.utu.ville.standardutils.StandardIcon.IconVariant;
 import fi.utu.ville.standardutils.TempFilesManager;
 import fi.utu.ville.standardutils.UIConstants;
 
@@ -67,7 +65,7 @@ public abstract class AbstractMathTableSubmissionViewer<E extends ExerciseData, 
 		this.exercise = exercise;
 		this.submInfo = dataObject;
 		this.localizer = localizer;
-		format = new DecimalFormat("#.##");
+		format = new DecimalFormat("#.#");
 		doLayout();
 		
 	}
@@ -155,11 +153,13 @@ public abstract class AbstractMathTableSubmissionViewer<E extends ExerciseData, 
 			@Override
 			public String getStyle(Table source, Object itemId, Object propertyId) {
 				if(submInfo.getProblems().get((int)itemId).isCorrect()) {
-					return "background-green";
+					return null;
 				}
 				return "background-red";
 			}
 		});
+		
+		table.setWidth("650px");
 		
 		int correctAnswers = 0;
 		double average = 0;
@@ -182,8 +182,6 @@ public abstract class AbstractMathTableSubmissionViewer<E extends ExerciseData, 
 				//				e.printStackTrace();
 			}
 			timesPerTask[i] = t;
-			
-			Button timeline = MathSubmissionUIFactory.getTimelineButton(handlers.get(i));
 			
 			Button showExercise = new Button("Show exercise");
 			showExercise.addStyleName(BaseTheme.BUTTON_LINK);
@@ -232,13 +230,15 @@ public abstract class AbstractMathTableSubmissionViewer<E extends ExerciseData, 
 			if(problem.isCorrect()) {
 				correctAnswers++;
 			}
+			Label correctnessIcon = new Label(problem.isCorrect() ? Icon.OK.getIcon().variant()
+					: Icon.CANCEL.getIcon().variant(),ContentMode.HTML);
+			correctnessIcon.setWidthUndefined();
 			
 			table.addItem(new Object[] { problem.getQuestion(localizer),
 					problem.getUserAnswer(),
 					problem.getCorrectAnswer(),
-					time,
-					new Label(problem.isCorrect() ? Icon.OK.getIcon().variant(IconVariant.BLACK)
-							: Icon.CANCEL.getIcon().variant(IconVariant.BLACK),ContentMode.HTML)},
+					format.format(t),
+					correctnessIcon},
 					new Integer(i));
 					
 			// Average time answering exercises
@@ -274,7 +274,7 @@ public abstract class AbstractMathTableSubmissionViewer<E extends ExerciseData, 
 //			avg = 0;
 //		}
 		Label averageTime = new Label("<span>"
-				+ format.format((average)) + "s" + "</span>");
+				+ format.format((average)) + "</span>");
 		averageTime.setContentMode(ContentMode.HTML);
 		averageTime.addStyleName("lastSubmissionInfo");
 		VerticalLayout timeContainer = new VerticalLayout();
@@ -303,12 +303,25 @@ public abstract class AbstractMathTableSubmissionViewer<E extends ExerciseData, 
 		//Embedded diffLevel = getDiffLevel();
 		
 		//addComponent(diffLevel);
+		Label assignmentNameLabel = new Label("<div style='font-size:28px !important;text-align:center;color:#000'>"
+				+ assignmentName+"</div>",ContentMode.HTML);
+		assignmentNameLabel.setWidth("100%");
+		assignmentNameLabel.addStyleName("lastSubmissionInfo");
+		addComponent(assignmentNameLabel);
+		
+		Label exerciseNameLabel = new Label("<div style='text-align:center;color:#000;padding-bottom:25px;'>"
+				+ exerciseName + "</div>", ContentMode.HTML);
+		exerciseNameLabel.setWidth("100%");
+		exerciseNameLabel.addStyleName("lastSubmissionInfo");
+		addComponent(exerciseNameLabel);
+		
 		addComponent(horStats);
 		//addComponent(chartContainer);
 		
+		addComponent(new Label("<div style='height:20px'></div>",ContentMode.HTML));
+		
 		VerticalLayout tableContainer = new VerticalLayout();
 		tableContainer.setSizeUndefined();
-		tableContainer.addStyleName("tableBox");
 		tableContainer.addComponent(table);
 		addComponent(tableContainer);
 		

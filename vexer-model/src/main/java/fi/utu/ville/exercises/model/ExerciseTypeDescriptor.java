@@ -70,7 +70,7 @@ public interface ExerciseTypeDescriptor<E extends ExerciseData, S extends Submis
 	 * 
 	 * @return new instance of a suitable {@link SubmissionVisualizer}
 	 */
-	SubmissionVisualizer<E, S> newSubmissionVisualizer();
+	SubmissionVisualizer<E, S> newSubmissionVisualizer(String assignmentName, Localizer localizer);
 	
 	/**
 	 * Returns a localized name of the exercise-type described by this {@link ExerciseTypeDescriptor}.

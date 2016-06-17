@@ -83,7 +83,7 @@ final class StubExertypeClassLoader {
 			ExerciseTypeDescriptor<E, S> descriptor, String exerName,
 			Localizer localizer, TempFilesManager tempMan)
 					throws ExerciseException {
-		SubmissionVisualizer<E, S> res = descriptor.newSubmissionVisualizer();
+		SubmissionVisualizer<E, S> res = descriptor.newSubmissionVisualizer(exerName,localizer);
 		
 		S submData = StubDataFilesHandler.loadLatestSubmInfo(
 				descriptor.getSubDataClass(), descriptor, exerName, tempMan);

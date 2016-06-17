@@ -97,7 +97,7 @@ public final class ExerTypeVoidImplCollection {
 		}
 		
 		@Override
-		public SubmissionVisualizer<VoidExerciseData, VoidSubmissionData> newSubmissionVisualizer() {
+		public SubmissionVisualizer<VoidExerciseData, VoidSubmissionData> newSubmissionVisualizer(String assignmentName,Localizer localizer) {
 			return new VoidSubmissionVisualizer<VoidExerciseData, VoidSubmissionData>();
 		}
 		

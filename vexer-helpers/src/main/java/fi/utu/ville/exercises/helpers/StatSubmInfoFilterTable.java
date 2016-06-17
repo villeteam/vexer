@@ -686,7 +686,7 @@ public class StatSubmInfoFilterTable<S extends SubmissionInfo> {
 				@Override
 				public void buttonClick(ClickEvent event) {
 					SubmissionVisualizer<E, S> vis = typeDesc
-							.newSubmissionVisualizer();
+							.newSubmissionVisualizer(typeDesc.getTypeName(localizer),localizer);
 							
 					Window popup = new Window();
 					popup.setWidth("80%");
