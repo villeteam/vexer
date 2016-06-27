@@ -37,9 +37,6 @@ import fi.utu.ville.standardutils.UIConstants;
 public abstract class AbstractMathTableSubmissionViewer<E extends ExerciseData, F extends LevelMathSubmissionInfo<G>, G extends Problem>
 		extends VerticalLayout implements SubmissionVisualizer<E, F> {
 		
-	/**
-	* 
-	*/
 	private static final long serialVersionUID = -1228022609075470958L;
 	
 	private Table table;
@@ -136,10 +133,15 @@ public abstract class AbstractMathTableSubmissionViewer<E extends ExerciseData, 
 		table.addStyleName(ChameleonTheme.TABLE_STRIPED);
 		
 		table.addContainerProperty("Question", String.class, null);
+		table.setColumnHeader("Question",localizer.getUIText(UIConstants.QUESTION));
 		table.addContainerProperty("Given answer", String.class, null);
+		table.setColumnHeader("Given answer",localizer.getUIText(UIConstants.GIVEN_ANSWER));
 		table.addContainerProperty("Correct answer", String.class, null);
+		table.setColumnHeader("Correct answer",localizer.getUIText(UIConstants.CORRECT_ANSWER));
 		table.addContainerProperty("Time", String.class, null);
+		table.setColumnHeader("Time",localizer.getUIText(UIConstants.TIME));
 		table.addContainerProperty("Correctness", Label.class, null);
+		table.setColumnHeader("Correctness",localizer.getUIText(UIConstants.CORRECTNESS));
 		
 //		table.addContainerProperty("Timeline", Button.class, null);
 //		table.addContainerProperty("Show exercise", Button.class, null);
@@ -153,6 +155,9 @@ public abstract class AbstractMathTableSubmissionViewer<E extends ExerciseData, 
 			@Override
 			public String getStyle(Table source, Object itemId, Object propertyId) {
 				if(submInfo.getProblems().get((int)itemId).isCorrect()) {
+					return null;
+				}
+				if(!"Correctness".equals(propertyId)) {
 					return null;
 				}
 				return "background-red";
@@ -253,13 +258,11 @@ public abstract class AbstractMathTableSubmissionViewer<E extends ExerciseData, 
 		horStats.setSizeUndefined();
 		horStats.setSpacing(true);
 		
-		Label stats = new Label("<span>" + correctAnswers + "</span>"
-				+ "<span>/</span>" + "<span style='font-size:26px'>" + submInfo.getProblems().size()
-				+ "</span>");
+		Label stats = new Label("<span>" + correctAnswers + "</span>");
 		stats.setContentMode(ContentMode.HTML);
 		stats.addStyleName("lastSubmissionInfo");
 		VerticalLayout statsContainer = new VerticalLayout();
-		Label pointLabel = new Label(localizer.getUIText(UIConstants.POINTS));
+		Label pointLabel = new Label(localizer.getUIText(UIConstants.CORRECT));
 		pointLabel.addStyleName("lastSubmissionInfo");
 		statsContainer.setSpacing(true);
 		statsContainer.addComponents(stats,pointLabel);
@@ -273,18 +276,6 @@ public abstract class AbstractMathTableSubmissionViewer<E extends ExerciseData, 
 //		} else {
 //			avg = 0;
 //		}
-		Label averageTime = new Label("<span>"
-				+ format.format((average)) + "</span>");
-		averageTime.setContentMode(ContentMode.HTML);
-		averageTime.addStyleName("lastSubmissionInfo");
-		VerticalLayout timeContainer = new VerticalLayout();
-		Label timeLabel = new Label(localizer.getUIText(UIConstants.TIME));
-		timeLabel.addStyleName("lastSubmissionInfo");
-		timeContainer.setSpacing(true);
-		timeContainer.addComponents(averageTime,timeLabel);
-		timeContainer.setComponentAlignment(averageTime, Alignment.MIDDLE_CENTER);
-		timeContainer.setComponentAlignment(timeLabel, Alignment.MIDDLE_CENTER);
-		horStats.addComponent(timeContainer);
 		
 		Label doneExers = new Label("<span>" + amount + "</span>");
 		doneExers.setContentMode(ContentMode.HTML);
@@ -387,6 +378,13 @@ public abstract class AbstractMathTableSubmissionViewer<E extends ExerciseData, 
 	
 	protected Localizer getLocalizer() {
 		return localizer;
+	}
+	
+	private Window getEditPointsWindow() {
+		Window result = new Window();
+		
+		
+		return result;
 	}
 	
 }
