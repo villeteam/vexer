@@ -141,7 +141,7 @@ public abstract class AbstractMathTableSubmissionViewer<E extends ExerciseData, 
 		table.addContainerProperty("Time", String.class, null);
 		table.setColumnHeader("Time",localizer.getUIText(UIConstants.TIME));
 		table.addContainerProperty("Correctness", Label.class, null);
-		table.setColumnHeader("Correctness",localizer.getUIText(UIConstants.CORRECTNESS));
+		table.setColumnHeader("Correctness",localizer.getUIText(UIConstants.CORRECT));
 		
 //		table.addContainerProperty("Timeline", Button.class, null);
 //		table.addContainerProperty("Show exercise", Button.class, null);
