@@ -1,13 +1,14 @@
 package edu.vserver.exercises.math.essentials.level;
 
-import com.vaadin.ui.Alignment;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
-import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Layout;
-import com.vaadin.ui.VerticalLayout;
 
 import edu.vserver.misconception.MisconceptionPerformanceSubject;
 import fi.utu.ville.exercises.helpers.ExerciseExecutionHelper;
@@ -20,7 +21,6 @@ import fi.utu.ville.exercises.model.ExerciseData;
 import fi.utu.ville.exercises.model.ExerciseException;
 import fi.utu.ville.exercises.model.ResetListener;
 import fi.utu.ville.exercises.model.SubmissionListener;
-import fi.utu.ville.exercises.model.SubmissionResult;
 import fi.utu.ville.exercises.model.SubmissionType;
 import fi.utu.ville.standardutils.Localizer;
 import fi.utu.ville.standardutils.MathIcons;
@@ -31,8 +31,8 @@ import fi.utu.ville.standardutils.TempFilesManager;
 import fi.utu.ville.standardutils.UIConstants;
 
 public class LevelMathExecutorWrapper<E extends ExerciseData, S extends LevelSubmissionInfo>
-		extends VerticalLayout implements Executor<LevelMathDataWrapper<E>, S> {
-		
+		extends CssLayout implements Executor<LevelMathDataWrapper<E>, S> {
+	
 	/**
 	 *
 	 */
@@ -50,7 +50,7 @@ public class LevelMathExecutorWrapper<E extends ExerciseData, S extends LevelSub
 	
 	private int difficultyIndicator = 0;
 	
-	private final ExerciseExecutionHelper<S> realListeners = new ExerciseExecutionHelper<S>();
+	private final ExerciseExecutionHelper<S> realListeners = new ExerciseExecutionHelper<>();
 	
 	public LevelMathExecutorWrapper(Executor<E, S> realExecutor) {
 		super();
@@ -65,11 +65,8 @@ public class LevelMathExecutorWrapper<E extends ExerciseData, S extends LevelSub
 	
 	private ExecutionSettings execSettings;
 	
-	private final ClickListener cl = new Button.ClickListener() {
+	private final ClickListener cl = new ClickListener() {
 		
-		/**
-		 *
-		 */
 		private static final long serialVersionUID = 4026684080223114316L;
 		
 		@Override
@@ -95,19 +92,9 @@ public class LevelMathExecutorWrapper<E extends ExerciseData, S extends LevelSub
 				
 			});
 			
-			realExecutor.registerSubmitListener(new SubmissionListener<S>() {
-				
-				/**
-				 *
-				 */
-				private static final long serialVersionUID = -1277278707017051715L;
-				
-				@Override
-				public void submitted(SubmissionResult<S> submission) {
-					submission.getSubmissionInfo().setDiffLevel(usedLevel);
-					realListeners.informOnlySubmit(submission);
-				}
-				
+			realExecutor.registerSubmitListener(submission -> {
+				submission.getSubmissionInfo().setDiffLevel(usedLevel);
+				realListeners.informOnlySubmit(submission);
 			});
 			
 		}
@@ -116,56 +103,46 @@ public class LevelMathExecutorWrapper<E extends ExerciseData, S extends LevelSub
 	@Override
 	public void initialize(Localizer localizer, LevelMathDataWrapper<E> data,
 			S submInfo, TempFilesManager tempMan, ExecutionSettings execSettings) {
-			
-		setMargin(true);
 		this.execSettings = execSettings;
 		this.localizer = localizer;
 		this.submInfo = submInfo;
+		allLevels = data;
 		
-		// addComponent("levelin valitsin");
 		easy = MathUIFactory.getStarButton(
 				localizer.getUIText(UIConstants.LEVEL_EASY), localizer);
+		easy.setIcon(MathIcons.getIcon(MathIcons.STAR_EASY));
 		normal = MathUIFactory.getStarButton(
 				localizer.getUIText(UIConstants.LEVEL_NORMAL), localizer);
+		normal.setIcon(MathIcons.getIcon(MathIcons.STAR_NORMAL));
 		hard = MathUIFactory.getStarButton(
 				localizer.getUIText(UIConstants.LEVEL_HARD), localizer);
-				
-		allLevels = data;
-		HorizontalLayout buttons = new HorizontalLayout();
-		buttons.setSpacing(true);
-		
-		easy.setIcon(MathIcons.getIcon(MathIcons.STAR_EASY));
-		normal.setIcon(MathIcons.getIcon(MathIcons.STAR_NORMAL));
 		hard.setIcon(MathIcons.getIcon(MathIcons.STAR_HARD));
 		
-		easy.addClickListener(cl);
-		normal.addClickListener(cl);
-		hard.addClickListener(cl);
+		List<Button> buttonList = new ArrayList<>();
+		buttonList.add(easy);
+		buttonList.add(normal);
+		buttonList.add(hard);
 		
-		easy.addStyleName("math-levelbutton");
-		normal.addStyleName("math-levelbutton");
-		hard.addStyleName("math-levelbutton");
+		CssLayout buttons = new CssLayout();
+		buttons.setStyleName("math-levelbutton-wrapper");
 		
-		buttons.addComponent(easy);
-		buttons.addComponent(normal);
-		buttons.addComponent(hard);
-		buttons.setHeight("256px");
+		buttonList.forEach(b -> {
+			b.addClickListener(cl);
+			b.addStyleName("math-levelbutton");
+			buttons.addComponent(b);
+		});
 		
-		Label header = new Label(
-				localizer.getUIText(UIConstants.CHOOSE_LEVEL));
+		Label header = new Label(localizer.getUIText(UIConstants.CHOOSE_LEVEL));
 		header.addStyleName("math-h1");
 		header.setSizeUndefined();
 		
-		addComponent(header);
-		addComponent(buttons);
-		setComponentAlignment(buttons, Alignment.MIDDLE_CENTER);
-		setComponentAlignment(header, Alignment.MIDDLE_CENTER);
-		
-		buttons.setComponentAlignment(easy, Alignment.MIDDLE_CENTER);
-		buttons.setComponentAlignment(normal, Alignment.MIDDLE_CENTER);
-		buttons.setComponentAlignment(hard, Alignment.MIDDLE_CENTER);
-		
-		// some logic and ui to choose correct level
+		addComponents(header, buttons);
+	}
+	
+	@Override
+	public void attach() {
+		super.attach();
+		addStyleName("level-math-executor-wrapper");
 	}
 	
 	private void loadRealExercise(DiffLevel corrLevel) {
@@ -184,8 +161,6 @@ public class LevelMathExecutorWrapper<E extends ExerciseData, S extends LevelSub
 			realListeners.getState().setCanSubmit(false);
 			realListeners.informStateListeners();
 			VilleErrorReporter.reportByMail("", e);
-			//			realExecutor.reportError(errorMethod, error);
-			//			e.printStackTrace();
 			addComponent(StandardUIFactory.getWarningPanel(localizer
 					.getUIText(StandardUIConstants.EXERCISE_LOAD_ERROR)));
 		}

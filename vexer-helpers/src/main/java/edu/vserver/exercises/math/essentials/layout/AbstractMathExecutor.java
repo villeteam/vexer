@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import org.vaadin.jouni.animator.shared.AnimType;
+
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Layout;
 import com.vaadin.ui.UI;
 
@@ -28,7 +31,7 @@ import fi.utu.ville.standardutils.TempFilesManager;
 
 public abstract class AbstractMathExecutor<E extends ExerciseData, F extends MathSubInfo<P>, P extends Problem>
 		implements Executor<E, F> {
-		
+	
 	private static final long serialVersionUID = 2682119786422750060L;
 	
 	protected MathLayout<P> exLayout;
@@ -40,7 +43,7 @@ public abstract class AbstractMathExecutor<E extends ExerciseData, F extends Mat
 	private E data;
 	
 	// private Localizer main;
-	private final ExerciseExecutionHelper<F> listenerHelper = new ExerciseExecutionHelper<F>();
+	private final ExerciseExecutionHelper<F> listenerHelper = new ExerciseExecutionHelper<>();
 	
 	protected TimeStampHandler getTimeStampHandler() {
 		return timeStampHandler;
@@ -55,7 +58,7 @@ public abstract class AbstractMathExecutor<E extends ExerciseData, F extends Mat
 	protected abstract void initStateAndView(E data, Localizer localizer);
 	
 	protected F parseSubmissionInfo() {
-		ArrayList<P> problems = new ArrayList<P>();
+		ArrayList<P> problems = new ArrayList<>();
 		for (int i = 0; i < getMathState().getProblemCount(); i++) {
 			problems.add(getMathState().getProblem(i));
 		}
@@ -70,7 +73,7 @@ public abstract class AbstractMathExecutor<E extends ExerciseData, F extends Mat
 	@Override
 	public final void initialize(Localizer localizer, E data, F oldData,
 			TempFilesManager tempMan, ExecutionSettings execSettings)
-					throws ExerciseException {
+			throws ExerciseException {
 		// MathExercise exer = MathPersistenceHandler.load(in);
 		
 		// You must rename these two to match your filenames.
@@ -89,17 +92,34 @@ public abstract class AbstractMathExecutor<E extends ExerciseData, F extends Mat
 		timeStampHandler = new TimeStampHandler();
 		timeStampHandler.add(TimeStampHandler.startExercise);
 		
-		exLayout = new MathLayout<P>(localizer, getMathView(), getMathState(),
+		exLayout = new MathLayout<>(localizer, getMathView(), getMathState(),
 				timeStampHandler, execSettings);
 		// exLayout.attachExecSettings(execSettings);
 		
-		PrevButtonListener prevListener = new PrevButtonListener(exLayout,
-				timeStampHandler);
-		CheckButtonListener checkListener = new CheckButtonListener(
-				getMathView(), exLayout, timeStampHandler);
-		NextButtonListener nextListener = new NextButtonListener(exLayout,
-				timeStampHandler);
-				
+		ClickListener prevListener = e -> {
+			timeStampHandler.add(TimeStampHandler.prevButton);
+			exLayout.aPrev = exLayout.getProxy()
+					.animate(exLayout.getAnimationWrapper(), AnimType.SIZE)
+					.setDuration(500)
+					.setDelay(50)
+					.setData("x=+" + MathLayout.shiftSize);
+		};
+		ClickListener checkListener = e -> {
+			timeStampHandler.add(TimeStampHandler.checkButton);
+			exLayout.aCheck = exLayout.getProxy()
+					.animate(exLayout.getAnimationWrapper(), AnimType.FADE_OUT)
+					.setDuration(250)
+					.setDelay(50);
+		};
+		ClickListener nextListener = e -> {
+			timeStampHandler.add(TimeStampHandler.nextButton);
+			exLayout.aNext = exLayout.getProxy()
+					.animate(exLayout.getAnimationWrapper(), AnimType.SIZE)
+					.setDuration(500)
+					.setDelay(50)
+					.setData("x=-" + MathLayout.shiftSize);
+		};
+		
 		// Adds executor to MathLayout so that askSubmit can be called
 		// when last calculation has been checked.
 		exLayout.attachExecutor(this);
@@ -107,28 +127,16 @@ public abstract class AbstractMathExecutor<E extends ExerciseData, F extends Mat
 		// ExecSettings are used to check if immediate feedback should be shown
 		// or not
 		
-		//TODO
 		try {
 			getMathView().drawProblem(getMathState().nextProblem());
 			startMathPerformance(getMathState().getCurrentProblem());
-		} catch (NullPointerException e) {
-			//			Notification.show("Oops, this exercise seems to have a problem", Type.ERROR_MESSAGE);
-			throw new ExerciseException(
-					ErrorType.EXERCISE_LOAD_ERROR,
-					"Failed to load " + getMathState().getClass().getName(),
-					e);
-		} catch (IndexOutOfBoundsException e) {
-			throw new ExerciseException(
-					ErrorType.EXERCISE_LOAD_ERROR,
-					"Failed to load " + getMathState().getClass().getName(),
-					e);
-		} catch (NoSuchElementException e) {
-			//			VilleErrorReporter.reportByMail("Failed to load " + getMathState().getClass().getName(), e);
+		} catch (NullPointerException | IndexOutOfBoundsException | NoSuchElementException e) {
 			throw new ExerciseException(
 					ErrorType.EXERCISE_LOAD_ERROR,
 					"Failed to load " + getMathState().getClass().getName(),
 					e);
 		}
+		
 		mpd.setStartTime();
 		
 	}
@@ -177,7 +185,6 @@ public abstract class AbstractMathExecutor<E extends ExerciseData, F extends Mat
 		getMathView().clearFields();
 		getMathView().drawProblem(getMathState().nextProblem());
 		listenerHelper.informResetDefault();
-		// startTime = System.currentTimeMillis();
 		
 		if (timeStampHandler == null) {
 			timeStampHandler = new TimeStampHandler();
@@ -207,7 +214,7 @@ public abstract class AbstractMathExecutor<E extends ExerciseData, F extends Mat
 		
 		listenerHelper.informSubmitDefault(checkCorrectness(),
 				parseSubmissionInfo(), submType, null);
-				
+		
 		setUnsubmittedChangesFlag(false);
 		
 		getView().setEnabled(false);

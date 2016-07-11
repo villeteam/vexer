@@ -17,8 +17,6 @@ import fi.utu.ville.exercises.model.ExerciseTypeDescriptor;
 import fi.utu.ville.exercises.model.GeneralExerciseInfo;
 import fi.utu.ville.exercises.model.StatisticalSubmissionInfo;
 import fi.utu.ville.exercises.model.SubmissionInfo;
-import fi.utu.ville.exercises.model.SubmissionListener;
-import fi.utu.ville.exercises.model.SubmissionResult;
 import fi.utu.ville.standardutils.Localizer;
 import fi.utu.ville.standardutils.StandardUIFactory;
 import fi.utu.ville.standardutils.TempFilesManager;
@@ -35,7 +33,7 @@ class TestingExerciseView<S extends SubmissionInfo> extends VerticalLayout {
 	
 	private static final Logger logger = Logger
 			.getLogger(TestingExerciseView.class.getName());
-			
+	
 	private static final String testingExerViewId = "testingexerview";
 	
 	private static final long serialVersionUID = 6423843365009117711L;
@@ -59,7 +57,7 @@ class TestingExerciseView<S extends SubmissionInfo> extends VerticalLayout {
 			ExerciseTypeDescriptor<?, S> toLoad, Localizer localizer,
 			GeneralExerciseInfo exerInfo, ExecutionSettings execSettings,
 			TempFilesManager tempMan) {
-			
+		
 		Executor<?, S> execToUse = null;
 		String exerName = exerInfo.getName();
 		try {
@@ -91,7 +89,7 @@ class TestingExerciseView<S extends SubmissionInfo> extends VerticalLayout {
 			Executor<?, ? extends SubmissionInfo> execToUse,
 			GeneralExerciseInfo exerInfo, Localizer localizer,
 			TempFilesManager tempMan) {
-			
+		
 		// descriptor is not needed here as it is only used to get correct
 		// path for saving submission-infos
 		return getViewFor(execToUse, exerInfo, true, localizer, null, tempMan);
@@ -118,7 +116,7 @@ class TestingExerciseView<S extends SubmissionInfo> extends VerticalLayout {
 			Executor<?, S> execToUse, GeneralExerciseInfo exerInfo,
 			boolean editorTest, Localizer localizer,
 			ExerciseTypeDescriptor<?, S> toLoad, TempFilesManager tempMan) {
-		return new TestingExerciseView<S>(execToUse, exerInfo, editorTest,
+		return new TestingExerciseView<>(execToUse, exerInfo, editorTest,
 				localizer, toLoad, tempMan);
 	}
 	
@@ -177,12 +175,12 @@ class TestingExerciseView<S extends SubmissionInfo> extends VerticalLayout {
 		if (currentExecutor == null) {
 			this.addComponent(StandardUIFactory
 					.getInformationPanel(StubUiConstants.EXECUTOR_LOAD_ERROR));
-					
+			
 		} else {
 			
 			addComponent(new TestingExerciseInfoView(localizer, exerInfo,
 					stubUsed));
-					
+			
 			addComponent(new ResetSubmitControlView(localizer, currentExecutor));
 			
 			Component exerLayout = currentExecutor.getView();
@@ -190,42 +188,33 @@ class TestingExerciseView<S extends SubmissionInfo> extends VerticalLayout {
 			setComponentAlignment(exerLayout, Alignment.TOP_CENTER);
 			setExpandRatio(exerLayout, 1.0f);
 			
-			currentExecutor.registerSubmitListener(new SubmissionListener<S>() {
-				
-				/**
-				 * 
-				 */
-				private static final long serialVersionUID = -8757213787542086588L;
-				
-				@Override
-				public void submitted(SubmissionResult<S> submission) {
-					if (!Arrays.asList(StandardSubmissionType.values())
-							.contains(submission.getSubmissionType())) {
-						throw new IllegalArgumentException(
-								"For correct behavior the SubmissionType from "
-										+ "askSubmit must be passed as such to "
-										+ "the corresponding SubmissionFeedback");
-					}
-					
-					if (!editorTest) {
-						
-						StatisticalSubmissionInfo<S> toWrite
-						
-						= new StatisticalSubmissionInfo<S>(submission
-								.getTimeOnTask(), submission.getCorrectness(),
-								System.currentTimeMillis(), submission
-										.getSubmissionInfo());
-										
-						StubDataFilesHandler.writeSubmToDisk(stubUsed,
-								exerInfo.getName(), toWrite, tempMan);
-								
-					}
-					
-					SubmissionPopup sp = new SubmissionPopup(localizer,
-							submission);
-							
-					getUI().addWindow(sp);
+			currentExecutor.registerSubmitListener(submission -> {
+				if (!Arrays.asList(StandardSubmissionType.values())
+						.contains(submission.getSubmissionType())) {
+					throw new IllegalArgumentException(
+							"For correct behavior the SubmissionType from "
+									+ "askSubmit must be passed as such to "
+									+ "the corresponding SubmissionFeedback");
 				}
+				
+				if (!editorTest) {
+					
+					StatisticalSubmissionInfo<S> toWrite
+							
+							= new StatisticalSubmissionInfo<>(submission
+									.getTimeOnTask(), submission.getCorrectness(),
+									System.currentTimeMillis(), submission
+											.getSubmissionInfo());
+					
+					StubDataFilesHandler.writeSubmToDisk(stubUsed,
+							exerInfo.getName(), toWrite, tempMan);
+					
+				}
+				
+				SubmissionPopup sp = new SubmissionPopup(localizer,
+						submission);
+				
+				getUI().addWindow(sp);
 			});
 		}
 		
