@@ -146,6 +146,10 @@ public class LevelMathExecutorWrapper<E extends ExerciseData, S extends LevelSub
 		normal.addStyleName("math-levelbutton");
 		hard.addStyleName("math-levelbutton");
 		
+		easy.setId("math-easy");
+		easy.setId("math-medium");
+		easy.setId("math-hard");
+		
 		buttons.addComponent(easy);
 		buttons.addComponent(normal);
 		buttons.addComponent(hard);
