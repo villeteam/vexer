@@ -195,10 +195,13 @@ public abstract class MathTabbedEditor<E extends ExerciseData> extends
 		h = new VerticalLayout();
 		h.addComponent(getHardEditor().drawEditorLayout());
 		
-		tabPanel.addTab(e, Icon.MATH_LEVEL_EASY.getIcon().variant(IconVariant.GREEN) + " " + localizer.getUIText(UIConstants.EASY));
-		tabPanel.addTab(n, Icon.MATH_LEVEL_NORMAL.getIcon().variant(IconVariant.BLACK) + " " + localizer.getUIText(UIConstants.MODERATE));
-		tabPanel.addTab(h, Icon.MATH_LEVEL_HARD.getIcon().variant(IconVariant.BLACK) + " " + localizer.getUIText(UIConstants.HARD));
-		
+		tabPanel.addTab(e, Icon.MATH_LEVEL_EASY.getIcon().variant(IconVariant.GREEN) + " " + localizer.getUIText(UIConstants.EASY))
+				.setId("math_editor_easy");
+		tabPanel.addTab(n, Icon.MATH_LEVEL_NORMAL.getIcon().variant(IconVariant.BLACK) + " " + localizer.getUIText(UIConstants.MODERATE))
+				.setId("math_editor_medium");
+		tabPanel.addTab(h, Icon.MATH_LEVEL_HARD.getIcon().variant(IconVariant.BLACK) + " " + localizer.getUIText(UIConstants.HARD))
+				.setId("math_editor_hard");
+				
 		tabPanel.setTabCaptionsAsHtml(true);
 		tabPanel.addStyleName("course-editor-tabsheet");
 		tabPanel.setSizeFull();

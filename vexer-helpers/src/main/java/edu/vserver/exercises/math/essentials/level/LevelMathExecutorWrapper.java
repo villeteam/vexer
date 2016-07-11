@@ -111,12 +111,17 @@ public class LevelMathExecutorWrapper<E extends ExerciseData, S extends LevelSub
 		easy = MathUIFactory.getStarButton(
 				localizer.getUIText(UIConstants.LEVEL_EASY), localizer);
 		easy.setIcon(MathIcons.getIcon(MathIcons.STAR_EASY));
+		easy.setId("math-easy");
+
 		normal = MathUIFactory.getStarButton(
 				localizer.getUIText(UIConstants.LEVEL_NORMAL), localizer);
 		normal.setIcon(MathIcons.getIcon(MathIcons.STAR_NORMAL));
+		normal.setId("math-normal");
+
 		hard = MathUIFactory.getStarButton(
 				localizer.getUIText(UIConstants.LEVEL_HARD), localizer);
 		hard.setIcon(MathIcons.getIcon(MathIcons.STAR_HARD));
+		hard.setId("math-hard");
 		
 		List<Button> buttonList = new ArrayList<>();
 		buttonList.add(easy);
