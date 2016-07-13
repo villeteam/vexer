@@ -12,6 +12,7 @@ public class PhasedAssignmentController {
 	private int currentStep;
 	private final Step[] steps;
 	private boolean navigable;
+	private boolean retriable;
 	
 	private final AssignmentProgressBar bar;
 	private final PhasedAssignmentNavigation navigator;
@@ -52,6 +53,11 @@ public class PhasedAssignmentController {
 		navigator.setNextButtonEnabled(navigable && currentStep < steps.length - 1);
 	}
 	
+	public void setRetriable(boolean enabled) {
+		retriable = enabled;
+		navigator.setCheckButtonEnabled(retriable || !steps[currentStep].answered);
+	}
+	
 	public void setClickNavigable(boolean enabled) {
 		if (enabled) {
 			bar.addLayoutClickListener(barListener);
@@ -86,10 +92,21 @@ public class PhasedAssignmentController {
 		stepTo(currentStep - 1);
 	}
 	
+	public int getCurrentStep() {
+		return currentStep;
+	}
+	
+	public boolean isAnswered(int index) {
+		return index >= 0
+				&& index < steps.length
+				&& steps[index].answered;
+	}
+	
 	public void check() {
 		steps[currentStep].answered = true;
 		steps[currentStep].correct = exec.isCorrect(currentStep);
 		navigator.setNextButtonEnabled(currentStep < steps.length - 1);
+		navigator.setCheckButtonEnabled(retriable);
 		navigator.focusNext();
 	}
 	
@@ -122,6 +139,7 @@ public class PhasedAssignmentController {
 			navigator.setNextButtonEnabled((currentStep < steps.length - 1)
 					&& (navigable || steps[currentStep].answered));
 			navigator.setPrevButtonEnabled(currentStep > 0);
+			navigator.setCheckButtonEnabled(retriable || !steps[currentStep].answered);
 			exec.drawProblem(currentStep);
 		}
 	}
