@@ -148,7 +148,9 @@ public abstract class AbstractMathState<E extends ExerciseData, P extends Proble
 					int randomIndex = getRandomUnusedInt();
 					if (problems.size() > randomIndex || randomIndex < 1) {
 						P clone = getCurrentProblem().cloneThis(getCurrentProblem());
-						problems.set(randomIndex, clone);
+						if (clone != null) {
+							problems.set(randomIndex, clone);
+						}
 					} else {
 						//						System.out.println("Faulty random number generated: " + randomIndex);
 					}

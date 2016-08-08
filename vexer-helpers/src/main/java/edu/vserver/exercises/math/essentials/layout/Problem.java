@@ -47,6 +47,12 @@ public interface Problem extends Serializable {
 	 */
 	public String getUserAnswer();
 	
+	/**
+	 * You can override this to do custom cloning. Return null if you don't want the question to be asked again after student fails to answer the question correctly
+	 * 
+	 * @param problem
+	 * @return
+	 */
 	public default <P extends Problem> P cloneThis(P problem) {
 		Cloner cloner = new Cloner();
 		cloner.setNullTransient(true);
