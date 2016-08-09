@@ -102,8 +102,15 @@ public class PhasedAssignmentNavigation extends CssLayout {
 		b.focus();
 	}
 	
+	public void removeClickShortcuts() {
+		prevButton.removeClickShortcut();
+		checkButton.removeClickShortcut();
+		nextButton.removeClickShortcut();
+	}
+	
 	/**
 	 * Returns the check button, needed to keep backwards compatibility with MathLayout
+	 *
 	 * @return Check button
 	 */
 	public Button getCheckButton() {
