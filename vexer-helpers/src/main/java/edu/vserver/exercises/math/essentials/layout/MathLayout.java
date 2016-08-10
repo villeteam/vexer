@@ -199,6 +199,7 @@ public class MathLayout<P extends Problem> extends CssLayout
 				!execSettings.isNoCorrAnswers());
 		
 		navigation.setNextButtonEnabled(false);
+		navigation.focusCheck();
 		
 		addComponents(progress, navigation, exWrapper, proxy);
 		setStyleName("math-layout");
