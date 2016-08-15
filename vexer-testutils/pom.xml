@@ -3,7 +3,7 @@
   <parent>
     <groupId>fi.utu.ville.exercises</groupId>
     <artifactId>vexer</artifactId>
-    <version>0.3.39-SNAPSHOT</version>
+    <version>0.3.40-SNAPSHOT</version>
   </parent>
   <artifactId>vexer-testutils</artifactId>
   <name>Ville Exercise-plugin Test utilities</name>
