@@ -167,8 +167,7 @@ public abstract class AbstractMathTableSubmissionViewer<E extends ExerciseData, 
 		table.setWidth("650px");
 		
 		int correctAnswers = 0;
-		double average = 0;
-		int amount = 0;
+		int amount = submInfo.getProblems().size();
 		
 		// Divided handlers
 		final ArrayList<TimeStampHandler> handlers = divideTimeStamps(submInfo
@@ -245,12 +244,6 @@ public abstract class AbstractMathTableSubmissionViewer<E extends ExerciseData, 
 					format.format(t),
 					correctnessIcon},
 					new Integer(i));
-					
-			// Average time answering exercises
-			if (t > 0) {
-				average += t;
-				amount++;
-			}
 			
 		}
 		
@@ -269,14 +262,7 @@ public abstract class AbstractMathTableSubmissionViewer<E extends ExerciseData, 
 		statsContainer.setComponentAlignment(stats, Alignment.MIDDLE_CENTER);
 		statsContainer.setComponentAlignment(pointLabel, Alignment.MIDDLE_CENTER);
 		horStats.addComponent(statsContainer);
-		
-//		double avg;
-//		if (amount > 0) {
-//			avg = average / amount;
-//		} else {
-//			avg = 0;
-//		}
-		
+			
 		Label doneExers = new Label("<span>" + amount + "</span>");
 		doneExers.setContentMode(ContentMode.HTML);
 		doneExers.addStyleName("lastSubmissionInfo");
