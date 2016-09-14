@@ -81,4 +81,20 @@ public interface VilleUI {
 	public default String getCurrentContentInformation() {
 		return toString();
 	}
+	
+	/**
+	 * Hides/shows the ViLLE UI back button
+	 * 
+	 * @param visible
+	 *            should the button be visible
+	 */
+	public void setBackButtonVisible(boolean visible);
+	
+	/**
+	 * Enables/Disables the header bar in ViLLE
+	 * 
+	 * @param enabled
+	 *            should the header bar be enabled
+	 */
+	public void setHeaderBarEnabled(boolean enabled);
 }
