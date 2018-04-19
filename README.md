@@ -14,6 +14,7 @@ Project is licensed under MIT-license (see LICENSE.txt).
 1. Install maven to your system ( http://maven.apache.org/users/index.html )
 2. On command line, navigate to the directory you want the ville-exercise-type project to be created in
 3. Decide which stub you begin developing on.
+
 3.1. Create a settings.xml file in your local maven repository (usually found in %HOME%/.m2/). The file should have the following contents:
 ```
 <settings>  
