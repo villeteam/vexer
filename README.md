@@ -14,13 +14,32 @@ Project is licensed under MIT-license (see LICENSE.txt).
 1. Install maven to your system ( http://maven.apache.org/users/index.html )
 2. On command line, navigate to the directory you want the ville-exercise-type project to be created in
 3. Decide which stub you begin developing on.
-3.1. For the normal stub run:
+3.1. Create a settings.xml file in your local maven repository (usually found in %HOME%/.m2/). The file should have the following contents:
+```
+<settings>  
+  <profiles>
+    <profile>
+      <id>ville</id>
+        <repositories>
+          <repository>
+            <id>Ville-pub-rel</id>
+            <url>https://ville.cs.utu.fi/mvn/</url>
+          </repository>   
+        </repositories>       
+    </profile>
+  </profiles>
+  <activeProfiles>
+    <activeProfile>ville</activeProfile>
+  </activeProfiles>
+</settings>
+``` 
+3.2. For the normal stub run:
 
-mvn archetype:generate -DarchetypeGroupId=fi.utu.ville.exercises -DarchetypeArtifactId=vexer-archetype -DarchetypeVersion=0.3.21-RELEASE -DarchetypeRepository=https://ville.cs.utu.fi/mvn/
+mvn archetype:generate -DarchetypeGroupId=fi.utu.ville.exercises -DarchetypeArtifactId=vexer-archetype -DarchetypeVersion=0.3.41-RELEASE
 
-3.2. For the Leveled stub run:
+3.3. For the Leveled stub run:
 
-mvn archetype:generate -DarchetypeGroupId=fi.utu.ville.exercises -DarchetypeArtifactId=vexer-archetype-mathlayout -DarchetypeVersion=0.3.21-RELEASE -DarchetypeRepository=https://ville.cs.utu.fi/mvn/
+mvn archetype:generate -DarchetypeGroupId=fi.utu.ville.exercises -DarchetypeArtifactId=vexer-archetype-mathlayout -DarchetypeVersion=0.3.41-RELEASE
     
 4. After a while you will be asked to provide some information, namely:
     - groupId: you can use "fi.utu.ville.exercises"
