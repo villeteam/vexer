@@ -56,12 +56,16 @@ public class ${VilleJavaClassPrefix}Descriptor implements
 	public SubmissionStatisticsGiver<${VilleJavaClassPrefix}ExerciseData, ${VilleJavaClassPrefix}SubmissionInfo> newStatisticsGiver() {
 		return new ${VilleJavaClassPrefix}StatisticsGiver();
 	}
-
-	@Override
+	
 	public SubmissionVisualizer<${VilleJavaClassPrefix}ExerciseData, ${VilleJavaClassPrefix}SubmissionInfo> newSubmissionVisualizer() {
 		return new ${VilleJavaClassPrefix}SubmissionViewer();
 	}
-
+	
+	@Override
+	public SubmissionVisualizer<${VilleJavaClassPrefix}ExerciseData,  ${VilleJavaClassPrefix}SubmissionInfo> newSubmissionVisualizer(String assignmentName, Localizer localizer) {
+		return null;
+	}
+	
 	@Override
 	public String getTypeName(Localizer localizer) {
 		return localizer.getUIText(${VilleJavaClassPrefix}UiConstants.NAME);

@@ -49,17 +49,21 @@ public class ${VilleJavaClassPrefix}Descriptor
     public Class<${VilleJavaClassPrefix}SubmissionInfo> getSubDataClass() {
         return ${VilleJavaClassPrefix}SubmissionInfo.class;
     }
-
-    @Override
+	
+	@Override
     public SubmissionStatisticsGiver<LevelMathDataWrapper<${VilleJavaClassPrefix}Data>, ${VilleJavaClassPrefix}SubmissionInfo> newStatisticsGiver() {
         return new ${VilleJavaClassPrefix}StatisticsGiver();
     }
-
-    @Override
+	
     public SubmissionVisualizer<LevelMathDataWrapper<${VilleJavaClassPrefix}Data>, ${VilleJavaClassPrefix}SubmissionInfo> newSubmissionVisualizer() {
         return new ${VilleJavaClassPrefix}SubmissionVisualizer();
     }
 
+	@Override
+	public SubmissionVisualizer<${VilleJavaClassPrefix}ExerciseData,  ${VilleJavaClassPrefix}SubmissionInfo> newSubmissionVisualizer(String assignmentName, Localizer localizer) {
+		return null;
+	}
+	
     @Override
     public String getTypeName(Localizer localizer) {
         return "${VilleJavaClassPrefix}";

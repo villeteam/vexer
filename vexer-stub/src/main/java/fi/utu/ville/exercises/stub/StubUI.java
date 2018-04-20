@@ -62,5 +62,12 @@ public class StubUI implements VilleUI {
 	public String getPageStack() {
 		return "";
 	}
-	
+	@Override
+	public void setHeaderBarEnabled(boolean enabled) {
+
+	}
+	@Override
+	public void setBackButtonVisible(boolean visible) {
+
+	}
 }

@@ -32,7 +32,7 @@
 		</repository>
         <repository>
             <id>Ville-Exer-mvn-repo</id>
-            <url>https://ville.utu.fi/mvn/</url>
+            <url>https://ville.cs.utu.fi/mvn/</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
